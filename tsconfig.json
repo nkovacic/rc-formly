@@ -1,0 +1,43 @@
+{
+  "exclude": ["node_modules", "dist", "lib", "__tests__", "**/*.test*", "**/*.spec*"],
+  "files":  [],
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": ".",
+    "outDir": "lib",
+    "downlevelIteration": true,
+    "strict": true,
+    "removeComments": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@formik-formly/*": ["packages/*/src"]
+    },
+    "composite": true
+  },
+  "references": [
+    {
+      "path": "packages/d"
+    },
+    {
+      "path": "packages/b"
+    },
+    {
+      "path": "packages/c"
+    }
+  ]
+}
