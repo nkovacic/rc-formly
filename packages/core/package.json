@@ -1,11 +1,11 @@
 {
-  "name": "@formik-formly/b",
+  "name": "@formik-formly/core",
   "version": "0.0.1",
-  "description": "",
+  "description": "c",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "repository": "",
-  "author": "stereobooster <stereobooster@gmail.com>",
+  "author": "nkovacic <nkovacic@gmail.com>",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -13,13 +13,10 @@
   "files": [
     "lib"
   ],
-  "dependencies": {},
+  "dependencies": {
+  },
   "peerDependencies": {
-    "@formik-formly/d": "0.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@formik-formly/d": "*"
   }
 }

@@ -21,9 +21,9 @@
 ## Tools
 
 **⚠️⚠️⚠️ Info in this section is stale ⚠️⚠️⚠️**:
-  - **Problem 1** is resolved in PR [#2](https://github.com/stereobooster/typescript-monorepo/pull/2)
-  - **Problem 2** is resolved in PR [#5](https://github.com/stereobooster/typescript-monorepo/pull/5)
-  - **Problem 4** is resolved in PR [#4](https://github.com/stereobooster/typescript-monorepo/pull/4)
+  - **Problem 1** is resolved in PR [#2](https://github.com/nkovacic/typescript-monorepo/pull/2)
+  - **Problem 2** is resolved in PR [#5](https://github.com/nkovacic/typescript-monorepo/pull/5)
+  - **Problem 4** is resolved in PR [#4](https://github.com/nkovacic/typescript-monorepo/pull/4)
 
 ### yarn
 
@@ -205,8 +205,8 @@ We will need the following things in `package.json`:
 },
 "dependencies": {
   "@formik-formly/d": "*",
-  "@formik-formly/b": "*",
-  "@formik-formly/c": "*"
+  "@formik-formly/bootstrap": "*",
+  "@formik-formly/core": "*"
 },
 "devDependencies": {
   "@babel/core": "7.4.3",
