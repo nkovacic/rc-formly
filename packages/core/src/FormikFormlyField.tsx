@@ -68,10 +68,10 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     getFieldValue(): any;
     getFieldValue(otherProps: FormikFormlyFieldProps): any;
     getFieldValue(otherProps?: FormikFormlyFieldProps) {
-        otherProps = otherProps || this.props;
+        const sourceProps = otherProps ? otherProps : this.props;
 
-        if (otherProps.formikFormlyProps.formikProps.values && otherProps.field.key) {
-            return otherProps.formikFormlyProps.formikProps.values[this.props.field.key!];
+        if (sourceProps.formikFormlyProps.formikProps.values && sourceProps.field.key) {
+            return sourceProps.formikFormlyProps.formikProps.values[sourceProps.field.key!];
         }
 
         return null;

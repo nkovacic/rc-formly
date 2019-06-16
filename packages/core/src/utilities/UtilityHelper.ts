@@ -1,6 +1,6 @@
 //@ts-ignore
 import extend from 'extend2';
-import { IConstructor } from "./generics";
+import { IConstructor } from './generics';
 
 export class UtilityHelper {
     static copy<T>(src: T): T {
@@ -11,17 +11,15 @@ export class UtilityHelper {
         return extend(true, {}, src);
     }
 
-    static equals(...objects: Array<any>) {
+    static equals(...objects: any[]) {
         if (!objects || objects.length < 1) {
             return false;
         }
 
-        let i: number,
-            l = objects.length,
-            leftChain: Array<any>,
-            rightChain: Array<any>;
+        let leftChain: any[];
+        let rightChain: any[];
 
-        for (i = 1, l = objects.length; i < l; i++) {
+        for (let i = 1, l = objects.length; i < l; i += 1) {
             leftChain = [];
             rightChain = [];
 
@@ -41,8 +39,8 @@ export class UtilityHelper {
         if (this.isArray(arr)) {
             let index: number;
 
-            while ((index = arr.findIndex(el => Array.isArray(el))) > -1 ) {
-                arr.splice(index, 1, ...arr[index])
+            while ((index = arr.findIndex(el => Array.isArray(el))) > -1) {
+                arr.splice(index, 1, ...arr[index]);
             }
         }
 
@@ -54,7 +52,7 @@ export class UtilityHelper {
     }
 
     static isBoolean(value: any) {
-        return typeof(value) == typeof(true);
+        return typeof(value) === typeof(true);
     }
 
     static isClass<T>(value: any, constructor: IConstructor<T>) {
@@ -75,7 +73,7 @@ export class UtilityHelper {
                 return false;
             }
 
-            if (this.isArray(obj) && (obj as Array<any>).length > 0) {
+            if (this.isArray(obj) && (obj as any[]).length > 0) {
                 return false;
             }
 
@@ -115,7 +113,7 @@ export class UtilityHelper {
     }
 
     static isObject(value: any) {
-        return value !== null && typeof value === 'object'
+        return value !== null && typeof value === 'object';
     }
 
     static isString(value: any) {
@@ -134,25 +132,17 @@ export class UtilityHelper {
         return false;
     }
 
-    private static deepEquals(x: any, y: any, leftChain: Array<any>, rightChain: Array<any>) {
+    private static deepEquals(x: any, y: any, leftChain: any[], rightChain: any[]) {
         let p;
 
-        // remember that NaN === NaN returns false
-        // and isNaN(undefined) returns true
         if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
             return true;
         }
 
-        // Compare primitives and functions.
-        // Check if both arguments link to the same object.
-        // Especially useful on the step where we compare prototypes
         if (x === y) {
             return true;
         }
 
-        // Works in case when functions are created in constructor.
-        // Comparing dates is a common scenario. Another built-ins?
-        // We can even handle functions passed across iframes
         if ((typeof x === 'function' && typeof y === 'function') ||
             (x instanceof Date && y instanceof Date) ||
             (x instanceof RegExp && y instanceof RegExp) ||
@@ -161,7 +151,6 @@ export class UtilityHelper {
             return x.toString() === y.toString();
         }
 
-        // At last checking prototypes as good as we can
         if (!(x instanceof Object && y instanceof Object)) {
             return false;
         }
@@ -178,18 +167,16 @@ export class UtilityHelper {
             return false;
         }
 
-        // Check for infinitive linking loops
         if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
             return false;
         }
 
-        // Quick checking of one object being a subset of another.
-        // todo: cache the structure of arguments[0] for performance
         for (p in y) {
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             }
-            else if (typeof y[p] !== typeof x[p]) {
+            
+            if (typeof y[p] !== typeof x[p]) {
                 return false;
             }
         }
@@ -198,7 +185,8 @@ export class UtilityHelper {
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             }
-            else if (typeof y[p] !== typeof x[p]) {
+            
+            if (typeof y[p] !== typeof x[p]) {
                 return false;
             }
 

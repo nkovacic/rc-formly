@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Formik, FormikProps, validateYupSchema, yupToFormErrors, Field } from 'formik';
+import { Formik, FormikProps, validateYupSchema, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
-import { FormikFormlyConfig } from './FormikFormlyConfig';
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
 import { makeValidationForFields, FormFieldHelper } from './utilities';
-import { UtilityHelper, Logger } from 'app/services';
+import { UtilityHelper } from 'app/utilities';
 import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
-
 
 export interface IFormikyFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
@@ -32,8 +30,8 @@ interface State {
 class FormikFormlyForm extends Component<Props, State> implements IFormikyFormlyFormRef {
     private formikInstance: Formik;
     private formikProps: FormikProps<any>;
-    private isFormSubmitting: boolean;
-    private validationSchema: Yup.ObjectSchema<any>;
+    private isFormSubmitting: boolean = false;
+    private validationSchema: Yup.ObjectSchema<any> | null = null;
 
     static defaultProps: Partial<Props> = {
         enableFieldConfigsReinitialize: true
@@ -50,11 +48,15 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
     private changeFieldConfig = (fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) => {
         this.setState({
             fields: FormFieldHelper.replaceField(fieldKey, this.state.fields, changeFieldConfigFunction)
-        })
+        });
     }
 
     private changeFieldConfigs = (changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]) => {
+        const newFields = changeFieldConfigsFunction(this.state.fields);
 
+        this.setState({
+            fields: newFields
+        });
     }
 
     getFormikFormlyProps(): IFormikFormlyProps {
@@ -64,7 +66,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
             resetForm: this.resetForm,
             submit: this.submit,
             formikProps: this.formikProps
-        }
+        };
     }
 
     resetForm = (valuesOrResetFunction: any) => {
@@ -88,9 +90,11 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
 
     onFormikValidate = (model: any) => {
         return new Promise((resolve, reject) => {
-            const validationSchema = makeValidationForFields(this.props.fields);
+            if (UtilityHelper.isEmpty(this.validationSchema)) {
+                this.validationSchema = makeValidationForFields(this.props.fields);
+            }  
 
-            validateYupSchema(model, validationSchema).then(
+            validateYupSchema(model, this.validationSchema).then(
                 () => {
                     if (this.props.onValidate) {
                         this.props.onValidate(model, true);
@@ -130,11 +134,11 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
                         this.formikProps = props;
                         this.isFormSubmitting = props.isSubmitting;
 
-                        const formikFormlyProps = this.getFormikFormlyProps()
+                        const formikFormlyProps = this.getFormikFormlyProps();
 
                         return (
                             <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps} />
-                        ); // this.renderFields(this.props.fields, props);
+                        );
                     }}
                 />
             );

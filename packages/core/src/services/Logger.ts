@@ -9,7 +9,7 @@ enum LogLevel {
     warn = 'warn'
 }
 
-class Logger {
+export class Logger {
     private static printToConsole(message: string, logLevel: LogLevel, ...optionalParams: any[]) {
         if (Environment.isDevelopment()) {
             if (UtilityHelper.isEmpty(optionalParams)) {
@@ -47,5 +47,3 @@ class Logger {
         this.printToConsole(message, LogLevel.warn, optionalParams);
     }
 }
-
-export default Logger;

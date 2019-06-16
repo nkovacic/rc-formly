@@ -4,7 +4,7 @@ import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { FormikFormlyConfig } from './FormikFormlyConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { UtilityHelper } from 'app/services';
+import { UtilityHelper } from 'app/utilities';
 
 interface Props {
     fields: IFormlyFieldConfig[];
@@ -19,13 +19,14 @@ class RootFormikFormlyWrapper extends Component<Props> {
             }
 
             return this.renderType(field, index);
-        })
+        });
     }
 
     renderType(field: IFormlyFieldConfig, fieldIndex?: number) {
         const fieldType = FormikFormlyConfig.getType(field.type!);
 
         if (fieldType && !field.hide) {
+            // tslint:disable-next-line:variable-name
             const FieldComponent = fieldType.component;
 
             return (
@@ -38,33 +39,36 @@ class RootFormikFormlyWrapper extends Component<Props> {
         return null;
     }
 
-    renderWrappers(field: IFormlyFieldConfig, wrappers: string[], formikFormlyProps: IFormikFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
+    renderWrappers(
+        field: IFormlyFieldConfig, wrappers: string[], 
+        formikFormlyProps: IFormikFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
         if (UtilityHelper.isEmpty(wrappers)) {
             if (field.name) {
                 return this.renderType(field, fieldIndex);
             }
-            else if (!UtilityHelper.isEmpty(field.fieldGroup)) {
+            
+            if (!UtilityHelper.isEmpty(field.fieldGroup)) {
                 return this.renderFields(field.fieldGroup!) as JSX.Element[];
             }
 
             return null;
         }
-        else {
-            const wrapper = wrappers.pop();
-            const fieldWrapper = FormikFormlyConfig.getWrapper(wrapper!);
 
-            if (fieldWrapper) {
-                const WrapperComponent = fieldWrapper.component;
+        const wrapper = wrappers.pop();
+        const fieldWrapper = FormikFormlyConfig.getWrapper(wrapper!);
 
-                return (
-                    <WrapperComponent key={fieldIndex} parentField={field} formikFormlyProps={formikFormlyProps} >
-                        {this.renderWrappers(field, wrappers, formikFormlyProps, fieldIndex)}
-                    </WrapperComponent>
-                );
-            }
+        if (fieldWrapper) {
+            // tslint:disable-next-line:variable-name
+            const WrapperComponent = fieldWrapper.component;
 
-            return this.renderWrappers(field, wrappers, formikFormlyProps);
+            return (
+                <WrapperComponent key={fieldIndex} parentField={field} formikFormlyProps={formikFormlyProps} >
+                    {this.renderWrappers(field, wrappers, formikFormlyProps, fieldIndex)}
+                </WrapperComponent>
+            );
         }
+
+        return this.renderWrappers(field, wrappers, formikFormlyProps);
     }
 
     render() {

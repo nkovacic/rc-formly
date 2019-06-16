@@ -1,6 +1,5 @@
-import { StyleProp, ViewStyle } from "react-native";
-
-import { IFormikFormlyProps } from "./FormikFormlyProps";
+import { IFormikFormlyProps } from './FormikFormlyProps';
+import { KeyValueObject } from './types';
 
 export interface IFormlyFieldConfig {
     /**
@@ -16,15 +15,17 @@ export interface IFormlyFieldConfig {
      */
     id?: string;
     /**
-     * If you wish, you can specify a specific `name` for your field. This is useful if you're posting the form to a server using techniques of yester-year.
+     * If you wish, you can specify a specific `name` for your field. 
+     * This is useful if you're posting the form to a server using techniques of yester-year.
      */
     name?: string;
     /**
-     * This is reserved for the templates. Any template-specific options go in here. Look at your specific template implementation to know the options required for this.
+     * This is reserved for the templates. Any template-specific options go in here. 
+     * Look at your specific template implementation to know the options required for this.
      */
     templateOptions?: IFormlyTemplateOptions;
 
-    style?:  StyleProp<ViewStyle>;
+    style?:  KeyValueObject;
 
     wrappers?: string[];
     /**
@@ -33,7 +34,8 @@ export interface IFormlyFieldConfig {
     hide?: boolean;
     /**
      * A field group is a way to group fields together, making advanced layout very simple.
-     * It can also be used to group fields that are associated with the same model (useful if it's different than the model for the rest of the fields).
+     * It can also be used to group fields that are associated with the same model.
+     * (useful if it's different than the model for the rest of the fields).
      */
     fieldGroup?: IFormlyFieldConfig[];
     /**

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { ViewProps } from 'react-native';
+import { Component } from 'react';
 
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { UtilityHelper, Logger } from 'app/services';
+import { UtilityHelper } from 'app/utilities';
 
-export interface FormikFormlyWrapperProps extends ViewProps {
+export interface FormikFormlyWrapperProps {
     formikFormlyProps: IFormikFormlyProps;
     parentField: IFormlyFieldConfig;
 }
@@ -18,10 +17,6 @@ class FormikFormlyWrapper extends Component<FormikFormlyWrapperProps> {
 
     protected hasTemplateOptions() {
         return !UtilityHelper.isEmpty(this.props.parentField.templateOptions);
-    }
-
-    shouldComponentUpdate(nextProps: FormikFormlyWrapperProps) {
-        return true;
     }
 }
 
