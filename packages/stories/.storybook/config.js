@@ -3,8 +3,8 @@ import { addParameters, configure } from "@storybook/react";
 
 addParameters({
   options: {
-    name: "@formik-formly/typescript-monorepo",
-    url: "https://github.com/stereoboster/typescript-monorepo",
+    name: "@formik-formly/formik-formly",
+    url: "https://github.com/nkovacic/formik-formly",
     hierarchySeparator: "/",
     showAddonPanel: false,
   },

@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { UtilityHelper } from 'app/utilities';
+import { UtilityHelper } from './utilities';
 
 export interface FormikFormlyWrapperProps {
     formikFormlyProps: IFormikFormlyProps;

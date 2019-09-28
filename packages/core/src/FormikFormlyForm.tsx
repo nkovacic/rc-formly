@@ -7,7 +7,7 @@ import { IFormikFormlyProps } from './FormikFormlyProps';
 
 import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
 
-import { makeValidationForFields, FormFieldHelper, UtilityHelper } from 'app/utilities';
+import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 
 export interface IFormikyFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;

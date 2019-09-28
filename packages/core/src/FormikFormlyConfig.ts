@@ -1,12 +1,12 @@
 import { ComponentType } from 'react';
+import { FormikProps } from 'formik';
 import { Schema } from 'yup';
 
 import { FormikFormlyFieldProps } from './FormikFormlyField';
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 
-import { UtilityHelper } from 'app/utilities';
-import { KeyAlreadyExistsError } from 'app/utilities/errors';
-import { FormikProps } from 'formik';
+import { UtilityHelper } from './utilities';
+import { KeyAlreadyExistsError } from './utilities/errors';
 
 export interface IFormlyTypeDefinition<T extends FormikFormlyFieldProps = any> {
     name: string;

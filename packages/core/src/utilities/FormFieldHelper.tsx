@@ -1,5 +1,5 @@
 import { IFormlyFieldConfig } from '../formikFormlyFieldConfig';
-import { UtilityHelper } from 'app/utilities';
+import { UtilityHelper } from './UtilityHelper';
 
 export class FormFieldHelper {
     private static getKeys(fields: IFormlyFieldConfig[], keys: string[]) {

@@ -42,7 +42,7 @@ export class UtilityHelper {
     }
 
     static isClass<T>(value: any, constructor: IConstructor<T>) {
-        return this.isObject(value);
+        return value instanceof constructor;
     }
 
     static isDefined(value: any) {

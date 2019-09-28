@@ -4,7 +4,7 @@ import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { FormikFormlyConfig } from './FormikFormlyConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { UtilityHelper } from 'app/utilities';
+import { UtilityHelper } from './utilities';
 
 interface Props {
     fields: IFormlyFieldConfig[];

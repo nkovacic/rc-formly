@@ -4,8 +4,8 @@ import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormlyTypeDefinition } from './FormikFormlyConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { UtilityHelper } from 'app/utilities';
-import { KeyValueObject } from 'app/types';
+import { UtilityHelper } from './utilities';
+import { KeyValueObject } from './types';
 
 export interface FormikFormlyFieldProps {
     field: IFormlyFieldConfig;

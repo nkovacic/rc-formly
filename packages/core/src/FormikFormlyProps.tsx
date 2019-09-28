@@ -1,5 +1,6 @@
-import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { FormikProps } from 'formik';
+
+import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 
 export interface IFormikFormlyProps {
     changeFieldConfig(fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig): void;
