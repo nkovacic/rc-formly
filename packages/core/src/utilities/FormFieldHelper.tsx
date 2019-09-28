@@ -1,5 +1,5 @@
-import { IFormlyFieldConfig } from "../formikFormlyFieldConfig";
-import { UtilityHelper } from "app/services";
+import { IFormlyFieldConfig } from '../formikFormlyFieldConfig';
+import { UtilityHelper } from 'app/utilities';
 
 export class FormFieldHelper {
     private static getKeys(fields: IFormlyFieldConfig[], keys: string[]) {
@@ -20,7 +20,7 @@ export class FormFieldHelper {
 
     static getFieldFromKey(fieldKey: string, fields: IFormlyFieldConfig[]): IFormlyFieldConfig | null {
         if (!UtilityHelper.isEmpty(fields)) {
-            for (let i = 0, length = fields.length; i < length; i++) {
+            for (let i = 0, length = fields.length; i < length; i += 1) {
                 if (fields[i].key === fieldKey) {
                     return fields[i];
                 }
@@ -46,20 +46,18 @@ export class FormFieldHelper {
         fieldKey: string, 
         fields: IFormlyFieldConfig[], 
         changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) : IFormlyFieldConfig[] {
-        if (!UtilityHelper.isEmpty(fields)) {
+        if (UtilityHelper.isNotEmpty(fields)) {
             return fields.map((existingField) => {
-                if (existingField.key === fieldKey) {
-                    const copiedField = UtilityHelper.copy(existingField);
-                    
-                    return changeFieldConfigFunction(copiedField);
+                if (existingField.key === fieldKey) {                    
+                    return changeFieldConfigFunction(existingField);
                 }
 
-                if (!UtilityHelper.isEmpty(existingField.fieldGroup)) {
+                if (UtilityHelper.isNotEmpty(existingField.fieldGroup)) {
                     existingField.fieldGroup = this.replaceField(fieldKey, existingField.fieldGroup!, changeFieldConfigFunction);
                 }
 
                 return existingField;
-            })
+            });
         }
 
         return fields;

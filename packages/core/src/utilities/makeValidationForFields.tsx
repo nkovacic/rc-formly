@@ -1,27 +1,24 @@
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig } from "../formikFormlyFieldConfig";
+import { IFormlyFieldConfig } from '../formikFormlyFieldConfig';
 import { FormikFormlyConfig } from '../FormikFormlyConfig';
 
-import { UtilityHelper } from 'app/services';
+import { UtilityHelper } from './UtilityHelper';
 
-import { formTranslations } from 'app/components/forms';
+const validationMessage = (validatorName: string, value: any, field: IFormlyFieldConfig) => {
+    const validatorMessageOption = FormikFormlyConfig.getValidatorMessage(validatorName);
 
-const requiredMessage = (field: IFormlyFieldConfig) => {
-    return validationMessage(field, formTranslations.validation.requiredLabel, formTranslations.validation.required);
-};
-
-const validationMessage = (field: IFormlyFieldConfig, validationMessageLabel: string, validationMessage: string, ...additionalParameters: any[]) => {
-    if (field.templateOptions && !UtilityHelper.isEmpty(field.templateOptions.label)) {
-        return formTranslations.formatString(validationMessageLabel, field.templateOptions.label!, ...additionalParameters) as string;
+    if (validatorMessageOption) {
+        return validatorMessageOption.message(value, field, {} as any);
     }
 
-    return formTranslations.formatString(validationMessage, ...additionalParameters) as string;
-}
+    return '';
+};
 
 const combineValidations = (validationSchema: Yup.Schema<any>, validationSchemas?: Yup.Schema<any>[]) => {
-    if (!UtilityHelper.isEmpty(validationSchemas)) {
-        for (let schemaToMerge of validationSchemas!) {
+    if (UtilityHelper.isNotEmpty(validationSchemas)) {
+        for (const schemaToMerge of validationSchemas!) {
+            // tslint:disable-next-line:no-parameter-reassignment
             validationSchema = validationSchema.concat(schemaToMerge);
         }
     }
@@ -34,30 +31,26 @@ const makeValidationForNumber = (value: number, field: IFormlyFieldConfig) => {
 
     if (field.templateOptions) {
         if (field.templateOptions.required) {
-            yupValidation = yupValidation.required(requiredMessage(field));
+            yupValidation = yupValidation.required(validationMessage('required', value, field));
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.min)) {
-            yupValidation = yupValidation.min(field.templateOptions.min!, validationMessage(field,
-                formTranslations.validation.min, formTranslations.validation.minLabel,
-                value, field.templateOptions.label))
+            yupValidation = yupValidation.min(field.templateOptions.min!, validationMessage('minx', value, field));
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.max)) {
-            yupValidation = yupValidation.max(field.templateOptions.max!, validationMessage(field,
-                formTranslations.validation.max, formTranslations.validation.maxLabel,
-                value, field.templateOptions.label))
+            yupValidation = yupValidation.max(field.templateOptions.max!, validationMessage('max', value, field));
         }
     }
 
     return yupValidation;
 };
 
-const makeValidationForMixed = (field: IFormlyFieldConfig) => {
+const makeValidationForMixed = (value: any, field: IFormlyFieldConfig) => {
     let yupValidation =  Yup.mixed();
 
     if (field.templateOptions && field.templateOptions.required) {
-        yupValidation = yupValidation.required(requiredMessage(field));
+        yupValidation = yupValidation.required(validationMessage('required', value, field));
     }
 
     return yupValidation;
@@ -68,19 +61,15 @@ const makeValidationForString = (value: string, field: IFormlyFieldConfig) => {
 
     if (field.templateOptions) {
         if (field.templateOptions.required) {
-            yupValidation = yupValidation.required(requiredMessage(field));
+            yupValidation = yupValidation.required(validationMessage('required', value, field));
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.minLength)) {
-            yupValidation = yupValidation.min(field.templateOptions.minLength!, validationMessage(field,
-                formTranslations.validation.minLength, formTranslations.validation.minLengthLabel,
-                value, field.templateOptions.label))
+            yupValidation = yupValidation.min(field.templateOptions.minLength!, validationMessage('minLength', value, field));
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.maxLength)) {
-            yupValidation = yupValidation.max(field.templateOptions.maxLength!, validationMessage(field,
-                formTranslations.validation.maxLength, formTranslations.validation.maxLengthLabel,
-                value, field.templateOptions.label))
+            yupValidation = yupValidation.max(field.templateOptions.maxLength!, validationMessage('maxLength', value, field));
         }
     }
 
@@ -91,23 +80,23 @@ const makeValidationForLazy = (value: any, field: IFormlyFieldConfig) => {
     if (UtilityHelper.isNumber(value)) {
         return makeValidationForNumber(value as number, field);
     }
-    else if (UtilityHelper.isString(value)) {
+    
+    if (UtilityHelper.isString(value)) {
         return makeValidationForString(value, field);
     }
-    else {
-        return makeValidationForMixed(field);
-    }
+
+    return makeValidationForMixed(value, field);
 };
 
 export const makeValidationForFields = (fields: IFormlyFieldConfig[]) => {
-    let validationObject = {} as { [key: string]: Yup.Schema<any> | Yup.Lazy };
+    const validationObject = {} as { [key: string]: Yup.Schema<any> | Yup.Lazy };
 
-    for (let field of fields) {
+    for (const field of fields) {
         const fieldType = FormikFormlyConfig.getType(field.type!);
 
         if (fieldType) {
-            validationObject[field.key!] = Yup.lazy(value => {
-                let lazyValidation = makeValidationForLazy(value, field);
+            validationObject[field.key!] = Yup.lazy((value) => {
+                const lazyValidation = makeValidationForLazy(value, field);
 
                 return combineValidations(lazyValidation, fieldType.validators);
             });

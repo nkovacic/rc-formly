@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Formik, FormikProps, validateYupSchema, yupToFormErrors } from 'formik';
+import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
@@ -7,8 +7,7 @@ import { IFormikFormlyProps } from './FormikFormlyProps';
 
 import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
 
-import { makeValidationForFields, FormFieldHelper } from 'app/utilities';
-import { UtilityHelper } from 'app/services';
+import { makeValidationForFields, FormFieldHelper, UtilityHelper } from 'app/utilities';
 
 export interface IFormikyFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
@@ -95,22 +94,24 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
                 this.validationSchema = makeValidationForFields(this.props.fields);
             }  
 
-            validateYupSchema(model, this.validationSchema).then(
-                () => {
-                    if (this.props.onValidate) {
-                        this.props.onValidate(model, true);
+            this.validationSchema!
+                .validate(model, { abortEarly: false, context: { formikProps: this.formikProps } })
+                .then(
+                    () => {
+                        if (this.props.onValidate) {
+                            this.props.onValidate(model, true);
+                        }
+    
+                        resolve({});
+                    },
+                    (err: any) => {
+                        if (this.props.onValidate) {
+                            this.props.onValidate(model, true);
+                        }
+    
+                        reject(yupToFormErrors(err));
                     }
-
-                    resolve({});
-                },
-                (err: any) => {
-                    if (this.props.onValidate) {
-                        this.props.onValidate(model, true);
-                    }
-
-                    reject(yupToFormErrors(err));
-                }
-              );
+                );
         });
     }
 

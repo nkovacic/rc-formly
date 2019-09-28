@@ -1,4 +1,4 @@
-import { IConstructor } from '../utilities/generics';
+import { IConstructor } from './generics';
 
 export class UtilityHelper {
     static equals(...objects: any[]) {
@@ -76,6 +76,10 @@ export class UtilityHelper {
         }
 
         return true;
+    }
+
+    static isNotEmpty(obj: any) {
+        return !UtilityHelper.isEmpty(obj);
     }
 
     static isIterableArray(value: any) {
