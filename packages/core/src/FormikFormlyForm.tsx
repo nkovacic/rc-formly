@@ -5,9 +5,10 @@ import * as Yup from 'yup';
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormikFormlyProps } from './FormikFormlyProps';
 
-import { makeValidationForFields, FormFieldHelper } from './utilities';
-import { UtilityHelper } from 'app/utilities';
 import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
+
+import { makeValidationForFields, FormFieldHelper } from 'app/utilities';
+import { UtilityHelper } from 'app/services';
 
 export interface IFormikyFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
@@ -28,8 +29,8 @@ interface State {
 }
 
 class FormikFormlyForm extends Component<Props, State> implements IFormikyFormlyFormRef {
-    private formikInstance: Formik;
-    private formikProps: FormikProps<any>;
+    private formikInstance: Formik | null = null;
+    private formikProps: FormikProps<any> | null = null;
     private isFormSubmitting: boolean = false;
     private validationSchema: Yup.ObjectSchema<any> | null = null;
 
@@ -65,7 +66,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
             changeFieldConfigs: this.changeFieldConfigs,
             resetForm: this.resetForm,
             submit: this.submit,
-            formikProps: this.formikProps
+            formikProps: this.formikProps as FormikProps<any>
         };
     }
 
@@ -114,7 +115,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
     }
 
     submit = () => {
-        if (!this.isFormSubmitting) {
+        if (!this.isFormSubmitting && this.formikInstance) {
             this.formikInstance.submitForm();
         }
     }

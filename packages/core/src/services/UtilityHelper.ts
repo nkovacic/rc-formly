@@ -1,16 +1,6 @@
-//@ts-ignore
-import extend from 'extend2';
-import { IConstructor } from './generics';
+import { IConstructor } from '../utilities/generics';
 
 export class UtilityHelper {
-    static copy<T>(src: T): T {
-        if (this.isArray(src)) {
-            return (src as any).map((x: any) => this.copy(x));
-        }
-
-        return extend(true, {}, src);
-    }
-
     static equals(...objects: any[]) {
         if (!objects || objects.length < 1) {
             return false;
@@ -29,10 +19,6 @@ export class UtilityHelper {
         }
 
         return true;
-    }
-
-    static extend(src: any, dest: any) {
-        return extend(true, {}, src, dest);
     }
 
     static flatten(arr: any[]) {
