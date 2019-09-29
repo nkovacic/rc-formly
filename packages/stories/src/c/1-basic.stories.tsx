@@ -29,6 +29,9 @@ FormikFormlyConfig.addConfig({
 
 // tslint:disable-next-line:variable-name
 const BasicStory: SFC = function () {
+    const initialValues = {
+        firstName: ''
+    };
     const [submittedModel, setSubmittedModel] = useState(null);
 
     const fields: IFormlyFieldConfig[] = [
@@ -51,13 +54,13 @@ const BasicStory: SFC = function () {
 
     return (
         <div>
-            <FormikFormlyForm fields={fields} onSubmit={onSubmit}>
+            <FormikFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit}>
                 <button type="submit" style={ { marginTop: '10px' }}>
                     Submit
                 </button>
             </FormikFormlyForm>
             <div>
-                Submitted value: {submittedModel}
+                Submitted value: { JSON.stringify(submittedModel)}
             </div>
         </div>
     );

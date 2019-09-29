@@ -107,7 +107,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
                     },
                     (err: any) => {
                         if (this.props.onValidate) {
-                            this.props.onValidate(model, true);
+                            this.props.onValidate(model, false);
                         }
     
                         reject(yupToFormErrors(err));

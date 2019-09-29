@@ -5,7 +5,7 @@ export class InputFieldType extends FormikFormlyField {
     getFirstError() {
         const { errors, touched } = this.props.formikFormlyProps.formikProps;
 
-        if (touched && errors[this.props.field.key]) {
+        if (this.wasFieldTouched() && errors[this.props.field.key]) {
             return errors[this.props.field.key] as string;
         }
 
