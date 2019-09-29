@@ -54,7 +54,16 @@ const BasicStory: SFC = function () {
 
     return (
         <div>
-            <FormikFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit}>
+            <FormikFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formikProps, renderFields) => {
+                return (
+                    <form onSubmit={formikProps.handleSubmit}>
+                        { renderFields() }
+                        <button type="submit" style={ { marginTop: '10px' }}>
+                            Submit
+                        </button>
+                    </form>
+                );
+            }}>
                 <button type="submit" style={ { marginTop: '10px' }}>
                     Submit
                 </button>

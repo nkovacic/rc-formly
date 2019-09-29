@@ -16,7 +16,8 @@ export interface IFormikyFormlyFormRef {
 }
 
 interface Props {
-    onSubmit?(model: any): void;
+    render?(props: FormikProps<any>, renderFields: () => React.ReactNode): React.ReactNode;
+    onSubmit?(model: any, formikProps: FormikProps<any>): void;
     onValidate?(model: any, isValid: boolean): void;
     fields: IFormlyFieldConfig[];
     model?: any;
@@ -28,10 +29,11 @@ interface State {
 }
 
 class FormikFormlyForm extends Component<Props, State> implements IFormikyFormlyFormRef {
-    private formikInstance: Formik | null = null;
-    private formikProps: FormikProps<any> | null = null;
     private isFormSubmitting: boolean = false;
     private validationSchema: Yup.ObjectSchema<any> | null = null;
+
+    public formikInstance: Formik | null = null;
+    public formikProps: FormikProps<any> | null = null;
 
     static defaultProps: Partial<Props> = {
         enableFieldConfigsReinitialize: true
@@ -84,7 +86,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
 
     onFormikSubmit = (model: any) => {
         if (this.props.onSubmit) {
-            this.props.onSubmit(model);
+            this.props.onSubmit(model, this.formikProps!);
         }
     }
 
@@ -122,6 +124,14 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
         }
     }
 
+    renderFields = () => {
+        const formikFormlyProps = this.getFormikFormlyProps();
+
+        return (
+            <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps} />
+        );
+    }
+
     render() {
         const formInitialValues = this.props.model || {};
 
@@ -137,13 +147,11 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
                         this.formikProps = props;
                         this.isFormSubmitting = props.isSubmitting;
 
-                        const formikFormlyProps = this.getFormikFormlyProps();
+                        if (this.props.render) {
+                            return this.props.render(this.formikProps, this.renderFields);
+                        }
 
-                        return (
-                            <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps}>
-                                { this.props.children }
-                            </RootFormikFormlyWrapper>
-                        );  
+                        return this.renderFields();
                     }}
                 />
             );
