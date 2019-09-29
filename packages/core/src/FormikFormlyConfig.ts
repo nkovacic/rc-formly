@@ -116,7 +116,7 @@ export class FormikFormlyConfig {
     }
 
     public static hasType(name: string) {
-        return !UtilityHelper.isEmpty(this.getType(name));
+        return UtilityHelper.isNotEmpty(this.getType(name));
     }
 
     public static getWrapper(name: string) {

@@ -1,20 +1,70 @@
 import { storiesOf } from '@storybook/react';
-import * as React from 'react';
-import { FormikFormlyForm, IFormlyFieldConfig } from '@formik-formly/core';
+import React, { useState, SFC } from 'react';
+import { FormikFormlyConfig, FormikFormlyForm, IFormlyFieldConfig } from '@formik-formly/core';
 
-storiesOf('@formik-formly/core/1. Basic', module).add('first', () => {
+import { InputFieldType } from './InputFieldType';
+
+FormikFormlyConfig.addConfig({
+    types: [
+        {
+            name: 'input',
+            component: InputFieldType
+        }
+    ],
+    validatorMessages: [
+        {
+            name: 'required',
+            message: (value, field) => {
+                return `Field '${field.templateOptions.label}' is required!`;
+            }
+        },
+        {
+            name: 'minLength',
+            message: (value, field) => {
+                return `Field '${field.templateOptions.label}' needs to have atleast ${field.templateOptions.minLength} characters!`;
+            }
+        }
+    ]
+});
+
+// tslint:disable-next-line:variable-name
+const BasicStory: SFC = function () {
+    const [submittedModel, setSubmittedModel] = useState(null);
+
     const fields: IFormlyFieldConfig[] = [
         {
             key: 'firstName',
             type: 'input',
             templateOptions: {
                 label: 'First name',
+                minLength: 5,
                 required: true
             }
         }
     ];
 
+    const onSubmit = (model: any) => {
+        console.log(`Submitted ${JSON.stringify(model)}`);
+
+        setSubmittedModel(model);
+    };
+
     return (
-        <FormikFormlyForm fields={fields}></FormikFormlyForm>
+        <div>
+            <FormikFormlyForm fields={fields} onSubmit={onSubmit}>
+                <button type="submit" style={ { marginTop: '10px' }}>
+                    Submit
+                </button>
+            </FormikFormlyForm>
+            <div>
+                Submitted value: {submittedModel}
+            </div>
+        </div>
+    );
+};
+
+storiesOf('@formik-formly/core/1. Basic', module).add('first', () => {
+    return (
+        <BasicStory />
     );
 });

@@ -72,7 +72,12 @@ class RootFormikFormlyWrapper extends Component<Props> {
     }
 
     render() {
-        return this.renderFields(this.props.fields);
+        return (
+            <React.Fragment>
+                { this.renderFields(this.props.fields) }
+                { this.props.children }
+            </React.Fragment>          
+        );
     }
 }
 

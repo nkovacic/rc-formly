@@ -44,7 +44,9 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
 
     shouldComponentUpdate(nextProps: FormikFormlyFieldProps) {
-        return !UtilityHelper.equals(this.currentValue, this.getFieldValue(nextProps)) || !UtilityHelper.equals(this.props.field, nextProps.field);
+        return !UtilityHelper.equals(this.currentValue, this.getFieldValue(nextProps)) 
+            || !UtilityHelper.equals(this.props.field, nextProps.field)
+            || !UtilityHelper.equals(this.props.formikFormlyProps.formikProps.errors, nextProps.formikFormlyProps.formikProps.errors);
     }
 
     handleBlur = () => {

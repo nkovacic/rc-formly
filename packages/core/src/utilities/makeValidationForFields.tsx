@@ -1,3 +1,4 @@
+import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from '../formikFormlyFieldConfig';
@@ -5,11 +6,15 @@ import { FormikFormlyConfig } from '../FormikFormlyConfig';
 
 import { UtilityHelper } from './UtilityHelper';
 
-const validationMessage = (validatorName: string, value: any, field: IFormlyFieldConfig) => {
+export interface IFormikFormlyYupContext {
+    formlyProps: FormikProps<any>;
+}
+
+const validationMessage = (validatorName: string, value: any, field: IFormlyFieldConfig, formikProps: FormikProps<any>) => {
     const validatorMessageOption = FormikFormlyConfig.getValidatorMessage(validatorName);
 
     if (validatorMessageOption) {
-        return validatorMessageOption.message(value, field, {} as any);
+        return validatorMessageOption.message(value, field, formikProps);
     }
 
     return '';
@@ -26,20 +31,41 @@ const combineValidations = (validationSchema: Yup.Schema<any>, validationSchemas
     return validationSchema;
 };
 
-const makeValidationForNumber = (value: number, field: IFormlyFieldConfig) => {
+const makeValidationForNumber = (value: any, field: IFormlyFieldConfig) => {
     let yupValidation =  Yup.number();
 
     if (field.templateOptions) {
         if (field.templateOptions.required) {
-            yupValidation = yupValidation.required(validationMessage('required', value, field));
+            yupValidation = yupValidation
+                .when('required', { 
+                    is: true,
+                    then: Yup.number()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.NumberSchema) => {
+                    return schema.required(validationMessage('required', value, field, formikProps));
+                });
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.min)) {
-            yupValidation = yupValidation.min(field.templateOptions.min!, validationMessage('minx', value, field));
+            yupValidation = yupValidation
+                .when('min', { 
+                    is: true,
+                    then: Yup.number()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.NumberSchema) => {
+                    return schema.min(field.templateOptions!.min!, validationMessage('min', value, field, formikProps));
+                });
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.max)) {
-            yupValidation = yupValidation.max(field.templateOptions.max!, validationMessage('max', value, field));
+            yupValidation = yupValidation
+                .when('max', { 
+                    is: true,
+                    then: Yup.number()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.NumberSchema) => {
+                    return schema.max(field.templateOptions!.max!, validationMessage('max', value, field, formikProps));
+                });
         }
     }
 
@@ -50,26 +76,56 @@ const makeValidationForMixed = (value: any, field: IFormlyFieldConfig) => {
     let yupValidation =  Yup.mixed();
 
     if (field.templateOptions && field.templateOptions.required) {
-        yupValidation = yupValidation.required(validationMessage('required', value, field));
+        yupValidation = yupValidation
+            .when('required', { 
+                is: true,
+                then: Yup.mixed()
+            })
+            .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.Schema<string>) => {
+                return schema.required(validationMessage('required', value, field, formikProps));
+            });
     }
 
     return yupValidation;
 };
 
-const makeValidationForString = (value: string, field: IFormlyFieldConfig) => {
+const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
     let yupValidation =  Yup.string();
 
     if (field.templateOptions) {
         if (field.templateOptions.required) {
-            yupValidation = yupValidation.required(validationMessage('required', value, field));
+            yupValidation = yupValidation
+                .when('required', { 
+                    is: true,
+                    then: Yup.string()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.Schema<string>) => {
+                    return schema.required(validationMessage('required', value, field, formikProps));
+                });
+
+            //yupValidation = yupValidation.required(validationMessage('required', value, field, context.formlyProps));
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.minLength)) {
-            yupValidation = yupValidation.min(field.templateOptions.minLength!, validationMessage('minLength', value, field));
+            yupValidation = yupValidation
+                .when('minLength', { 
+                    is: true,
+                    then: Yup.string()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.StringSchema) => {
+                    return schema.min(field.templateOptions!.minLength!, validationMessage('minLength', value, field, formikProps));
+                });
         }
 
         if (UtilityHelper.isNumber(field.templateOptions.maxLength)) {
-            yupValidation = yupValidation.max(field.templateOptions.maxLength!, validationMessage('maxLength', value, field));
+            yupValidation = yupValidation
+                .when('maxLength', { 
+                    is: true,
+                    then: Yup.string()
+                })
+                .when('$formikProps', (formikProps: FormikProps<any>, schema: Yup.StringSchema) => {
+                    return schema.max(field.templateOptions!.maxLength!, validationMessage('maxLength', value, field, formikProps));
+                });
         }
     }
 

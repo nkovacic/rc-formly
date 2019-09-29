@@ -96,6 +96,7 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
 
             this.validationSchema!
                 .validate(model, { abortEarly: false, context: { formikProps: this.formikProps } })
+            //validateYupSchema(model, this.validationSchema)
                 .then(
                     () => {
                         if (this.props.onValidate) {
@@ -139,8 +140,10 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
                         const formikFormlyProps = this.getFormikFormlyProps();
 
                         return (
-                            <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps} />
-                        );
+                            <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps}>
+                                { this.props.children }
+                            </RootFormikFormlyWrapper>
+                        );  
                     }}
                 />
             );
