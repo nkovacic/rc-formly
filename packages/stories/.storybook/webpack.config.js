@@ -17,7 +17,7 @@ module.exports = ({ config }) => {
     ]
   });
 
-  config.entry = config.entry.filter(singleEntry => !singleEntry.includes('/webpack-hot-middleware/'));
+  //config.entry = config.entry.filter(singleEntry => !singleEntry.includes('/webpack-hot-middleware/'));
   config.resolve.extensions.push(".ts", ".tsx");
 
   return config;

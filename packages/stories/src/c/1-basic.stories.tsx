@@ -64,9 +64,6 @@ const BasicStory: SFC = function () {
                     </form>
                 );
             }}>
-                <button type="submit" style={ { marginTop: '10px' }}>
-                    Submit
-                </button>
             </FormikFormlyForm>
             <div>
                 Submitted value: { JSON.stringify(submittedModel)}
