@@ -6,10 +6,10 @@ module.exports = {
       resolve: 'gatsby-theme-oss-docs',
       options: {
         root: __dirname,
-        subtitle: 'npm install analytics',
-        description: 'How to use the analytics npm module',
-        githubRepo: 'davidwells/analytics',
-        spectrumPath: 'analytics',
+        subtitle: 'npm install formik-formly-core formik-formly-bootstrap',
+        description: 'How to use the formik-formly npm module',
+        githubRepo: 'nkovacic/formik-formly',
+        spectrumPath: 'formik-formly',
         sidebarCategories: {
           null: [
             'tutorial/getting-started',
@@ -48,7 +48,7 @@ module.exports = {
           ],
           Resources: [
             'resources/faq',
-            '[Github Repo](https://github.com/davidwells/analytics)',
+            '[Github Repo](https://github.com/nkovacic/formik-formly)',
           ],
         }
       }
