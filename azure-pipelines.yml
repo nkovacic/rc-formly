@@ -29,8 +29,6 @@ stages:
     - task: Yarn@3
       inputs:
         arguments: 'pretest'
-  - job: Test
-    steps:
     - task: Yarn@3
       inputs:
         arguments: 'test'
