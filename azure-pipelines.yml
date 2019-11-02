@@ -2,4 +2,21 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 trigger:
-- source
+  batch: true
+  branches:
+    include:
+    - master
+    - develop
+    - releases/*
+
+stages:
+- stage: Build
+  jobs:
+  - job: Initial
+    steps:
+    - task: GitVersion@5
+      inputs:
+        runtime: 'core'
+    - task: UseNode@1
+      inputs:
+        version: '12.x'
