@@ -20,3 +20,20 @@ stages:
     - task: UseNode@1
       inputs:
         version: '12.x'
+    - task: YarnInstaller@3
+      inputs:
+        versionSpec: '1.x'
+    - task: Yarn@3
+      inputs:
+        arguments: 'install'
+    - task: Yarn@3
+      inputs:
+        arguments: 'pretest'
+  - job: Test
+    steps:
+    - task: Yarn@3
+      inputs:
+        arguments: 'test'
+    - task: Yarn@3
+      inputs:
+        arguments: 'test:stories'
