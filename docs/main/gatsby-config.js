@@ -6,10 +6,10 @@ module.exports = {
       resolve: 'gatsby-theme-oss-docs',
       options: {
         root: __dirname,
-        subtitle: 'npm install formik-formly-core formik-formly-bootstrap',
-        description: 'How to use the formik-formly npm module',
-        githubRepo: 'nkovacic/formik-formly',
-        spectrumPath: 'formik-formly',
+        subtitle: 'npm install rc-formly-core rc-formly-bootstrap',
+        description: 'How to use the rc-formly npm module',
+        githubRepo: 'nkovacic/rc-formly',
+        spectrumPath: 'rc-formly',
         sidebarCategories: {
           null: [
             'tutorial/getting-started',
@@ -48,7 +48,7 @@ module.exports = {
           ],
           Resources: [
             'resources/faq',
-            '[Github Repo](https://github.com/nkovacic/formik-formly)',
+            '[Github Repo](https://github.com/nkovacic/rc-formly)',
           ],
         }
       }

@@ -1,4 +1,4 @@
-# formik-formly
+# rc-formly
 
 Formik Formly is a dynamic (JSON powered) form library for React.js
 

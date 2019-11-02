@@ -11,6 +11,6 @@
     }
   },
   "moduleNameMapper": {
-    "@formik-formly/(.*)$": "<rootDir>/packages/$1"
+    "@rc-formly/(.*)$": "<rootDir>/packages/$1"
   }
 }

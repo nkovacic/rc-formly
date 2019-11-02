@@ -25,7 +25,7 @@
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
-            "@formik-formly/*": ["packages/*/src"]
+            "@rc-formly/*": ["packages/*/src"]
         },
         "composite": true
     },

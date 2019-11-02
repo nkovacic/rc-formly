@@ -1,5 +1,5 @@
 {
-    "name": "@formik-formly/stories",
+    "name": "@rc-formly/stories",
     "private": true,
     "version": "0.0.0",
     "description": "Stories for typescript monorepo",
@@ -12,8 +12,8 @@
         "clean": "rimraf tsconfig.tsbuildinfo lib dist"
     },
     "dependencies": {
-        "@formik-formly/bootstrap": "*",
-        "@formik-formly/core": "*"
+        "@rc-formly/bootstrap": "*",
+        "@rc-formly/core": "*"
     },
     "peerDependencies": {
         "react": "^16.8.0",

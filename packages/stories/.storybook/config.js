@@ -3,8 +3,8 @@ import { addParameters, configure } from "@storybook/react";
 
 addParameters({
   options: {
-    name: "@formik-formly/formik-formly",
-    url: "https://github.com/nkovacic/formik-formly",
+    name: "@rc-formly/rc-formly",
+    url: "https://github.com/nkovacic/rc-formly",
     hierarchySeparator: "/",
     showAddonPanel: false,
   },

@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
-import { FormikFormlyConfig, FormikFormlyForm, IFormlyFieldConfig } from '@formik-formly/core';
+import { FormikFormlyConfig, FormikFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
 import { InputFieldType } from './InputFieldType';
 
@@ -72,7 +72,7 @@ const BasicStory: SFC = function () {
     );
 };
 
-storiesOf('@formik-formly/core/1. Basic', module).add('first', () => {
+storiesOf('@rc-formly/core/1. Basic', module).add('first', () => {
     return (
         <BasicStory />
     );
