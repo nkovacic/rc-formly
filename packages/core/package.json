@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "repository": "",
-  "author": "nkovacic <nkovacic@gmail.com>",
+  "author": "nkovacic",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
