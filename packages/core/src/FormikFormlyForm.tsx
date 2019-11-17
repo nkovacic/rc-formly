@@ -61,14 +61,21 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
         });
     }
 
-    getFormikFormlyProps(): IFormikFormlyProps {
+    getFormikFormlyProps() {
         return {
             changeFieldConfig: this.changeFieldConfig,
             changeFieldConfigs: this.changeFieldConfigs,
             resetForm: this.resetForm,
+            setFieldError: this.formikProps!.setFieldError,
+            setFieldTouched: this.formikProps!.setFieldTouched,
+            setFieldValue: this.formikProps!.setFieldValue,
             submit: this.submit,
-            formikProps: this.formikProps as FormikProps<any>
-        };
+            formProps: {
+                errors: this.formikProps!.errors,
+                touched: this.formikProps!.touched,
+                values: this.formikProps!.values
+            }
+        } as IFormikFormlyProps; 
     }
 
     resetForm = (valuesOrResetFunction: any) => {
