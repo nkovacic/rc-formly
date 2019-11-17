@@ -8,12 +8,12 @@ export declare type FormTouched<Values> = {
 };
 
 export interface IRcFormlyFormProps<T = any> {
-    errors: FormTouched<T>;
+    errors: FormErrors<T>;
     touched: FormTouched<T>;
     values: T;
 }
 
-export interface IFormikFormlyProps {
+export interface IRcFormlyProps {
     changeFieldConfig(fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig): void;
     changeFieldConfigs(changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]): void;
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;

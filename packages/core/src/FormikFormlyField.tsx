@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { IFormlyTypeDefinition } from './FormikFormlyConfig';
-import { IFormikFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './FormikFormlyProps';
 
 import { UtilityHelper } from './utilities';
 import { KeyValueObject } from './types';
@@ -10,7 +10,7 @@ import { KeyValueObject } from './types';
 export interface FormikFormlyFieldProps {
     field: IFormlyFieldConfig;
     fieldType: IFormlyTypeDefinition;
-    formikFormlyProps: IFormikFormlyProps;
+    formlyProps: IRcFormlyProps;
     model: KeyValueObject;
 }
 
@@ -32,11 +32,11 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
     
     protected wasFieldTouched() {
-        return this.hasFormikProps() && UtilityHelper.isNotEmpty(this.props.formikFormlyProps.formProps.touched[this.getFieldKey()]);
+        return this.hasFormikProps() && UtilityHelper.isNotEmpty(this.props.formlyProps.formProps.touched[this.getFieldKey()]);
     }
 
     private hasFormikProps() {
-        return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formikFormlyProps);
+        return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }
 
     private hasTemplateOptions() {
@@ -55,16 +55,16 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
         return !UtilityHelper.equals(this.currentValue, this.getFieldValue(nextProps)) 
             || !UtilityHelper.equals(this.props.field, nextProps.field)
             || !UtilityHelper.equals(
-                this.props.formikFormlyProps.formProps.errors[this.getFieldKey()], 
-                nextProps.formikFormlyProps.formProps.errors[this.getFieldKey()])
+                this.props.formlyProps.formProps.errors[this.getFieldKey()], 
+                nextProps.formlyProps.formProps.errors[this.getFieldKey()])
             || !UtilityHelper.equals(
-                this.props.formikFormlyProps.formProps.touched[this.getFieldKey()], 
-                nextProps.formikFormlyProps.formProps.touched[this.getFieldKey()]);
+                this.props.formlyProps.formProps.touched[this.getFieldKey()], 
+                nextProps.formlyProps.formProps.touched[this.getFieldKey()]);
     }
 
     handleBlur = () => {
         if (this.hasFormikProps()) {
-            this.props.formikFormlyProps.setFieldTouched(this.getFieldKey(), true);
+            this.props.formlyProps.setFieldTouched(this.getFieldKey(), true);
         }
     }
 
@@ -72,10 +72,10 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
         if (this.hasFormikProps()) {
             const oldValue = this.getFieldValue();
 
-            this.props.formikFormlyProps.setFieldValue(this.getFieldKey(), newValue);
+            this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
 
             if (this.hasTemplateOptions() && this.props.field.templateOptions!.onChange) {
-                this.props.field.templateOptions!.onChange(newValue, oldValue, this.props.formikFormlyProps);
+                this.props.field.templateOptions!.onChange(newValue, oldValue, this.props.formlyProps);
             }
         }
     }
@@ -85,8 +85,8 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     getFieldValue(otherProps?: FormikFormlyFieldProps) {
         const sourceProps = otherProps ? otherProps : this.props;
 
-        if (sourceProps.formikFormlyProps.formProps.values && sourceProps.field.key) {
-            return sourceProps.formikFormlyProps.formProps.values[sourceProps.field.key!];
+        if (sourceProps.formlyProps.formProps.values && sourceProps.field.key) {
+            return sourceProps.formlyProps.formProps.values[sourceProps.field.key!];
         }
 
         return null;
@@ -94,7 +94,7 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
 
     submitForm() {
         if (this.hasFormikProps()) {
-            this.props.formikFormlyProps.submit();
+            this.props.formlyProps.submit();
         }
     }
 }
