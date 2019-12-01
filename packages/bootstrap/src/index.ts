@@ -1,11 +1,11 @@
-import { FormikFormlyConfig } from '@rc-formly/core';
+import { RcFormlyConfig } from '@rc-formly/core';
 
 import {
     FormGroupWrapper
 } from './wrappers';
 
 export const registerRcFormlyPackage = () => {
-    FormikFormlyConfig.addConfig({
+    RcFormlyConfig.addConfig({
         types: [],
         wrappers: [
             {

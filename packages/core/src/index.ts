@@ -1,7 +1,7 @@
-import { FormikFormlyConfig } from './RcFormlyConfig';
+import { RcFormlyConfig } from './RcFormlyConfig';
 
-export { FormikFormlyConfig };
+export { RcFormlyConfig };
 export { IFormlyFieldConfig, IFormlyTemplateOptions } from './RcFormlyFieldConfig';
-export { default as FormikFormlyField } from './RcFormlyField';
-export { default as FormikFormlyWrapper } from './RcFormlyWrapper';
-export { default as FormikFormlyForm } from './RcFormlyForm';
+export { default as RcFormlyField } from './RcFormlyField';
+export { default as RcFormlyWrapper } from './RcFormlyWrapper';
+export { default as RcFormlyForm } from './RcFormlyForm';

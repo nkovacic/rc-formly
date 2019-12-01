@@ -7,17 +7,17 @@ import { IRcFormlyProps } from './RcFormlyProps';
 import { UtilityHelper } from './utilities';
 import { KeyValueObject } from './types';
 
-export interface FormikFormlyFieldProps {
+export interface RcFormlyFieldProps {
     field: IFormlyFieldConfig;
     fieldType: IFormlyTypeDefinition;
     formlyProps: IRcFormlyProps;
     model: KeyValueObject;
 }
 
-class FormikFormlyField extends Component<FormikFormlyFieldProps> {
+class RcFormlyField extends Component<RcFormlyFieldProps> {
     private currentValue: any;
 
-    constructor(props: FormikFormlyFieldProps) {
+    constructor(props: RcFormlyFieldProps) {
         super(props);
 
         this.saveCurrentValue();
@@ -32,10 +32,10 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
     
     protected wasFieldTouched() {
-        return this.hasFormikProps() && UtilityHelper.isNotEmpty(this.props.formlyProps.formProps.touched[this.getFieldKey()]);
+        return this.hasFormProps() && UtilityHelper.isNotEmpty(this.props.formlyProps.formProps.touched[this.getFieldKey()]);
     }
 
-    private hasFormikProps() {
+    private hasFormProps() {
         return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }
 
@@ -51,7 +51,7 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
         this.saveCurrentValue();
     }
 
-    shouldComponentUpdate(nextProps: FormikFormlyFieldProps) {
+    shouldComponentUpdate(nextProps: RcFormlyFieldProps) {
         return !UtilityHelper.equals(this.currentValue, this.getFieldValue(nextProps)) 
             || !UtilityHelper.equals(this.props.field, nextProps.field)
             || !UtilityHelper.equals(
@@ -63,13 +63,13 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
 
     handleBlur = () => {
-        if (this.hasFormikProps()) {
+        if (this.hasFormProps()) {
             this.props.formlyProps.setFieldTouched(this.getFieldKey(), true);
         }
     }
 
     handleChange = (newValue: any) => {
-        if (this.hasFormikProps()) {
+        if (this.hasFormProps()) {
             const oldValue = this.getFieldValue();
 
             this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
@@ -81,8 +81,8 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
 
     getFieldValue(): any;
-    getFieldValue(otherProps: FormikFormlyFieldProps): any;
-    getFieldValue(otherProps?: FormikFormlyFieldProps) {
+    getFieldValue(otherProps: RcFormlyFieldProps): any;
+    getFieldValue(otherProps?: RcFormlyFieldProps) {
         const sourceProps = otherProps ? otherProps : this.props;
 
         if (sourceProps.formlyProps.formProps.values && sourceProps.field.key) {
@@ -93,10 +93,10 @@ class FormikFormlyField extends Component<FormikFormlyFieldProps> {
     }
 
     submitForm() {
-        if (this.hasFormikProps()) {
+        if (this.hasFormProps()) {
             this.props.formlyProps.submit();
         }
     }
 }
 
-export default FormikFormlyField;
+export default RcFormlyField;

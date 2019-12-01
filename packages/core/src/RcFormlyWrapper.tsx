@@ -5,13 +5,13 @@ import { IRcFormlyProps } from './RcFormlyProps';
 
 import { UtilityHelper } from './utilities';
 
-export interface FormikFormlyWrapperProps {
+export interface RcFormlyWrapperProps {
     formlyProps: IRcFormlyProps;
     parentField: IFormlyFieldConfig;
 }
 
-class FormikFormlyWrapper extends Component<FormikFormlyWrapperProps> {
-    protected hasFormikProps() {
+class RcFormlyWrapper extends Component<RcFormlyWrapperProps> {
+    protected hasFormProps() {
         return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }
 
@@ -20,4 +20,4 @@ class FormikFormlyWrapper extends Component<FormikFormlyWrapperProps> {
     }
 }
 
-export default FormikFormlyWrapper;
+export default RcFormlyWrapper;

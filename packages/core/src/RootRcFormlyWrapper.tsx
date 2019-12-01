@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
-import { FormikFormlyConfig } from './RcFormlyConfig';
+import { RcFormlyConfig } from './RcFormlyConfig';
 import { IRcFormlyProps } from './RcFormlyProps';
 
 import { UtilityHelper } from './utilities';
@@ -23,7 +23,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
     }
 
     renderType(field: IFormlyFieldConfig, fieldIndex?: number) {
-        const fieldType = FormikFormlyConfig.getType(field.type!);
+        const fieldType = RcFormlyConfig.getType(field.type!);
 
         if (fieldType && !field.hide) {
             // tslint:disable-next-line:variable-name
@@ -55,7 +55,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
         }
 
         const wrapper = wrappers.pop();
-        const fieldWrapper = FormikFormlyConfig.getWrapper(wrapper!);
+        const fieldWrapper = RcFormlyConfig.getWrapper(wrapper!);
 
         if (fieldWrapper) {
             // tslint:disable-next-line:variable-name

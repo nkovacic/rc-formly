@@ -9,7 +9,7 @@ import RootFormikFormlyWrapper from './RootRcFormlyWrapper';
 
 import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 
-export interface IFormikyFormlyFormRef {
+export interface IRcFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
     resetForm(values: any): void;
     submit(): void;
@@ -28,7 +28,7 @@ interface State {
     fields: IFormlyFieldConfig[];
 }
 
-class FormikFormlyForm extends Component<Props, State> implements IFormikyFormlyFormRef {
+class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     private isFormSubmitting: boolean = false;
     private validationSchema: Yup.ObjectSchema<any> | null = null;
 
@@ -168,4 +168,4 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
     }
 }
 
-export default FormikFormlyForm;
+export default RcFormlyForm;

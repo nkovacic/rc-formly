@@ -2,13 +2,13 @@ import { ComponentType } from 'react';
 import { FormikProps } from 'formik';
 import { Schema } from 'yup';
 
-import { FormikFormlyFieldProps } from './RcFormlyField';
+import { RcFormlyFieldProps } from './RcFormlyField';
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 
 import { UtilityHelper } from './utilities';
 import { KeyAlreadyExistsError } from './utilities/errors';
 
-export interface IFormlyTypeDefinition<T extends FormikFormlyFieldProps = any> {
+export interface IFormlyTypeDefinition<T extends RcFormlyFieldProps = any> {
     name: string;
     component: ComponentType<T>;
     validators?: Schema<any>[];
@@ -39,7 +39,7 @@ interface IValidatorMessageOption {
     message: (value: any, field: IFormlyFieldConfig, formikProps: FormikProps<any>) => string;
 }
 
-export class FormikFormlyConfig {
+export class RcFormlyConfig {
     private static types: IFormlyTypeDefinition[] = [];
     private static validators: IValidatorOption[] = [];
     private static validatorMessages: IValidatorMessageOption[] = [];
@@ -74,13 +74,13 @@ export class FormikFormlyConfig {
 
         if (UtilityHelper.isNotEmpty(config.validators)) {
             for (const validator of config.validators!) {
-                FormikFormlyConfig.addValidator(validator);
+                RcFormlyConfig.addValidator(validator);
             }
         }
 
         if (UtilityHelper.isNotEmpty(config.validatorMessages)) {
             for (const validatorMessage of config.validatorMessages!) {
-                FormikFormlyConfig.addValidatorMessage(validatorMessage);
+                RcFormlyConfig.addValidatorMessage(validatorMessage);
             }
         }
     }

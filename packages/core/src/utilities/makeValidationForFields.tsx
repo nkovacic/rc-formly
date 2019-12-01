@@ -2,7 +2,7 @@ import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from '../RcFormlyFieldConfig';
-import { FormikFormlyConfig } from '../RcFormlyConfig';
+import { RcFormlyConfig } from '../RcFormlyConfig';
 
 import { UtilityHelper } from './UtilityHelper';
 
@@ -11,7 +11,7 @@ export interface IFormikFormlyYupContext {
 }
 
 const validationMessage = (validatorName: string, value: any, field: IFormlyFieldConfig, formikProps: FormikProps<any>) => {
-    const validatorMessageOption = FormikFormlyConfig.getValidatorMessage(validatorName);
+    const validatorMessageOption = RcFormlyConfig.getValidatorMessage(validatorName);
 
     if (validatorMessageOption) {
         return validatorMessageOption.message(value, field, formikProps);
@@ -206,7 +206,7 @@ export const makeValidationForFields = (fields: IFormlyFieldConfig[]) => {
     const validationObject = {} as { [key: string]: Yup.Schema<any> | Yup.Lazy };
 
     for (const field of fields) {
-        const fieldType = FormikFormlyConfig.getType(field.type!);
+        const fieldType = RcFormlyConfig.getType(field.type!);
 
         if (fieldType) {
             validationObject[field.key!] = Yup.lazy((value) => {
