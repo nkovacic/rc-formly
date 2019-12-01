@@ -8,6 +8,10 @@ trigger:
     - master
     - develop
     - releases/*
+  paths:
+    exclude:
+      - docs
+      - README.MD
 
 stages:
 - stage: Build
@@ -15,23 +19,30 @@ stages:
   - job: Initial
     steps:
     - task: GitVersion@5
+      displayName: 'GitVersion'
       inputs:
         runtime: 'core'
     - task: UseNode@1
+      displayName: 'Install Node.js version 12.x'
       inputs:
         version: '12.x'
     - task: YarnInstaller@3
+      displayName: 'Install yarn.js version 1.x'
       inputs:
         versionSpec: '1.x'
     - task: Yarn@3
+      displayName: 'yarn install'
       inputs:
         arguments: 'install'
+    # - task: Yarn@3
+    #   displayName: 'yarn pretest (build)'
+    #   inputs:
+    #     arguments: 'pretest'
+    # - task: Yarn@3
+    #   displayName: 'yarn test'
+    #   inputs:
+    #     arguments: 'test'
     - task: Yarn@3
+      displayName: 'yarn build'
       inputs:
-        arguments: 'pretest'
-    - task: Yarn@3
-      inputs:
-        arguments: 'test'
-    - task: Yarn@3
-      inputs:
-        arguments: 'test:stories'
+        arguments: 'build'
