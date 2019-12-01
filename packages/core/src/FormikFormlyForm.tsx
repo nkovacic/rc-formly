@@ -3,7 +3,7 @@ import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
-import { IFormikFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './FormikFormlyProps';
 
 import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
 
@@ -61,14 +61,21 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
         });
     }
 
-    getFormikFormlyProps(): IFormikFormlyProps {
+    getFormlyProps() {
         return {
             changeFieldConfig: this.changeFieldConfig,
             changeFieldConfigs: this.changeFieldConfigs,
             resetForm: this.resetForm,
+            setFieldError: this.formikProps!.setFieldError,
+            setFieldTouched: this.formikProps!.setFieldTouched,
+            setFieldValue: this.formikProps!.setFieldValue,
             submit: this.submit,
-            formikProps: this.formikProps as FormikProps<any>
-        };
+            formProps: {
+                errors: this.formikProps!.errors,
+                touched: this.formikProps!.touched,
+                values: this.formikProps!.values
+            }
+        } as IRcFormlyProps; 
     }
 
     resetForm = (valuesOrResetFunction: any) => {
@@ -125,10 +132,10 @@ class FormikFormlyForm extends Component<Props, State> implements IFormikyFormly
     }
 
     renderFields = () => {
-        const formikFormlyProps = this.getFormikFormlyProps();
+        const formlyProps = this.getFormlyProps();
 
         return (
-            <RootFormikFormlyWrapper fields={this.state.fields} formikFormlyProps={formikFormlyProps} />
+            <RootFormikFormlyWrapper fields={this.state.fields} formlyProps={formlyProps} />
         );
     }
 

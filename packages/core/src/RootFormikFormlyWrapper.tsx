@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 
 import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
 import { FormikFormlyConfig } from './FormikFormlyConfig';
-import { IFormikFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './FormikFormlyProps';
 
 import { UtilityHelper } from './utilities';
 
 interface Props {
     fields: IFormlyFieldConfig[];
-    formikFormlyProps: IFormikFormlyProps;
+    formlyProps: IRcFormlyProps;
 }
 
 class RootFormikFormlyWrapper extends Component<Props> {
     renderFields(fields: IFormlyFieldConfig[]) {
         return fields.map((field, index) => {
             if (!UtilityHelper.isEmpty(field.wrappers)) {
-                return this.renderWrappers(field, [...field.wrappers!], this.props.formikFormlyProps, index);
+                return this.renderWrappers(field, [...field.wrappers!], this.props.formlyProps, index);
             }
 
             return this.renderType(field, index);
@@ -31,7 +31,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
 
             return (
                 <FieldComponent key={fieldIndex} field={field} fieldType={fieldType}
-                    formikFormlyProps={this.props.formikFormlyProps} styles={field.style}
+                    formlyProps={this.props.formlyProps} styles={field.style}
                 />
             );
         }
@@ -41,7 +41,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
 
     renderWrappers(
         field: IFormlyFieldConfig, wrappers: string[], 
-        formikFormlyProps: IFormikFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
+        formlyProps: IRcFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
         if (UtilityHelper.isEmpty(wrappers)) {
             if (field.name) {
                 return this.renderType(field, fieldIndex);
@@ -62,13 +62,13 @@ class RootFormikFormlyWrapper extends Component<Props> {
             const WrapperComponent = fieldWrapper.component;
 
             return (
-                <WrapperComponent key={fieldIndex} parentField={field} formikFormlyProps={formikFormlyProps} >
-                    {this.renderWrappers(field, wrappers, formikFormlyProps, fieldIndex)}
+                <WrapperComponent key={fieldIndex} parentField={field} formlyProps={formlyProps} >
+                    {this.renderWrappers(field, wrappers, formlyProps, fieldIndex)}
                 </WrapperComponent>
             );
         }
 
-        return this.renderWrappers(field, wrappers, formikFormlyProps);
+        return this.renderWrappers(field, wrappers, formlyProps);
     }
 
     render() {

@@ -3,7 +3,7 @@ import { FormikFormlyField } from '@rc-formly/core';
 
 export class InputFieldType extends FormikFormlyField {
     getFirstError() {
-        const { errors, touched } = this.props.formikFormlyProps.formikProps;
+        const { errors } = this.props.formlyProps.formProps;
 
         if (this.wasFieldTouched() && errors[this.props.field.key]) {
             return errors[this.props.field.key] as string;

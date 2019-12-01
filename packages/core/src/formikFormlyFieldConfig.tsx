@@ -1,4 +1,4 @@
-import { IFormikFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './FormikFormlyProps';
 import { KeyValueObject } from './types';
 
 export interface IFormlyFieldConfig {
@@ -45,7 +45,7 @@ export interface IFormlyFieldConfig {
 }
 
 export interface IFormlyTemplateOptions {
-    onChange?(newValue: any, oldValue: any, formikFormlyProps: IFormikFormlyProps): void;
+    onChange?(newValue: any, oldValue: any, formikFormlyProps: IRcFormlyProps): void;
     onPress?(): void;
     type?: string;
     label?: string;
