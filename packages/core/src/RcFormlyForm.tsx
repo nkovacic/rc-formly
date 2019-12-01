@@ -3,7 +3,7 @@ import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
-import { IRcFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './RcFormlyProps';
 
 import RootFormikFormlyWrapper from './RootRcFormlyWrapper';
 

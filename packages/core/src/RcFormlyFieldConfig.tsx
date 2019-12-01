@@ -9,7 +9,7 @@
 
 
 
-import { IRcFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './RcFormlyProps';
 import { KeyValueObject } from './types';
 
 export interface IFormlyFieldConfig {

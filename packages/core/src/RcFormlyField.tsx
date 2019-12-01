@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 import { IFormlyTypeDefinition } from './RcFormlyConfig';
-import { IRcFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './RcFormlyProps';
 
 import { UtilityHelper } from './utilities';
 import { KeyValueObject } from './types';

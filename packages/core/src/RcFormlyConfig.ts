@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import { FormikProps } from 'formik';
 import { Schema } from 'yup';
 
-import { FormikFormlyFieldProps } from './FormikFormlyField';
+import { FormikFormlyFieldProps } from './RcFormlyField';
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 
 import { UtilityHelper } from './utilities';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 import { FormikFormlyConfig } from './RcFormlyConfig';
-import { IRcFormlyProps } from './FormikFormlyProps';
+import { IRcFormlyProps } from './RcFormlyProps';
 
 import { UtilityHelper } from './utilities';
 
