@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
+import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 import { IRcFormlyProps } from './FormikFormlyProps';
 
-import RootFormikFormlyWrapper from './RootFormikFormlyWrapper';
+import RootFormikFormlyWrapper from './RootRcFormlyWrapper';
 
 import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 

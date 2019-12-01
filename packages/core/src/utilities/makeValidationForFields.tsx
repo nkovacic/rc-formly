@@ -1,8 +1,8 @@
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig } from '../formikFormlyFieldConfig';
-import { FormikFormlyConfig } from '../FormikFormlyConfig';
+import { IFormlyFieldConfig } from '../RcFormlyFieldConfig';
+import { FormikFormlyConfig } from '../RcFormlyConfig';
 
 import { UtilityHelper } from './UtilityHelper';
 

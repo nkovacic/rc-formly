@@ -3,7 +3,7 @@ import { FormikProps } from 'formik';
 import { Schema } from 'yup';
 
 import { FormikFormlyFieldProps } from './FormikFormlyField';
-import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
+import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 
 import { UtilityHelper } from './utilities';
 import { KeyAlreadyExistsError } from './utilities/errors';

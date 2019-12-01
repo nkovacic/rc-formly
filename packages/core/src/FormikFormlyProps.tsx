@@ -1,4 +1,4 @@
-import { IFormlyFieldConfig } from './formikFormlyFieldConfig';
+import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
 
 export declare type FormErrors<Values> = {
     [K in keyof Values]?: Values[K] extends object ? FormErrors<Values[K]> : string;
