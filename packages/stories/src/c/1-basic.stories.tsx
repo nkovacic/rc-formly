@@ -1,10 +1,10 @@
 import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
-import { FormikFormlyConfig, FormikFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
+import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
 import { InputFieldType } from './InputFieldType';
 
-FormikFormlyConfig.addConfig({
+RcFormlyConfig.addConfig({
     types: [
         {
             name: 'input',
@@ -54,7 +54,7 @@ const BasicStory: SFC = function () {
 
     return (
         <div>
-            <FormikFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formikProps, renderFields) => {
+            <RcFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formikProps, renderFields) => {
                 return (
                     <form onSubmit={formikProps.handleSubmit}>
                         { renderFields() }
@@ -64,7 +64,7 @@ const BasicStory: SFC = function () {
                     </form>
                 );
             }}>
-            </FormikFormlyForm>
+            </RcFormlyForm>
             <div>
                 Submitted value: { JSON.stringify(submittedModel)}
             </div>

@@ -11,6 +11,26 @@ export interface RcFormlyWrapperProps {
 }
 
 class RcFormlyWrapper extends Component<RcFormlyWrapperProps> {
+    public get to() {
+        return this.props.parentField.templateOptions;
+    }
+
+    protected getFieldError() {
+        if (this.props.parentField.key) {
+			const { errors, touched } = this.props.formlyProps.formProps;
+
+			if (touched && UtilityHelper.isString(errors[this.props.parentField.key])) {
+				return errors[this.props.parentField.key] as string;
+			}
+        }
+        
+        return null;
+    }
+
+    protected hasErrors() {
+        return UtilityHelper.isNotEmpty(this.getFieldError());
+    }
+
     protected hasFormProps() {
         return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }

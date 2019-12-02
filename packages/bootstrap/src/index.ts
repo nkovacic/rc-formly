@@ -1,12 +1,21 @@
 import { RcFormlyConfig } from '@rc-formly/core';
 
 import {
+    InputType
+} from './types';
+
+import {
     FormGroupWrapper
 } from './wrappers';
 
-export const registerRcFormlyPackage = () => {
+export const registerRcFormlyBootstrapPackage = () => {
     RcFormlyConfig.addConfig({
-        types: [],
+        types: [
+            {
+                component: InputType,
+                name: 'input'
+            }
+        ],
         wrappers: [
             {
                 component: FormGroupWrapper,

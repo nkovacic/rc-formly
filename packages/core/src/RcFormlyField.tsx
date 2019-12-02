@@ -17,6 +17,10 @@ export interface RcFormlyFieldProps {
 class RcFormlyField extends Component<RcFormlyFieldProps> {
     private currentValue: any;
 
+    public get to() {
+        return this.props.field.templateOptions;
+    }
+
     constructor(props: RcFormlyFieldProps) {
         super(props);
 
@@ -27,8 +31,20 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
         return this.props.field.key!;
     }
 
-    protected isType() {
-        return UtilityHelper.isNotEmpty(this.props.field.key);
+    protected getFieldError() {
+        if (this.getFieldKey()) {
+			const { errors, touched } = this.props.formlyProps.formProps;
+
+			if (touched && UtilityHelper.isString(errors[this.getFieldKey()])) {
+				return errors[this.getFieldKey()] as string;
+			}
+        }
+        
+        return null;
+    }
+
+    protected hasErrors() {
+        return UtilityHelper.isNotEmpty(this.getFieldError());
     }
     
     protected wasFieldTouched() {

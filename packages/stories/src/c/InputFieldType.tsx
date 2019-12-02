@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
-import { FormikFormlyField } from '@rc-formly/core';
+import { RcFormlyField } from '@rc-formly/core';
 
-export class InputFieldType extends FormikFormlyField {
+export class InputFieldType extends RcFormlyField {
     getFirstError() {
         const { errors } = this.props.formlyProps.formProps;
 
