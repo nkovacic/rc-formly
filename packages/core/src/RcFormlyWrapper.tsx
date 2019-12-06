@@ -17,10 +17,22 @@ class RcFormlyWrapper extends Component<RcFormlyWrapperProps> {
 
     protected getFieldError() {
         if (this.props.parentField.key) {
-			const { errors, touched } = this.props.formlyProps.formProps;
+			const { errors } = this.props.formlyProps.formProps;
 
-			if (touched && UtilityHelper.isString(errors[this.props.parentField.key])) {
+			if (UtilityHelper.isString(errors[this.props.parentField.key])) {
 				return errors[this.props.parentField.key] as string;
+			}
+        }
+        
+        return null;
+    }
+
+    protected getFieldTouched() {
+        if (this.props.parentField.key) {
+			const { touched } = this.props.formlyProps.formProps;
+
+			if (touched[this.props.parentField.key] === true) {
+				return touched[this.props.parentField.key] as boolean;
 			}
         }
         

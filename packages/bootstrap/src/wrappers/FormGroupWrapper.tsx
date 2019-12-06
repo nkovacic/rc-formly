@@ -8,7 +8,8 @@ export class FormGroupWrapper extends RcFormlyWrapper {
 
     render() {
         const error = this.getFieldError();
-        const formGroupClassNames = `form-group ${error ? 'has-error' : '' }`;
+        const touched = this.getFieldTouched()
+        const formGroupClassNames = `form-group ${error && touched ? 'has-error' : '' }`;
 
         return (
             <div className={formGroupClassNames}>
