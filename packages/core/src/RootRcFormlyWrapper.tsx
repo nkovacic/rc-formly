@@ -43,7 +43,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
         field: IFormlyFieldConfig, wrappers: string[], 
         formlyProps: IRcFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
         if (UtilityHelper.isEmpty(wrappers)) {
-            if (field.name) {
+            if (field.type) {
                 return this.renderType(field, fieldIndex);
             }
             

@@ -34,6 +34,10 @@ stages:
       displayName: 'yarn install'
       inputs:
         arguments: 'install'
+    - task: Yarn@3
+      displayName: 'yarn clean'
+      inputs:
+        arguments: 'clean'
     # - task: Yarn@3
     #   displayName: 'yarn pretest (build)'
     #   inputs:

@@ -1,33 +1,8 @@
 import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
-import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
+import { RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
+import { registerRcFormlyBootstrapPackage } from '@rc-formly/bootstrap';
 
-import { InputFieldType } from './InputFieldType';
-
-RcFormlyConfig.addConfig({
-    types: [
-        {
-            name: 'input',
-            component: InputFieldType
-        }
-    ],
-    validatorMessages: [
-        {
-            name: 'required',
-            message: (value, field) => {
-                return `Field '${field.templateOptions.label}' is required!`;
-            }
-        },
-        {
-            name: 'minLength',
-            message: (value, field) => {
-                return `Field '${field.templateOptions.label}' needs to have atleast ${field.templateOptions.minLength} characters!`;
-            }
-        }
-    ]
-});
-
-// tslint:disable-next-line:variable-name
 const BasicStory: SFC = function () {
     const initialValues = {
         firstName: ''
@@ -38,8 +13,9 @@ const BasicStory: SFC = function () {
         {
             key: 'firstName',
             type: 'input',
+            wrappers: ['form-group'],
             templateOptions: {
-                label: 'First name',
+                label: 'Firstname',
                 minLength: 5,
                 required: true
             }
@@ -65,14 +41,11 @@ const BasicStory: SFC = function () {
                 );
             }}>
             </RcFormlyForm>
-            <div>
-                Submitted value: { JSON.stringify(submittedModel)}
-            </div>
         </div>
     );
 };
 
-storiesOf('@rc-formly/core/1. Basic', module).add('first', () => {
+storiesOf('@rc-formly/bootstrap/2. Form group', module).add('Form group with label', () => {
     return (
         <BasicStory />
     );
