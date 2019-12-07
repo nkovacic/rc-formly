@@ -76,13 +76,13 @@ stages:
 
     - task: Yarn@3
       displayName: 'yarn release:canary'
-      condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
       inputs:
         arguments: 'release:canary'
 
     - task: Yarn@3
       displayName: 'yarn release:auto'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
         arguments: 'release:auto'
     
