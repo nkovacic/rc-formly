@@ -22,18 +22,22 @@ stages:
       displayName: 'GitVersion'
       inputs:
         runtime: 'core'
+
     - task: UseNode@1
       displayName: 'Install Node.js version 12.x'
       inputs:
         version: '12.x'
+
     - task: YarnInstaller@3
       displayName: 'Install yarn.js version 1.x'
       inputs:
         versionSpec: '1.x'
+
     - task: Yarn@3
       displayName: 'yarn install'
       inputs:
         arguments: 'install'
+
     - task: Yarn@3
       displayName: 'yarn clean'
       inputs:
@@ -50,3 +54,10 @@ stages:
       displayName: 'yarn build'
       inputs:
         arguments: 'build'
+
+    - task: PowerShell@2
+        displayName: 'Create .npmrc'
+        inputs:
+          targetType: inline
+          script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
+          failOnStderr: true
