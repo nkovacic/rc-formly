@@ -69,6 +69,7 @@ stages:
 
     - task: PowerShell@2
       displayName: 'Create .npmrc'
+      condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
       inputs:
         targetType: inline
         script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
