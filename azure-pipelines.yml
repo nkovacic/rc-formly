@@ -7,7 +7,7 @@ trigger:
     include:
     - master
     - develop
-    - releases/*
+    - release/*
   paths:
     exclude:
       - docs
