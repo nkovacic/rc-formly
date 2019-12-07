@@ -56,8 +56,8 @@ stages:
         arguments: 'build'
 
     - task: PowerShell@2
-        displayName: 'Create .npmrc'
-        inputs:
-          targetType: inline
-          script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
-          failOnStderr: true
+      displayName: 'Create .npmrc'
+      inputs:
+        targetType: inline
+        script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
+        failOnStderr: true
