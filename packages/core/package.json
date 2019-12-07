@@ -1,24 +1,23 @@
 {
-  "name": "@rc-formly/core",
-  "version": "0.0.1",
-  "description": "c",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "repository": "",
-  "author": "nkovacic",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "lib"
-  ],
-  "dependencies": {
-  },
-  "peerDependencies": {
-    "formik": "^1.5.7",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "yup": "^0.27.0"
-  }
+    "name": "@rc-formly/core",
+    "version": "0.0.1",
+    "description": "c",
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts",
+    "repository": "",
+    "author": "nkovacic",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "lib"
+    ],
+    "dependencies": {},
+    "peerDependencies": {
+        "formik": "^1.5.7",
+        "react": "^16.8.0",
+        "react-dom": "^16.8.0",
+        "yup": "^0.27.0"
+    }
 }
