@@ -66,7 +66,7 @@ stages:
     #   inputs:
     #     arguments: 'test'
   - job: Publish
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
     steps:
       - task: PowerShell@2
         displayName: 'Create .npmrc'
