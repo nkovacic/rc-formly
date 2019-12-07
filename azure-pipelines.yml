@@ -23,6 +23,10 @@ pr:
       - docs
       - README.MD
 
+variables:
+  'Build.GitEmail': 'niko.kovacic2@gmail.com'
+  'Build.GitUserName': 'nkovacic'
+
 stages:
 - stage: Build
   jobs:
@@ -71,6 +75,14 @@ stages:
       inputs:
         targetType: inline
         script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
+        failOnStderr: true
+
+    - task: PowerShell@2
+      displayName: 'Setup git'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+      inputs:
+        targetType: inline
+        script: 'git config --global user.email "$(Build.GitEmail)"; git config --global user.name "$(Build.GitUserName)";'
         failOnStderr: true
 
     - task: Yarn@3
