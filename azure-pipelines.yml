@@ -84,7 +84,7 @@ stages:
         targetType: inline
         script: 'git config --global user.email "$(Build.GitEmail)";
          git config --global user.name "$(Build.GitUserName)";
-         $repository = -joins($env:BUILD_REPOSITORY_URI, ".git");
+         $repository = -join($env:BUILD_REPOSITORY_URI, ".git");
          $githubPat = -join($env:BUILD_GITHUBPAT, "@");
          $repository = $repository.Insert($repository.IndexOf("github"), $githubPat);
          git remote rm origin;
