@@ -89,7 +89,7 @@ stages:
          $repository = $repository.Insert($repository.IndexOf("github"), $githubPat);
          git remote rm origin;
          git remote add origin $repository;
-         git fetch origin;'
+         git fetch origin -q;'
         failOnStderr: true
 
     - task: Yarn@3
