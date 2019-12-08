@@ -85,7 +85,11 @@ stages:
         script: 'git config --global user.email "$(Build.GitEmail)";
          git config --global user.name "$(Build.GitUserName)";
          $repository = $env:BUILD_REPOSITORY_URI;
-         $githubPat = -join($env:BUILD_GITHUBPAT, "@");
+         $githubPat = $env:BUILD_GITHUBPAT;
+         $githubPat = -join(githubPat, "@");
+
+         Write-Host $githubPat;
+
          $repository = $repository.Insert($repository.IndexOf("github"), $githubPat);
          Write-Host $repository;
          git remote rm origin;
