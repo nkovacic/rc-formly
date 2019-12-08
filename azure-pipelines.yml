@@ -84,16 +84,12 @@ stages:
         targetType: inline
         script: 'git config --global user.email "$(Build.GitEmail)";
          git config --global user.name "$(Build.GitUserName)";
-         $repository = $env:BUILD_REPOSITORY_URI;
-         $githubPat = $env:BUILD_GITHUBPAT;
-         $githubPat = -join($githubPat, "@");
-
-         Write-Host $githubPat;
-
+         $repository = -joins($env:BUILD_REPOSITORY_URI, ".git");
+         $githubPat = -join($env:BUILD_GITHUBPAT, "@");
          $repository = $repository.Insert($repository.IndexOf("github"), $githubPat);
-         Write-Host $repository;
          git remote rm origin;
-         git remote add origin $repository;'
+         git remote add origin $repository;
+         git fetch origin;'
         failOnStderr: true
 
     - task: Yarn@3
