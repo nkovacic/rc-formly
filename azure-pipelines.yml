@@ -87,6 +87,7 @@ stages:
          $repository = $env:BUILD_REPOSITORY_URI;
          $githubPat = -join($env:BUILD_GITHUBPAT, "@");
          $repository = $repository.Insert($repository.IndexOf("github"), $githubPat);
+         Write-Host $repository;
          git remote rm origin;
          git remote add origin $repository;'
         failOnStderr: true
