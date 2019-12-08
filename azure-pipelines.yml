@@ -91,6 +91,8 @@ stages:
          git remote add origin $repository;
          git fetch origin -q;'
         failOnStderr: true
+        env: 
+         BUILD_GITHUBPAT: $(Build.GithubPat)
 
     - task: Yarn@3
       displayName: 'yarn release:version'
