@@ -1,6 +1,6 @@
 {
     "name": "@rc-formly/core",
-    "version": "0.6.0-alpha.12",
+    "version": "0.5.0",
     "description": "c",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
