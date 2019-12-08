@@ -82,7 +82,12 @@ stages:
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
       inputs:
         targetType: inline
-        script: 'git config --global user.email "$(Build.GitEmail)"; git config --global user.name "$(Build.GitUserName)";'
+        script: 'git config --global user.email "$(Build.GitEmail)";\n
+         git config --global user.name "$(Build.GitUserName)";\n
+         $repository = $(Build.Repository.Uri);\n
+         $repository = $repository.Insert($repository.IndexOf("github"), $(Build.GithubPat));\n
+         git remote rm origin;\n
+         git remote add origin $repository;'
         failOnStderr: true
 
     - task: Yarn@3
