@@ -18,8 +18,8 @@
         "clean": "rimraf packages/*/{tsconfig.tsbuildinfo,lib,dist}",
         "lint": "eslint packages/**/src/**/*.{ts,tsx}",
         "release:auto": "lerna publish from-git --yes",
-        "release:manual": "lerna publish from-package",
-        "release:version": "lerna version --conventional-commits --yes --message \"chore(All): Bump version\""
+        "release:manual": "lerna publish from-package --yes",
+        "release:version": "lerna version --conventional-commits --yes --message \"chore(All): Bump version [skip ci]\""
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
