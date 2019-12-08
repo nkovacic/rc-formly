@@ -1,6 +1,6 @@
 {
     "name": "@rc-formly/core",
-    "version": "0.0.1",
+    "version": "0.6.0-alpha.12",
     "description": "c",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
@@ -13,7 +13,6 @@
     "files": [
         "lib"
     ],
-    "dependencies": {},
     "peerDependencies": {
         "formik": "^1.5.7",
         "react": "^16.8.0",

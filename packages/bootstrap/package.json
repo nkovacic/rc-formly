@@ -1,6 +1,6 @@
 {
     "name": "@rc-formly/bootstrap",
-    "version": "0.0.1",
+    "version": "0.6.0-alpha.12",
     "description": "",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
@@ -20,7 +20,6 @@
         "clean": "rimraf tsconfig.tsbuildinfo lib dist",
         "prepare": "tsc"
     },
-    "dependencies": {},
     "devDependancies": {
         "@rc-formly/core": "^0.0.1"
     },
