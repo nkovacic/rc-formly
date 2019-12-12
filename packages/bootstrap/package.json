@@ -1,10 +1,9 @@
 {
     "name": "@rc-formly/bootstrap",
     "version": "0.5.0",
-    "description": "",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "repository": "",
+    "repository": "https://github.com/nkovacic/rc-formly",
     "author": "nkovacic <nkovacic@gmail.com>",
     "license": "MIT",
     "publishConfig": {
@@ -20,11 +19,10 @@
         "clean": "rimraf tsconfig.tsbuildinfo lib dist",
         "prepare": "tsc"
     },
-    "devDependancies": {
-        "@rc-formly/core": "^0.0.1"
+    "dependencies": {
+        "@rc-formly/core": "^0.6.0-alpha.12"
     },
     "peerDependencies": {
-        "@rc-formly/core": "^0.0.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0"
     }

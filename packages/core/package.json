@@ -1,10 +1,9 @@
 {
     "name": "@rc-formly/core",
     "version": "0.5.0",
-    "description": "c",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "repository": "",
+    "repository": "https://github.com/nkovacic/rc-formly",
     "author": "nkovacic",
     "license": "MIT",
     "publishConfig": {
@@ -16,7 +15,6 @@
     "peerDependencies": {
         "formik": "^1.5.7",
         "react": "^16.8.0",
-        "react-dom": "^16.8.0",
         "yup": "^0.27.0"
     }
 }
