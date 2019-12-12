@@ -19,11 +19,10 @@
         "clean": "rimraf tsconfig.tsbuildinfo lib dist",
         "prepare": "tsc"
     },
-    "devDependancies": {
-        "@rc-formly/core": "^0.0.1"
+    "dependencies": {
+        "@rc-formly/core": "^0.6.0-alpha.12"
     },
     "peerDependencies": {
-        "@rc-formly/core": "^0.0.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0"
     }

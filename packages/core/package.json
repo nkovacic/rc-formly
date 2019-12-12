@@ -15,7 +15,6 @@
     "peerDependencies": {
         "formik": "^1.5.7",
         "react": "^16.8.0",
-        "react-dom": "^16.8.0",
         "yup": "^0.27.0"
     }
 }
