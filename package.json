@@ -17,7 +17,7 @@
         "build:stories": "lerna run build --stream --scope=@rc-formly/stories",
         "clean": "rimraf packages/*/{tsconfig.tsbuildinfo,lib,dist}",
         "lint": "eslint packages/**/src/**/*.{ts,tsx}",
-        "prerelase": "lerna publish --canary --conventional-commits --preid beta --yes",
+        "prerelease": "lerna publish --canary --conventional-commits --preid beta --yes",
         "release:auto": "lerna publish --conventional-commits --yes --message \"chore(All): Bump version [skip ci]\""
     },
     "devDependencies": {
