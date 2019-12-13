@@ -98,16 +98,10 @@ stages:
         failOnStderr: true
 
     - task: Yarn@3
-      displayName: 'yarn release:version'
+      displayName: 'yarn prerelease'
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
       inputs:
         arguments: 'prerelease'
-
-    - task: Yarn@3
-      displayName: 'yarn release:manual'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
-      inputs:
-        arguments: 'release:manual'
 
     - task: Yarn@3
       displayName: 'yarn release:auto'
