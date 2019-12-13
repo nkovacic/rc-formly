@@ -7,7 +7,7 @@ trigger:
     include:
     - master
     - develop
-    - release/*
+    - release*
   paths:
     exclude:
       - docs
@@ -17,15 +17,15 @@ pr:
   branches:
     include:
     - master
-    - releases/*
+    - release*
   paths:
     exclude:
       - docs
       - README.MD
 
 variables:
-  'Build.GitEmail': 'niko.kovacic2@gmail.com'
-  'Build.GitUserName': 'nkovacic'
+  'Build.GitEmail': 'ci-bot@gmail.com'
+  'Build.GitUserName': 'ci-bot'
 
 stages:
 - stage: Build
@@ -61,6 +61,11 @@ stages:
       displayName: 'yarn build'
       inputs:
         arguments: 'build'
+
+    # - task: Yarn@3
+    #   displayName: 'yarn lint'
+    #   inputs:
+    #     arguments: 'lint'
     # - task: Yarn@3
     #   displayName: 'yarn pretest (build)'
     #   inputs:
@@ -94,13 +99,19 @@ stages:
 
     - task: Yarn@3
       displayName: 'yarn release:version'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
       inputs:
-        arguments: 'release:version $(GitVersion.SemVer)'
+        arguments: 'prerelease'
 
     - task: Yarn@3
       displayName: 'yarn release:manual'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
       inputs:
         arguments: 'release:manual'
+
+    - task: Yarn@3
+      displayName: 'yarn release:auto'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      inputs:
+        arguments: 'release:auto'
     
