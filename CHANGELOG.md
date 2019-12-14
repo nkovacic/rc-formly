@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/nkovacic/rc-formly/compare/v0.5.1...v0.5.2) (2019-12-14)
+
+
+### Bug Fixes
+
+* **modules:** added README.md to core and bootstrap module. ([5f835b0](https://github.com/nkovacic/rc-formly/commit/5f835b0))
+* **modules:** added README.md to core and bootstrap module. ([f42fd3a](https://github.com/nkovacic/rc-formly/commit/f42fd3a))
+
+
+
+
+
+
 ## [0.5.1](https://github.com/nkovacic/rc-formly/compare/v0.5.0...v0.5.1) (2019-12-14)
 
 
