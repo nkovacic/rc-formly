@@ -76,7 +76,7 @@ stages:
     #     arguments: 'test'
     - task: PowerShell@2
       displayName: 'Create .npmrc'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
         targetType: inline
         script: "$text = '//registry.npmjs.org/:_authToken=$(Build.NpmAuthToken)'; $text > '.npmrc'"
@@ -84,7 +84,7 @@ stages:
 
     - task: PowerShell@2
       displayName: 'Setup git'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
         targetType: inline
         script: 'git config --global user.email "$(Build.GitEmail)";
@@ -98,10 +98,10 @@ stages:
         failOnStderr: true
 
     - task: Yarn@3
-      displayName: 'yarn prerelease'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))
+      displayName: 'yarn release:canary'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
-        arguments: 'prerelease'
+        arguments: 'release:canary'
 
     - task: Yarn@3
       displayName: 'yarn release:auto'

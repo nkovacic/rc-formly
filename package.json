@@ -17,8 +17,10 @@
         "build:stories": "lerna run build --stream --scope=@rc-formly/stories",
         "clean": "rimraf packages/*/{tsconfig.tsbuildinfo,lib,dist}",
         "lint": "eslint packages/**/src/**/*.{ts,tsx}",
-        "prerelease": "lerna publish --canary --conventional-commits --preid beta --yes",
-        "release:auto": "lerna publish --conventional-commits --yes --message \"chore(All): Bump version [skip ci]\""
+        "release:canary": "lerna publish --canary --conventional-commits --yes",
+        "release:auto": "lerna publish from-git --yes",
+        "release:manual": "lerna publish from-package",
+        "release:version": "lerna version --conventional-commits --yes --message \"chore(All): Bump version\""
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
