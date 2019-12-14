@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/nkovacic/rc-formly/compare/v0.5.0...v0.5.1) (2019-12-14)
+
+
+### Bug Fixes
+
+* **core:** removed cycle from IRcFormlyFormProps. Prepared eslint for linting. ([ee9dd4d](https://github.com/nkovacic/rc-formly/commit/ee9dd4d))
+* **modules:** fixed typo in packages.json (prerelase -> prerelease). ([dcd5cad](https://github.com/nkovacic/rc-formly/commit/dcd5cad))
+* **modules:** moved packages from peer dependancies to dependancies ([3d20e4d](https://github.com/nkovacic/rc-formly/commit/3d20e4d))
+
+
+
+
+
+
 
 
 **Note:** Version bump only for package rc-formly
