@@ -13,11 +13,12 @@ export interface IRcFormlyFormProps<T = any> {
     values: T;
 }
 
-export interface IRcFormlyProps {
+export interface IRcFormlyProps<TModel = any> {
     changeFieldConfig(fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig): void;
     changeFieldConfigs(changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]): void;
-    resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
-    resetForm(values: any): void;
+    handleSubmit?(e: React.FormEvent<any>): void;
+    resetForm(resetFormValuesFunction: (existingValues: TModel) => TModel): void;
+    resetForm(values: TModel): void;
     setFieldValue(field: string, value: any): void;
     setFieldError(field: string, message: string): void;
     setFieldTouched(field: string, isTouched?: boolean): void;

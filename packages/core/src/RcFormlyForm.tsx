@@ -14,12 +14,12 @@ export interface IRcFormlyFormRef {
     submit(): void;
 }
 
-interface Props {
-    render?(props: FormikProps<any>, renderFields: () => React.ReactNode): React.ReactNode;
-    onSubmit?(model: any, formikProps: FormikProps<any>): void;
-    onValidate?(model: any, isValid: boolean): void;
+interface Props<TModel = any> {
+    render?(props: IRcFormlyProps<TModel>, renderFields: () => React.ReactNode): React.ReactNode;
+    onSubmit?(model: TModel, formlyProps: IRcFormlyProps<any>): void;
+    onValidate?(model: TModel, isValid: boolean): void;
     fields: IFormlyFieldConfig[];
-    model?: any;
+    model?: TModel;
     enableFieldConfigsReinitialize?: boolean;
 }
 
@@ -64,6 +64,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         return {
             changeFieldConfig: this.changeFieldConfig,
             changeFieldConfigs: this.changeFieldConfigs,
+            handleSubmit: this.formikProps!.handleSubmit,
             resetForm: this.resetForm,
             setFieldError: this.formikProps!.setFieldError,
             setFieldTouched: this.formikProps!.setFieldTouched,
@@ -92,7 +93,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
 
     onFormikSubmit = (model: any) => {
         if (this.props.onSubmit) {
-            this.props.onSubmit(model, this.formikProps!);
+            this.props.onSubmit(model, this.getFormlyProps());
         }
     }
 
@@ -154,7 +155,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
                         this.isFormSubmitting = props.isSubmitting;
 
                         if (this.props.render) {
-                            return this.props.render(this.formikProps, this.renderFields);
+                            return this.props.render(this.getFormlyProps(), this.renderFields);
                         }
 
                         return this.renderFields();
