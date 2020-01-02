@@ -30,9 +30,9 @@ const BasicStory: SFC = function () {
 
     return (
         <div>
-            <RcFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formikProps, renderFields) => {
+            <RcFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formlyProps, renderFields) => {
                 return (
-                    <form onSubmit={formikProps.handleSubmit}>
+                    <form onSubmit={formlyProps.handleSubmit}>
                         { renderFields() }
                         <button type="submit" style={ { marginTop: '10px' }}>
                             Submit

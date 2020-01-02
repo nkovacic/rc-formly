@@ -20,7 +20,7 @@
         "release:canary": "lerna publish --canary --conventional-commits --yes",
         "release:auto": "lerna publish from-git --yes",
         "release:manual": "lerna publish from-package",
-        "release:version": "lerna version --conventional-commits --yes --message \"chore(All): Bump version\""
+        "release:version": "env-cmd lerna version --conventional-commits --create-release github --yes --message \"chore(All): Bump version\""
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
@@ -34,6 +34,7 @@
         "@typescript-eslint/eslint-plugin": "^2.11.0",
         "@typescript-eslint/parser": "^2.11.0",
         "babel-jest": "^24.8.0",
+        "env-cmd": "^10.0.1",
         "eslint": "^6.6.0",
         "eslint-config-airbnb-typescript-prettier": "^1.4.1",
         "formik": "^1.5.7",
@@ -45,7 +46,7 @@
         "react-test-renderer": "^16.8.6",
         "rimraf": "^2.6.3",
         "ts-jest": "^24.0.2",
-        "typescript": "^3.4.5",
+        "typescript": "^3.7.3",
         "yup": "^0.27.0"
     },
     "version": "0.1.0"

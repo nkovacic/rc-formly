@@ -12,3 +12,6 @@ public
 tsconfig.tsbuildinfo
 
 .npmrc
+
+#env file for lerna GH_TOKEN
+.env
