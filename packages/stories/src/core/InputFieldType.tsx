@@ -20,7 +20,7 @@ export class InputFieldType extends RcFormlyField {
         return 'text';
     }
 
-    onTextChange = (evt: ChangeEvent<HTMLInputElement>) => {        
+    onTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
         this.handleChange(evt.target.value);
     }
 
@@ -30,16 +30,18 @@ export class InputFieldType extends RcFormlyField {
         const inputType = this.getInputType();
         const error = this.getFirstError();
 
+        console.log('rendered Input field type');
+
         return (
             <div>
                 <label>
                     { label }
                 </label>
                 <input type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange} placeholder={placeholder} />
-                { error 
+                { error
                     && <div style={ { color: 'red' } }>
                         { error }
-                    </div> 
+                    </div>
                 }
             </div>
         );

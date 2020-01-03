@@ -1,5 +1,7 @@
 import { IConstructor } from './generics';
 
+const DEFAULT_GUID = '00000000-0000-0000-0000-000000000000';
+
 export class UtilityHelper {
     static equals(...objects: any[]) {
         if (!objects || objects.length < 1) {
@@ -53,29 +55,62 @@ export class UtilityHelper {
         return value instanceof Error;
     }
 
-    static isEmpty(obj: any) {
-        if (obj) {
-            if (!this.isObject(obj) || !this.isArray(obj)) {
-                return false;
-            }
-
-            if (this.isArray(obj) && (obj as any[]).length > 0) {
-                return false;
-            }
-
-            let key;
-
-            for (key in obj) {
-                if (this.isArray(obj) || obj.hasOwnProperty(key)) {
-                    return false;
-                }
-            }
+    static isEmpty(val: any): boolean {
+        // Null and Undefined...
+        if (UtilityHelper.isUndefinedOrNull(val)) {
+            return true;
         }
-        else if (this.isNumber(obj)) {
+
+        // Booleans..., Numbers...
+        if (UtilityHelper.isBoolean(val) || UtilityHelper.isNumber(val)) {
             return false;
         }
 
-        return true;
+        // Strings...
+        if (UtilityHelper.isString(val)) {
+            return val.length === 0 || val === ' ' || val === DEFAULT_GUID;
+        }
+
+        // Functions...
+        if (UtilityHelper.isFunction(val)) {
+            return val.length === 0;
+        }
+
+        // Arrays...
+        if (UtilityHelper.isArray(val)) {
+            return val.length === 0 || (val as any[]).every(q => UtilityHelper.isEmpty(q));
+        }
+
+        // Errors...
+        if (val instanceof Error) {
+            return val.message === "";
+        }
+
+        // Objects...
+        if (val.toString == toString) {
+            switch (val.toString()) {
+                // Maps, Sets, Files and Errors...
+                case "[object File]":
+                case "[object Map]":
+                case "[object Set]": {
+                    return val.size === 0;
+                }
+
+                // Plain objects...
+                case "[object Object]": {
+                    for (var key in val) {
+                        if (Object.prototype.hasOwnProperty.call(val, key)) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        // Anything else...
+        return false;
     }
 
     static isNotEmpty(obj: any) {
@@ -112,6 +147,10 @@ export class UtilityHelper {
 
     static isUndefined(value: any) {
         return typeof value === 'undefined';
+    }
+
+    static isUndefinedOrNull(value: any) {
+        return UtilityHelper.isUndefined(value) || value == null;
     }
 
     static isPropertyInObject(property: any, value: Object) {
@@ -165,7 +204,7 @@ export class UtilityHelper {
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             }
-            
+
             if (typeof y[p] !== typeof x[p]) {
                 return false;
             }
@@ -175,7 +214,7 @@ export class UtilityHelper {
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             }
-            
+
             if (typeof y[p] !== typeof x[p]) {
                 return false;
             }

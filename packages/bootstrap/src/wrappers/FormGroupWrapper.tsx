@@ -3,13 +3,14 @@ import { RcFormlyWrapper } from '@rc-formly/core';
 
 export class FormGroupWrapper extends RcFormlyWrapper {
     getFormGroupClassNames() {
-        return `form-group ${this.hasErrors() ? 'has-error' : '' }`; 
+        return `form-group ${this.hasErrors() ? 'has-error' : '' }`;
     }
 
     render() {
         const error = this.getFieldError();
         const touched = this.getFieldTouched()
-        const formGroupClassNames = `form-group ${error && touched ? 'has-error' : '' }`;
+        const showError = error && touched;
+        const formGroupClassNames = `form-group ${ showError ? 'has-error' : '' }`;
 
         return (
             <div className={formGroupClassNames}>
@@ -17,10 +18,10 @@ export class FormGroupWrapper extends RcFormlyWrapper {
                     this.to!.label && <label>
                         { this.to!.label}
                     </label>
-                } 
+                }
                 { this.props.children }
                 {
-                    error && <div className="invalid-feedback">
+                    showError && <div className="invalid-feedback">
                         { error }
                     </div>
                 }
