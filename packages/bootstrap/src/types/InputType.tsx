@@ -15,14 +15,14 @@ export class InputType extends RcFormlyField {
     }
 
     render() {
-        const inputClassNames = `form-group ${this.hasErrors() ? 'has-error' : '' }`;
+        const inputClassNames = `form-control ${this.hasErrors() ? 'has-error' : '' }`;
         const placholder = this.to && this.to.placeholder ? this.to.placeholder : '';
 
         return (
-            <input 
-                className={inputClassNames} 
-                name={this.getFieldKey()} 
-                type={this.type} 
+            <input
+                className={inputClassNames}
+                name={this.getFieldKey()}
+                type={this.type}
                 onBlur={this.handleBlur}
                 onChange={this.onChange}
                 placeholder={placholder}

@@ -29,12 +29,12 @@ interface IConfigOption {
     wrappers?: IWrapperOption[];
 }
 
-interface IValidatorOption {
+export interface IValidatorOption {
     name: string;
     validator: (value: any, field: IFormlyFieldConfig) => Promise<boolean> | boolean;
 }
 
-interface IValidatorMessageOption {
+export interface IValidatorMessageOption {
     name: string;
     message: (value: any, field: IFormlyFieldConfig, formikProps: FormikProps<any>) => string;
 }
