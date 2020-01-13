@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { IFormlyFieldConfig, IRcFormlyProps } from './RcFormlyFieldConfig';
 
-import RootFormikFormlyWrapper from './RootRcFormlyWrapper';
+import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
 import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 
@@ -105,7 +105,6 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
 
             this.validationSchema!
                 .validate(model, { abortEarly: false, context: { formikProps: this.formikProps } })
-            //validateYupSchema(model, this.validationSchema)
                 .then(
                     () => {
                         if (this.props.onValidate) {
@@ -135,7 +134,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         const formlyProps = this.getFormlyProps();
 
         return (
-            <RootFormikFormlyWrapper fields={this.state.fields} formlyProps={formlyProps} />
+            <RcFormlyFieldRenderer fields={this.state.fields} formlyProps={formlyProps} />
         );
     }
 

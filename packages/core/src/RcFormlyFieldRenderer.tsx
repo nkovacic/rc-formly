@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FieldArray } from 'formik';
 
 import { IFormlyFieldConfig, IRcFormlyProps } from './RcFormlyFieldConfig';
 import { RcFormlyConfig } from './RcFormlyConfig';
@@ -10,26 +11,41 @@ interface Props {
     formlyProps: IRcFormlyProps;
 }
 
-class RootFormikFormlyWrapper extends Component<Props> {
+class RcFormlyFieldRenderer extends Component<Props> {
     renderFields(fields: IFormlyFieldConfig[]) {
         return fields.map((field, index) => {
             if (!UtilityHelper.isEmpty(field.wrappers)) {
                 return this.renderWrappers(field, [...field.wrappers!], this.props.formlyProps, index);
             }
 
-            return this.renderType(field, index);
+            return this.renderType(field);
         });
     }
 
-    renderType(field: IFormlyFieldConfig, fieldIndex?: number) {
+    renderType(field: IFormlyFieldConfig) {
         const fieldType = RcFormlyConfig.getType(field.type!);
 
         if (fieldType && !field.hide) {
             // tslint:disable-next-line:variable-name
             const FieldComponent = fieldType.component;
 
+            if (field.fieldArray) {
+                return (
+                    <FieldArray
+                        key={field.key}
+                        name={field.key!}
+                        render={({ form, name, ...otherProps }) => (
+                            <FieldComponent field={field} fieldType={fieldType}
+                                formlyArrayHelpers={otherProps}
+                                formlyProps={this.props.formlyProps} styles={field.style}
+                            />
+                        )}
+                    />
+                )
+            }
+
             return (
-                <FieldComponent key={fieldIndex} field={field} fieldType={fieldType}
+                <FieldComponent key={field.key} field={field} fieldType={fieldType}
                     formlyProps={this.props.formlyProps} styles={field.style}
                 />
             );
@@ -43,7 +59,7 @@ class RootFormikFormlyWrapper extends Component<Props> {
         formlyProps: IRcFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
         if (UtilityHelper.isEmpty(wrappers)) {
             if (field.type) {
-                return this.renderType(field, fieldIndex);
+                return this.renderType(field);
             }
             
             if (!UtilityHelper.isEmpty(field.fieldGroup)) {
@@ -75,4 +91,4 @@ class RootFormikFormlyWrapper extends Component<Props> {
     }
 }
 
-export default RootFormikFormlyWrapper;
+export default RcFormlyFieldRenderer;
