@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/nkovacic/rc-formly/compare/v0.5.2...v0.6.0) (2020-01-13)
+
+
+### Bug Fixes
+
+* **bootstrap:** errors are now shown only after first blur. ([dc94158](https://github.com/nkovacic/rc-formly/commit/dc94158))
+
+
+
+
+
+
 ## [0.5.2](https://github.com/nkovacic/rc-formly/compare/v0.5.1...v0.5.2) (2019-12-14)
 
 
