@@ -27,17 +27,16 @@ export class InputFieldType extends RcFormlyField {
     render() {
         const templateOptions = this.props.field.templateOptions || { };
         const { label, placeholder } = templateOptions;
+        const value = this.getFieldValue();
         const inputType = this.getInputType();
         const error = this.getFirstError();
-
-        console.log('rendered Input field type');
 
         return (
             <div>
                 <label>
                     { label }
                 </label>
-                <input type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange} placeholder={placeholder} />
+                <input type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange} placeholder={placeholder} value={value} />
                 { error
                     && <div style={ { color: 'red' } }>
                         { error }

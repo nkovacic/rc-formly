@@ -1,4 +1,4 @@
-import { KeyValueObject } from './types';
+import { KeyValueObject } from "./types";
 
 export declare type FormErrors<Values> = {
     [K in keyof Values]?: Values[K] extends object ? FormErrors<Values[K]> : string;
@@ -23,7 +23,7 @@ export interface IRcFormlyProps<TModel = any> {
     setFieldError(field: string, message: string): void;
     setFieldTouched(field: string, isTouched?: boolean): void;
     submit(): void;
-    formProps: IRcFormlyFormProps<any>;
+    formProps: IRcFormlyFormProps<TModel>;
 }
 
 export interface IFormlyFieldConfig {
@@ -63,6 +63,7 @@ export interface IFormlyFieldConfig {
      * (useful if it's different than the model for the rest of the fields).
      */
     fieldGroup?: IFormlyFieldConfig[];
+    fieldArray?: IFormlyFieldConfig;
     /**
      * This should be a formly-field type added either by you or a plugin. More information over at Creating Formly Fields.
      */
