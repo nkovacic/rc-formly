@@ -13,7 +13,11 @@ addParameters({
 // Automatically import all files ending in *.stories.tsx
 const req = require.context("../src", true, /.stories.tsx$/);
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach(filename => {
+    console.log('Story filename ' + filename + ' loaded!');
+    
+    req(filename)
+  });
 }
 
 configure(loadStories, module);

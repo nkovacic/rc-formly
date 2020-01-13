@@ -72,9 +72,9 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
     }
 
     protected renderFieldGroup() {
-        if (this.props.field && this.props.field.fieldGroup) {
+        if (this.props.field.fieldArray?.fieldGroup) {
             return (
-                <RcFormlyFieldRenderer fields={this.props.field.fieldGroup} formlyProps={this.props.formlyProps} />
+                <RcFormlyFieldRenderer fields={this.props.field.fieldArray?.fieldGroup} formlyProps={this.props.formlyProps} />
             );
         }
 

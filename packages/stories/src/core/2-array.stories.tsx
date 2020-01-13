@@ -2,32 +2,13 @@ import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
 import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
-import { InputFieldType } from './InputFieldType';
 import { RepeatValueArrayType } from './RepeatValueArrayType';
 
 RcFormlyConfig.addConfig({
     types: [
         {
-            name: 'basicInput',
-            component: InputFieldType
-        },
-        {
             name: 'basicRepeat',
             component: RepeatValueArrayType
-        }
-    ],
-    validatorMessages: [
-        {
-            name: 'required',
-            message: (value, field) => {
-                return `Field '${field.templateOptions.label}' is required!`;
-            }
-        },
-        {
-            name: 'minLength',
-            message: (value, field) => {
-                return `Field '${field.templateOptions.label}' needs to have atleast ${field.templateOptions.minLength} characters!`;
-            }
         }
     ]
 });
@@ -35,7 +16,7 @@ RcFormlyConfig.addConfig({
 // tslint:disable-next-line:variable-name
 const ArrayStory: SFC = () => {
     const initialValues = {
-        firstName: ''
+        values: []
     };
     const [submittedModel, setSubmittedModel] = useState(null);
 
@@ -43,6 +24,10 @@ const ArrayStory: SFC = () => {
         {
             key: 'values',
             type: 'basicRepeat',
+            templateOptions: {
+                required: true,
+                valueProp: 'newValue'
+            },
             fieldArray: {
                 fieldGroup: [
                     {
@@ -55,11 +40,6 @@ const ArrayStory: SFC = () => {
                         }
                     }
                 ]
-            },
-            templateOptions: {
-                label: 'First name',
-                minLength: 5,
-                required: true
             }
         }
     ];
@@ -90,7 +70,7 @@ const ArrayStory: SFC = () => {
     );
 };
 
-storiesOf('@rc-formly/core/2. Array', module).add('firstArray', () => {
+storiesOf('@rc-formly/core/2. Arrays', module).add('Add values to array', () => {
     return (
         <ArrayStory />
     );

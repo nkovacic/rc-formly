@@ -3,7 +3,10 @@ import { RcFormlyArrayField } from '@rc-formly/core';
 
 export class RepeatValueArrayType extends RcFormlyArrayField {
     addNewVlaue = () => {
+        const value = this.props.formlyProps.formProps.values[this.to.valueProp];
 
+        this.pushValue(value);
+        this.props.formlyProps.setFieldValue(this.to.valueProp, '');
     }
 
     render() {
@@ -12,7 +15,7 @@ export class RepeatValueArrayType extends RcFormlyArrayField {
         return (
             <div>
                 { this.renderFieldGroup() }
-                { value?.map(q => <div>{q}</div>)}
+                { value?.map((q, index) => <div key={index}>{q}</div>)}
                 <div>
                     <button onClick={this.addNewVlaue} type="button">
                         Add new value
