@@ -40,12 +40,12 @@ stages:
     - task: UseNode@1
       displayName: 'Install Node.js version 12.x'
       inputs:
-        version: '12.x'
+        version: '12.13.0'
 
     - task: YarnInstaller@3
       displayName: 'Install yarn.js version 1.x'
       inputs:
-        versionSpec: '1.x'
+        versionSpec: '1.21.1'
 
     - task: Yarn@3
       displayName: 'yarn install'
