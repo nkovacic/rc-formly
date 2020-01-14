@@ -22,6 +22,7 @@ export interface IRcFormlyProps<TModel = any> {
     setFieldValue(field: string, value: any): void;
     setFieldError(field: string, message: string): void;
     setFieldTouched(field: string, isTouched?: boolean): void;
+    setValues(changeValuesFunc: (values: any) => any): void;
     submit(): void;
     formProps: IRcFormlyFormProps<TModel>;
 }

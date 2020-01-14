@@ -27,7 +27,7 @@ export class InputFieldType extends RcFormlyField {
     render() {
         const templateOptions = this.props.field.templateOptions || { };
         const { label, placeholder } = templateOptions;
-        const value = this.getFieldValue();
+        const value = this.getFieldValue() || '';
         const inputType = this.getInputType();
         const error = this.getFirstError();
 

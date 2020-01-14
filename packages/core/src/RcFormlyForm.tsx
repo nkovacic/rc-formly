@@ -60,6 +60,12 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         });
     }
 
+    private setValues = (changeValuesFunc: (values: any) => any) => {
+        const newValues = changeValuesFunc(this.formikProps?.values);
+
+        this.formikProps?.setValues(newValues);
+    }
+
     getFormlyProps() {
         return {
             changeFieldConfig: this.changeFieldConfig,
@@ -69,13 +75,14 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
             setFieldError: this.formikProps!.setFieldError,
             setFieldTouched: this.formikProps!.setFieldTouched,
             setFieldValue: this.formikProps!.setFieldValue,
+            setValues: this.setValues,
             submit: this.submit,
             formProps: {
                 errors: this.formikProps!.errors,
                 touched: this.formikProps!.touched,
                 values: this.formikProps!.values
             }
-        } as IRcFormlyProps; 
+        } as IRcFormlyProps;
     }
 
     resetForm = (valuesOrResetFunction: any) => {
@@ -87,7 +94,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
             }
             else {
                 this.formikProps.resetForm(valuesOrResetFunction);
-            }      
+            }
         }
     }
 
@@ -101,7 +108,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         return new Promise((resolve, reject) => {
             if (UtilityHelper.isEmpty(this.validationSchema)) {
                 this.validationSchema = makeValidationForFields(this.props.fields);
-            }  
+            }
 
             this.validationSchema!
                 .validate(model, { abortEarly: false, context: { formikProps: this.formikProps } })
@@ -110,14 +117,14 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
                         if (this.props.onValidate) {
                             this.props.onValidate(model, true);
                         }
-    
+
                         resolve({});
                     },
                     (err: any) => {
                         if (this.props.onValidate) {
                             this.props.onValidate(model, false);
                         }
-    
+
                         reject(yupToFormErrors(err));
                     }
                 );

@@ -2,17 +2,6 @@ import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
 import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
-import { RepeatValueArrayType } from './RepeatValueArrayType';
-
-RcFormlyConfig.addConfig({
-    types: [
-        {
-            name: 'basicRepeat',
-            component: RepeatValueArrayType
-        }
-    ]
-});
-
 // tslint:disable-next-line:variable-name
 const ArrayStory: SFC = () => {
     const initialValues = {
