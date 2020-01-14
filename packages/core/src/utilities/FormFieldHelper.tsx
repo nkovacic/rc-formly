@@ -42,13 +42,34 @@ export class FormFieldHelper {
         return this.getKeys(fields, []);
     }
 
+    static proccessFields(
+        fields: IFormlyFieldConfig[],
+        changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) {
+        if (UtilityHelper.isNotEmpty(fields)) {
+            return fields.map((existingField) => {
+                existingField = changeFieldConfigFunction(existingField);
+
+                if (UtilityHelper.isNotEmpty(existingField.fieldGroup)) {
+                    existingField.fieldGroup = FormFieldHelper.proccessFields(existingField.fieldGroup!, changeFieldConfigFunction);
+                }
+                else if (UtilityHelper.isNotEmpty(existingField.fieldArray?.fieldGroup)) {
+                    existingField.fieldArray!.fieldGroup = FormFieldHelper.proccessFields(existingField.fieldArray!.fieldGroup!, changeFieldConfigFunction);
+                }
+
+                return existingField;
+            });
+        }
+
+        return fields;
+    }
+
     static replaceField(
-        fieldKey: string, 
-        fields: IFormlyFieldConfig[], 
+        fieldKey: string,
+        fields: IFormlyFieldConfig[],
         changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) : IFormlyFieldConfig[] {
         if (UtilityHelper.isNotEmpty(fields)) {
             return fields.map((existingField) => {
-                if (existingField.key === fieldKey) {                    
+                if (existingField.key === fieldKey) {
                     return changeFieldConfigFunction(existingField);
                 }
 

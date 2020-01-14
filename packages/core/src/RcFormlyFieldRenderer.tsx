@@ -32,7 +32,7 @@ class RcFormlyFieldRenderer extends Component<Props> {
             if (field.fieldArray) {
                 return (
                     <FieldArray
-                        key={field.key}
+                        key={field.id}
                         name={field.key!}
                         render={({ form, name, ...otherProps }) => (
                             <FieldComponent field={field} fieldType={fieldType}
@@ -45,7 +45,7 @@ class RcFormlyFieldRenderer extends Component<Props> {
             }
 
             return (
-                <FieldComponent key={field.key} field={field} fieldType={fieldType}
+                <FieldComponent key={field.id} field={field} fieldType={fieldType}
                     formlyProps={this.props.formlyProps} styles={field.style}
                 />
             );
@@ -55,13 +55,13 @@ class RcFormlyFieldRenderer extends Component<Props> {
     }
 
     renderWrappers(
-        field: IFormlyFieldConfig, wrappers: string[], 
+        field: IFormlyFieldConfig, wrappers: string[],
         formlyProps: IRcFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null {
         if (UtilityHelper.isEmpty(wrappers)) {
             if (field.type) {
                 return this.renderType(field);
             }
-            
+
             if (!UtilityHelper.isEmpty(field.fieldGroup)) {
                 return this.renderFields(field.fieldGroup!) as JSX.Element[];
             }
