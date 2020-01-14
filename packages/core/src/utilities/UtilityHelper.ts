@@ -35,6 +35,28 @@ export class UtilityHelper {
         return arr;
     }
 
+    static getDotNotationPropertyValue(value: any, dotNotationProperty: string) {
+        if (value) {
+            const splittedDotNotationProperty = dotNotationProperty.split('.');
+
+            while (splittedDotNotationProperty.length && value) {
+                value = value[splittedDotNotationProperty.shift() as string];
+            }
+        }
+
+        return value;
+    }
+
+    static getDotNotationPropertyLast(dotNotationProperty: string) {
+        if (UtilityHelper.isNotEmpty(dotNotationProperty)) {
+            const splittedDotNotationProperty = dotNotationProperty.split('.');
+
+            return splittedDotNotationProperty[splittedDotNotationProperty.length - 1];
+        }
+
+        return '';
+    }
+
     static isArray(array: any) {
         return Array.isArray(array) || array instanceof Array;
     }

@@ -6,6 +6,7 @@ import { IFormlyTypeDefinition } from './RcFormlyConfig';
 import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
 import { KeyValueObject } from './types';
+import { UtilityHelper } from './utilities';
 
 export interface RcFromlyArrayHelpers<T = any> {
     insert: (index: number, value: any) => void;
@@ -36,6 +37,10 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
     }
 
     protected getFieldValue(fieldName = this.getFieldKey()) {
+        if (fieldName.includes('.')) {
+            return UtilityHelper.getDotNotationPropertyValue(this.props.formlyProps?.formProps?.values, fieldName);
+        }
+
         return this.props.formlyProps?.formProps?.values[fieldName];
     }
 
