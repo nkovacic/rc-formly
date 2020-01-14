@@ -42,7 +42,11 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         super(props);
 
         this.state = {
-            fields: this.props.fields
+            fields: FormFieldHelper.proccessFields(this.props.fields, (field) => {
+                field.id = UtilityHelper.createGuid();
+
+                return field;
+            })
         };
     }
 

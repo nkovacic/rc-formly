@@ -1,5 +1,3 @@
-import { IConstructor } from './generics';
-
 const DEFAULT_GUID = '00000000-0000-0000-0000-000000000000';
 
 export class UtilityHelper {
@@ -73,10 +71,6 @@ export class UtilityHelper {
 
     static isBoolean(value: any) {
         return typeof(value) === typeof(true);
-    }
-
-    static isClass<T>(value: any, constructor: IConstructor<T>) {
-        return value instanceof constructor;
     }
 
     static isDefined(value: any) {
