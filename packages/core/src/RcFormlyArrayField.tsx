@@ -35,8 +35,8 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
         return this.props.field.key!;
     }
 
-    protected getFieldValue() {
-        return this.props.formlyProps?.formProps?.values[this.getFieldKey()];
+    protected getFieldValue(fieldName = this.getFieldKey()) {
+        return this.props.formlyProps?.formProps?.values[fieldName];
     }
 
     protected insertValue(index: number, value: any) {
