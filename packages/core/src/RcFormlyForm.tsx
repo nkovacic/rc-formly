@@ -89,15 +89,20 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         } as IRcFormlyProps;
     }
 
-    resetForm = (valuesOrResetFunction: any) => {
+    resetForm = (valuesOrResetFunction?: any) => {
         if (this.formikProps) {
-            if (UtilityHelper.isFunction(valuesOrResetFunction)) {
-                const newValues = valuesOrResetFunction(this.formikProps.values) || {};
+            if (UtilityHelper.isNotEmpty(valuesOrResetFunction)) {
+                if (UtilityHelper.isFunction(valuesOrResetFunction)) {
+                    const newValues = valuesOrResetFunction(this.formikProps.values) || {};
 
-                this.formikProps.resetForm(newValues);
+                    this.formikProps.resetForm(newValues);
+                }
+                else {
+                    this.formikProps.resetForm(valuesOrResetFunction);
+                }
             }
             else {
-                this.formikProps.resetForm(valuesOrResetFunction);
+                this.formikProps.resetForm(this.formikProps.initialValues);
             }
         }
     }
