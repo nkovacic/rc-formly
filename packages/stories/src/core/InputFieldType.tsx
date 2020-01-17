@@ -3,10 +3,11 @@ import { RcFormlyField } from '@rc-formly/core';
 
 export class InputFieldType extends RcFormlyField {
     getFirstError() {
-        const { errors, submitCount } = this.props.formlyProps.formProps;
+        const { submitCount } = this.props.formlyProps.formProps;
+        const error = this.getFieldError();
 
-        if ((this.wasFieldTouched() || submitCount > 0) && errors[this.props.field.key]) {
-            return errors[this.props.field.key] as string;
+        if (error && (this.wasFieldTouched() || submitCount > 0)) {
+            return error;
         }
 
         return null;

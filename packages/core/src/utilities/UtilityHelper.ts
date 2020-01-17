@@ -36,6 +36,10 @@ export class UtilityHelper {
         return true;
     }
 
+    static notEquals(...objects: any[]) {
+        return !UtilityHelper.equals(objects);
+    }
+
     static flatten(arr: any[]) {
         if (this.isArray(arr)) {
             let index: number;
@@ -48,7 +52,7 @@ export class UtilityHelper {
         return arr;
     }
 
-    static getDotNotationPropertyValue(value: any, dotNotationProperty: string) {
+    static getDotNotationPropertyValue<T = any>(value: any, dotNotationProperty: string) {
         if (value) {
             const splittedDotNotationProperty = dotNotationProperty.split('.');
 
@@ -57,7 +61,7 @@ export class UtilityHelper {
             }
         }
 
-        return value;
+        return value as T;
     }
 
     static getDotNotationPropertyLast(dotNotationProperty: string) {

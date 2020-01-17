@@ -15,7 +15,7 @@ export class InputType extends RcFormlyField {
     }
 
     render() {
-        const inputClassNames = `form-control ${this.hasErrors() ? 'has-error' : '' }`;
+        const inputClassNames = `form-control ${this.hasErrors() && this.wasFieldTouched() ? 'has-error' : '' }`;
         const placholder = this.to && this.to.placeholder ? this.to.placeholder : '';
 
         return (
