@@ -1,26 +1,26 @@
 import { Component } from 'react';
 
-import { IRcFormlyProps, IFormlyFieldConfig } from './RcFormlyFieldConfig';
+import { IFormlyTemplateOptions, IRcFormlyProps, IFormlyFieldConfig } from './RcFormlyFieldConfig';
 import { IFormlyTypeDefinition } from './RcFormlyConfig';
 
 import { UtilityHelper } from './utilities';
 import { KeyValueObject } from './types';
 
-export interface RcFormlyFieldProps {
-    field: IFormlyFieldConfig;
+export interface RcFormlyFieldProps<TFormlyTemplateOptions = IFormlyTemplateOptions> {
+    field: IFormlyFieldConfig<TFormlyTemplateOptions>;
     fieldType: IFormlyTypeDefinition;
     formlyProps: IRcFormlyProps;
     model: KeyValueObject;
 }
 
-class RcFormlyField extends Component<RcFormlyFieldProps> {
+class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyFieldProps<TFormlyTemplateOptions>> {
     private currentValue: any;
 
     public get to() {
         return this.props.field.templateOptions;
     }
 
-    constructor(props: RcFormlyFieldProps) {
+    constructor(props: RcFormlyFieldProps<TFormlyTemplateOptions>) {
         super(props);
 
         this.saveCurrentValue();
@@ -62,10 +62,6 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
         return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }
 
-    private hasTemplateOptions() {
-        return !UtilityHelper.isEmpty(this.props.field.templateOptions);
-    }
-
     private saveCurrentValue() {
         this.currentValue = this.getFieldValue();
     }
@@ -101,8 +97,8 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
 
             this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
 
-            if (this.hasTemplateOptions() && this.props.field.templateOptions!.onChange) {
-                this.props.field.templateOptions!.onChange(newValue, oldValue, this.props.formlyProps);
+            if (this.props.field.templateOptions?.onChange) {
+                this.props.field.templateOptions.onChange(newValue, oldValue, this.props.formlyProps);
             }
         }
     }
