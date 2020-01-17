@@ -54,6 +54,10 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
         return false;
     }
 
+    protected wasFormSubmitted() {
+        return this.props.formlyProps?.formProps.submitCount > 0;
+    }
+
     private hasFormProps() {
         return UtilityHelper.isDefined(this.props) && UtilityHelper.isDefined(this.props.formlyProps);
     }

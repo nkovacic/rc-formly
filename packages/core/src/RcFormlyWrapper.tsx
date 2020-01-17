@@ -11,31 +11,35 @@ export interface RcFormlyWrapperProps {
 
 class RcFormlyWrapper extends Component<RcFormlyWrapperProps> {
     public get to() {
-        return this.props.parentField.templateOptions;
+        return this.props.parentField?.templateOptions;
+    }
+
+    protected getFieldKey() {
+        return this.props.parentField?.key;
     }
 
     protected getFieldError() {
-        if (this.props.parentField.key) {
-			const { errors } = this.props.formlyProps.formProps;
+        const fieldKey = this.getFieldKey();
 
-			if (UtilityHelper.isString(errors[this.props.parentField.key])) {
-				return errors[this.props.parentField.key] as string;
-			}
+        if (fieldKey) {
+            return UtilityHelper.getDotNotationPropertyValue(this.props.formlyProps.formProps.errors, fieldKey);
         }
-        
+
         return null;
     }
 
-    protected getFieldTouched() {
-        if (this.props.parentField.key) {
-			const { touched } = this.props.formlyProps.formProps;
+    protected wasFieldTouched() {
+        const fieldKey = this.getFieldKey();
 
-			if (touched[this.props.parentField.key] === true) {
-				return touched[this.props.parentField.key] as boolean;
-			}
+        if (fieldKey) {
+            return UtilityHelper.getDotNotationPropertyValue<boolean>(this.props.formlyProps.formProps.touched, fieldKey) || false;
         }
-        
-        return null;
+
+        return false;
+    }
+
+    protected wasFormSubmitted() {
+        return this.props.formlyProps?.formProps.submitCount > 0;
     }
 
     protected hasErrors() {
@@ -49,6 +53,8 @@ class RcFormlyWrapper extends Component<RcFormlyWrapperProps> {
     protected hasTemplateOptions() {
         return !UtilityHelper.isEmpty(this.props.parentField.templateOptions);
     }
+
+
 }
 
 export default RcFormlyWrapper;

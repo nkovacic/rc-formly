@@ -11,6 +11,7 @@ const FieldValidationNestedStory: SFC = () => {
         {
             key: 'fullName',
             type: 'basicInput',
+            wrappers: ['formElementWrapper'],
             templateOptions: {
                 label: 'Full Name',
                 required: true
@@ -21,6 +22,7 @@ const FieldValidationNestedStory: SFC = () => {
                 {
                     key: 'address.street',
                     type: 'basicInput',
+                    wrappers: ['formElementWrapper'],
                     templateOptions: {
                         label: 'Address street',
                         required: true
@@ -29,6 +31,7 @@ const FieldValidationNestedStory: SFC = () => {
                 {
                     key: 'address.country',
                     type: 'basicInput',
+                    wrappers: ['formElementWrapper'],
                     templateOptions: {
                         label: 'Address country',
                         required: true
