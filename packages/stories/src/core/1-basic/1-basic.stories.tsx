@@ -3,13 +3,19 @@ import React, { useState, SFC } from 'react';
 import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
 import { InputFieldType } from '../InputFieldType';
-import { RepeatValueArrayType } from '../RepeatValueArrayType';
+import { FormElementWrapper } from '../FormElementWrapper';
 
 RcFormlyConfig.addConfig({
     types: [
         {
             name: 'basicInput',
             component: InputFieldType
+        }
+    ],
+    wrappers: [
+        {
+            name: 'formElementWrapper',
+            component: FormElementWrapper
         }
     ],
     validatorMessages: [
