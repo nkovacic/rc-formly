@@ -70,7 +70,9 @@ export class FormFieldHelper {
         if (UtilityHelper.isNotEmpty(fields)) {
             return fields.map((existingField) => {
                 if (existingField.key === fieldKey) {
-                    return changeFieldConfigFunction(existingField);
+                    const clonedExistingField = UtilityHelper.clone(existingField);
+
+                    return changeFieldConfigFunction(clonedExistingField);
                 }
 
                 if (UtilityHelper.isNotEmpty(existingField.fieldGroup)) {

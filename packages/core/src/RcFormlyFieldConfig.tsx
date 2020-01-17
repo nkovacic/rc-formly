@@ -10,6 +10,7 @@ export declare type FormTouched<Values> = {
 export interface IRcFormlyFormProps<T = any> {
     errors: FormErrors<T>;
     touched: FormTouched<T>;
+    submitCount: number;
     values: T;
 }
 
@@ -17,8 +18,9 @@ export interface IRcFormlyProps<TModel = any> {
     changeFieldConfig(fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig): void;
     changeFieldConfigs(changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]): void;
     handleSubmit?(e: React.FormEvent<any>): void;
-    resetForm(resetFormValuesFunction: (existingValues: TModel) => TModel): void;
+    resetForm(): void;
     resetForm(values: TModel): void;
+    resetForm(resetFormValuesFunction: (existingValues: TModel) => TModel): void;
     setFieldValue(field: string, value: any): void;
     setFieldError(field: string, message: string): void;
     setFieldTouched(field: string, isTouched?: boolean): void;
@@ -72,7 +74,7 @@ export interface IFormlyFieldConfig {
 }
 
 export interface IFormlyTemplateOptions {
-    onChange?(newValue: any, oldValue: any, formikFormlyProps: IRcFormlyProps): void;
+    onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps): void;
     onPress?(): void;
     type?: string;
     label?: string;

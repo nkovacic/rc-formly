@@ -12,17 +12,21 @@ interface Props {
 }
 
 class RcFormlyFieldRenderer extends Component<Props> {
-    renderFields(fields: IFormlyFieldConfig[]) {
+    renderFields(fields: IFormlyFieldConfig[]): any  {
         return fields.map((field, index) => {
-            if (!UtilityHelper.isEmpty(field.wrappers)) {
+            if (UtilityHelper.isNotEmpty(field.wrappers)) {
                 return this.renderWrappers(field, [...field.wrappers!], this.props.formlyProps, index);
+            }
+
+            if (!field.type && UtilityHelper.isNotEmpty(field.fieldGroup)) {
+                return this.renderFields(field.fieldGroup!);
             }
 
             return this.renderType(field);
         });
     }
 
-    renderType(field: IFormlyFieldConfig) {
+    renderType(field: IFormlyFieldConfig)  {
         const fieldType = RcFormlyConfig.getType(field.type!);
 
         if (fieldType && !field.hide) {

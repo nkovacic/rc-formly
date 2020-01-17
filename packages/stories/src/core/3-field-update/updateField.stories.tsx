@@ -3,32 +3,32 @@ import React, { useState, SFC } from 'react';
 import { RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
 // tslint:disable-next-line:variable-name
-const ArrayStory: SFC = () => {
-    const initialValues = {
-        values: []
-    };
+const UpdateFieldStory: SFC = () => {
+    const initialValues = {};
     const [submittedModel, setSubmittedModel] = useState(null);
 
     const fields: IFormlyFieldConfig[] = [
         {
-            key: 'values',
-            type: 'basicRepeat',
+            key: 'firstName',
+            type: 'basicInput',
             templateOptions: {
+                label: 'Firstname',
                 required: true,
-                valueProp: 'newValue'
-            },
-            fieldArray: {
-                fieldGroup: [
-                    {
-                        key: 'newValue',
-                        type: 'basicInput',
-                        templateOptions: {
-                            label: 'New value',
-                            minLength: 2,
-                            required: true
-                        }
-                    }
-                ]
+                onChange: (newValue: string, oldValue: string, formlyProps) => {
+                    formlyProps.changeFieldConfig('lastName', q => {
+                        q.templateOptions.disabled = !newValue;
+
+                        return q;
+                    });
+                }
+            }
+        },
+        {
+            key: 'lastName',
+            type: 'basicInput',
+            templateOptions: {
+                label: 'Lastname',
+                required: true,
             }
         }
     ];
@@ -59,8 +59,8 @@ const ArrayStory: SFC = () => {
     );
 };
 
-storiesOf('@rc-formly/core/2. Arrays', module).add('Add values to array', () => {
+storiesOf('@rc-formly/core/3. Field update', module).add('Field update disabled', () => {
     return (
-        <ArrayStory />
+        <UpdateFieldStory />
     );
 });

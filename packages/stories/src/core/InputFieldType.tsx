@@ -3,10 +3,11 @@ import { RcFormlyField } from '@rc-formly/core';
 
 export class InputFieldType extends RcFormlyField {
     getFirstError() {
-        const { errors } = this.props.formlyProps.formProps;
+        const { submitCount } = this.props.formlyProps.formProps;
+        const error = this.getFieldError();
 
-        if (this.wasFieldTouched() && errors[this.props.field.key]) {
-            return errors[this.props.field.key] as string;
+        if (error && (this.wasFieldTouched() || submitCount > 0)) {
+            return error;
         }
 
         return null;
@@ -25,8 +26,7 @@ export class InputFieldType extends RcFormlyField {
     }
 
     render() {
-        const templateOptions = this.props.field.templateOptions || { };
-        const { label, placeholder } = templateOptions;
+        const { disabled, label, placeholder } = this.props.field.templateOptions || { };
         const value = this.getFieldValue() || '';
         const inputType = this.getInputType();
         const error = this.getFirstError();
@@ -36,7 +36,9 @@ export class InputFieldType extends RcFormlyField {
                 <label>
                     { label }
                 </label>
-                <input type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange} placeholder={placeholder} value={value} />
+                <input
+                    type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange}
+                    placeholder={placeholder} disabled={disabled} value={value} />
                 { error
                     && <div style={ { color: 'red' } }>
                         { error }

@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 
 import { IFormlyFieldConfig } from '../RcFormlyFieldConfig';
 import { RcFormlyConfig } from '../RcFormlyConfig';
+import { KeyValueObject } from '../types';
 
 import { UtilityHelper } from './UtilityHelper';
 
@@ -40,7 +41,7 @@ const makeValidationForNumber = (value: any, field: IFormlyFieldConfig) => {
     if (field.templateOptions) {
         if (field.templateOptions.required) {
             yupValidation = yupValidation
-                .when('required', { 
+                .when('required', {
                     is: true,
                     then: Yup.number()
                 })
@@ -51,7 +52,7 @@ const makeValidationForNumber = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.min)) {
             yupValidation = yupValidation
-                .when('min', { 
+                .when('min', {
                     is: true,
                     then: Yup.number()
                 })
@@ -62,7 +63,7 @@ const makeValidationForNumber = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.max)) {
             yupValidation = yupValidation
-                .when('max', { 
+                .when('max', {
                     is: true,
                     then: Yup.number()
                 })
@@ -80,7 +81,7 @@ const makeValidationForMixed = (value: any, field: IFormlyFieldConfig) => {
 
     if (field.templateOptions && field.templateOptions.required) {
         yupValidation = yupValidation
-            .when('required', { 
+            .when('required', {
                 is: true,
                 then: Yup.mixed()
             })
@@ -98,7 +99,7 @@ const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
     if (field.templateOptions) {
         if (field.templateOptions.required) {
             yupValidation = yupValidation
-                .when('required', { 
+                .when('required', {
                     is: true,
                     then: Yup.string()
                 })
@@ -111,7 +112,7 @@ const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.minLength)) {
             yupValidation = yupValidation
-                .when('min', { 
+                .when('min', {
                     is: true,
                     then: Yup.string()
                 })
@@ -122,7 +123,7 @@ const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.maxLength)) {
             yupValidation = yupValidation
-                .when('max', { 
+                .when('max', {
                     is: true,
                     then: Yup.string()
                 })
@@ -133,7 +134,7 @@ const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.min)) {
             yupValidation = yupValidation
-                .when('min', { 
+                .when('min', {
                     is: true,
                     then: Yup.number()
                 })
@@ -144,7 +145,7 @@ const makeValidationForString = (value: any, field: IFormlyFieldConfig) => {
 
         if (UtilityHelper.isNumber(field.templateOptions.max)) {
             yupValidation = yupValidation
-                .when('max', { 
+                .when('max', {
                     is: true,
                     then: Yup.number()
                 })
@@ -163,7 +164,7 @@ const makeValidationForLazy = (value: any, field: IFormlyFieldConfig) => {
     if (field.templateOptions) {
         if (field.templateOptions.required) {
             validations.push(Yup.string()
-                .when('required', { 
+                .when('required', {
                     is: true,
                     then: Yup.mixed()
                 })
@@ -171,10 +172,10 @@ const makeValidationForLazy = (value: any, field: IFormlyFieldConfig) => {
                     return schema.required(validationMessage('required', value, field, formikProps));
                 }));
         }
-    
+
         if (UtilityHelper.isNumber(field.templateOptions.minLength)) {
             validations.push(Yup.string()
-                .when('min', { 
+                .when('min', {
                     is: true,
                     then: Yup.string()
                 })
@@ -182,10 +183,10 @@ const makeValidationForLazy = (value: any, field: IFormlyFieldConfig) => {
                     return schema.min(field.templateOptions!.minLength!, validationMessage('minLength', value, field, formikProps));
                 }));
         }
-    
+
         if (UtilityHelper.isNumber(field.templateOptions.maxLength)) {
             validations.push(Yup.string()
-                .when('max', { 
+                .when('max', {
                     is: true,
                     then: Yup.string()
                 })
@@ -202,24 +203,36 @@ const makeValidationForLazy = (value: any, field: IFormlyFieldConfig) => {
     return combineValidations(validations)!;
 };
 
-export const makeValidationForFields = (fields: IFormlyFieldConfig[]) => {
-    const validationObject = {} as { [key: string]: Yup.Schema<any> | Yup.Lazy };
+const makeValidationObjectRecursive = (field: IFormlyFieldConfig, validationObject: KeyValueObject<Yup.Schema<any> | Yup.Lazy>) => {
+    const fieldType = RcFormlyConfig.getType(field.type!);
 
-    for (const field of fields) {
-        const fieldType = RcFormlyConfig.getType(field.type!);
+    if (fieldType) {
+        validationObject[field.key!] = Yup.lazy((value) => {
+            const lazyValidation = makeValidationForLazy(value, field);
 
-        if (fieldType) {
-            validationObject[field.key!] = Yup.lazy((value) => {
-                const lazyValidation = makeValidationForLazy(value, field);
-                
-                if (UtilityHelper.isArray(fieldType.validators)) {
-                    return combineValidations([lazyValidation, ...fieldType.validators!])!;
-                }
+            if (UtilityHelper.isArray(fieldType.validators)) {
+                return combineValidations([lazyValidation, ...fieldType.validators!])!;
+            }
 
-                return lazyValidation;
-            });
-        }
+            return lazyValidation;
+        });
     }
+
+    let fieldGroup = field.fieldArray?.fieldGroup || field.fieldGroup;
+
+    if (UtilityHelper.isNotEmpty(fieldGroup)) {
+        fieldGroup?.forEach((field) => {
+            makeValidationObjectRecursive(field, validationObject);
+        })
+    }
+};
+
+export const makeValidationForFields = (fields: IFormlyFieldConfig[]) => {
+    const validationObject: KeyValueObject<Yup.Schema<any> | Yup.Lazy> = {};
+
+    fields.forEach((field) => {
+        makeValidationObjectRecursive(field, validationObject);
+    });
 
     return Yup.object().shape(validationObject);
 };

@@ -31,12 +31,10 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
     }
 
     protected getFieldError() {
-        if (this.getFieldKey()) {
-			const { errors, touched } = this.props.formlyProps.formProps;
+        const fieldKey = this.getFieldKey();
 
-			if (touched && UtilityHelper.isString(errors[this.getFieldKey()])) {
-				return errors[this.getFieldKey()] as string;
-			}
+        if (fieldKey) {
+            return UtilityHelper.getDotNotationPropertyValue(this.props.formlyProps.formProps.errors, fieldKey);
         }
 
         return null;
@@ -47,7 +45,13 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
     }
 
     protected wasFieldTouched() {
-        return this.hasFormProps() && UtilityHelper.isNotEmpty(this.props.formlyProps.formProps.touched[this.getFieldKey()]);
+        const fieldKey = this.getFieldKey();
+
+        if (fieldKey) {
+            return UtilityHelper.getDotNotationPropertyValue<boolean>(this.props.formlyProps.formProps.touched, fieldKey) || false;
+        }
+
+        return false;
     }
 
     private hasFormProps() {
@@ -67,14 +71,18 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
     }
 
     shouldComponentUpdate(nextProps: RcFormlyFieldProps) {
-        return !UtilityHelper.equals(this.currentValue, this.getFieldValue(nextProps))
-            || !UtilityHelper.equals(this.props.field, nextProps.field)
-            || !UtilityHelper.equals(
-                this.props.formlyProps.formProps.errors[this.getFieldKey()],
-                nextProps.formlyProps.formProps.errors[this.getFieldKey()])
-            || !UtilityHelper.equals(
-                this.props.formlyProps.formProps.touched[this.getFieldKey()],
-                nextProps.formlyProps.formProps.touched[this.getFieldKey()]);
+        if (this.hasFormProps()) {
+            const fieldKey = this.getFieldKey();
+            const { errors, touched } = this.props.formlyProps.formProps;
+            const { errors: nextErrors, touched: nextTouched } = nextProps.formlyProps.formProps;
+
+            return UtilityHelper.notEquals(this.currentValue, this.getFieldValue(nextProps))
+                || UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey)
+                || UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey)
+                || UtilityHelper.equals(this.props.field, nextProps.field);
+        }
+
+        return false;
     }
 
     handleBlur = () => {
@@ -101,11 +109,7 @@ class RcFormlyField extends Component<RcFormlyFieldProps> {
         const sourceProps = otherProps ? otherProps : this.props;
 
         if (sourceProps.formlyProps.formProps.values && sourceProps.field.key) {
-            if (sourceProps.field.key.includes('.')) {
-                return UtilityHelper.getDotNotationPropertyValue(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
-            }
-
-            return sourceProps.formlyProps.formProps.values[sourceProps.field.key!];
+            return UtilityHelper.getDotNotationPropertyValue(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
         }
 
         return null;

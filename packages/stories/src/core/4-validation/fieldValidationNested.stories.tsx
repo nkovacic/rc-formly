@@ -3,33 +3,38 @@ import React, { useState, SFC } from 'react';
 import { RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
 
 // tslint:disable-next-line:variable-name
-const ArrayStory: SFC = () => {
-    const initialValues = {
-        values: []
-    };
+const FieldValidationNestedStory: SFC = () => {
+    const initialValues = {};
     const [submittedModel, setSubmittedModel] = useState(null);
 
     const fields: IFormlyFieldConfig[] = [
         {
-            key: 'values',
-            type: 'basicRepeat',
+            key: 'fullName',
+            type: 'basicInput',
             templateOptions: {
-                required: true,
-                valueProp: 'newValue'
-            },
-            fieldArray: {
-                fieldGroup: [
-                    {
-                        key: 'newValue',
-                        type: 'basicInput',
-                        templateOptions: {
-                            label: 'New value',
-                            minLength: 2,
-                            required: true
-                        }
-                    }
-                ]
+                label: 'Full Name',
+                required: true
             }
+        },
+        {
+            fieldGroup: [
+                {
+                    key: 'address.street',
+                    type: 'basicInput',
+                    templateOptions: {
+                        label: 'Address street',
+                        required: true
+                    }
+                },
+                {
+                    key: 'address.country',
+                    type: 'basicInput',
+                    templateOptions: {
+                        label: 'Address country',
+                        required: true
+                    }
+                }
+            ]
         }
     ];
 
@@ -59,8 +64,8 @@ const ArrayStory: SFC = () => {
     );
 };
 
-storiesOf('@rc-formly/core/2. Arrays', module).add('Add values to array', () => {
+storiesOf('@rc-formly/core/4. Field validation', module).add('Field validation nested', () => {
     return (
-        <ArrayStory />
+        <FieldValidationNestedStory />
     );
 });
