@@ -29,7 +29,31 @@ export interface IRcFormlyProps<TModel = any> {
     formProps: IRcFormlyFormProps<TModel>;
 }
 
-export interface IFormlyFieldConfig {
+
+export type IFormlyTemplateOptions<T extends {} = {}> = T & {
+    onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps): void;
+    onPress?(): void;
+    type?: string;
+    label?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    rows?: number;
+    cols?: number;
+    description?: string;
+    hidden?: boolean;
+    max?: number;
+    min?: number;
+    minLength?: number;
+    maxLength?: number;
+    pattern?: string | RegExp;
+    required?: boolean;
+    attributes?: {
+        [key: string]: string | number;
+    };
+    [additionalProperties: string]: any;
+}
+
+export interface IFormlyFieldConfig<TTemplateOptions = {}>{
     /**
      * The model that stores all the data, where the model[key] is the value of the field
      */
@@ -51,7 +75,7 @@ export interface IFormlyFieldConfig {
      * This is reserved for the templates. Any template-specific options go in here.
      * Look at your specific template implementation to know the options required for this.
      */
-    templateOptions?: IFormlyTemplateOptions;
+    templateOptions?: IFormlyTemplateOptions<TTemplateOptions>;
 
     style?: KeyValueObject;
 
@@ -71,27 +95,4 @@ export interface IFormlyFieldConfig {
      * This should be a formly-field type added either by you or a plugin. More information over at Creating Formly Fields.
      */
     type?: string;
-}
-
-export interface IFormlyTemplateOptions {
-    onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps): void;
-    onPress?(): void;
-    type?: string;
-    label?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    rows?: number;
-    cols?: number;
-    description?: string;
-    hidden?: boolean;
-    max?: number;
-    min?: number;
-    minLength?: number;
-    maxLength?: number;
-    pattern?: string | RegExp;
-    required?: boolean;
-    attributes?: {
-        [key: string]: string | number;
-    };
-    [additionalProperties: string]: any;
 }
