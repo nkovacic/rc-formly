@@ -8,6 +8,7 @@ import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
 import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 
+
 export interface IRcFormlyFormRef {
     resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
     resetForm(values: any): void;
@@ -31,7 +32,6 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     private isFormSubmitting: boolean = false;
     private validationSchema: Yup.ObjectSchema<any> | null = null;
 
-    public formikInstance: Formik | null = null;
     public formikProps: FormikProps<any> | null = null;
 
     static defaultProps: Partial<Props> = {
@@ -84,6 +84,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
             formProps: {
                 errors: this.formikProps!.errors,
                 touched: this.formikProps!.touched,
+                submitCount: this.formikProps!.submitCount,
                 values: this.formikProps!.values
             }
         } as IRcFormlyProps;
@@ -141,8 +142,8 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     }
 
     submit = () => {
-        if (!this.isFormSubmitting && this.formikInstance) {
-            this.formikInstance.submitForm();
+        if (!this.isFormSubmitting) {
+            this.formikProps?.submitForm()
         }
     }
 
@@ -160,7 +161,6 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         if (!UtilityHelper.isEmpty(this.state.fields)) {
             return (
                 <Formik
-                    ref={(node: any) => this.formikInstance = node}
                     //enableReinitialize={true}
                     initialValues={formInitialValues}
                     onSubmit={this.onFormikSubmit}

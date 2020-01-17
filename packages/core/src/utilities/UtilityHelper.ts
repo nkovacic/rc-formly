@@ -1,8 +1,13 @@
+import deepmerge from 'deepmerge';
 import { IConstructor } from './generics';
 
 const DEFAULT_GUID = '00000000-0000-0000-0000-000000000000';
 
 export class UtilityHelper {
+    static clone<T = any>(obj: T) {
+        return deepmerge<T>({}, obj);
+    }
+
     static createGuid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
             const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);

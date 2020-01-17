@@ -34,6 +34,7 @@
         "@typescript-eslint/eslint-plugin": "^2.11.0",
         "@typescript-eslint/parser": "^2.11.0",
         "babel-jest": "^24.8.0",
+        "deepmerge": "^4.2.2",
         "env-cmd": "^10.0.1",
         "eslint": "^6.6.0",
         "eslint-config-airbnb-typescript-prettier": "^1.4.1",
