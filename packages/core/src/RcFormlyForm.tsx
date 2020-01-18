@@ -64,6 +64,10 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         });
     }
 
+    private replaceValues(values: any) {
+        this.formikProps?.setValues(values);
+    }
+
     private setValues = (changeValuesFunc: (values: any) => any) => {
         const newValues = changeValuesFunc(this.formikProps?.values);
 
@@ -76,6 +80,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
             changeFieldConfigs: this.changeFieldConfigs,
             handleSubmit: this.formikProps!.handleSubmit,
             resetForm: this.resetForm,
+            replaceValues: this.replaceValues,
             setFieldError: this.formikProps!.setFieldError,
             setFieldTouched: this.formikProps!.setFieldTouched,
             setFieldValue: this.formikProps!.setFieldValue,

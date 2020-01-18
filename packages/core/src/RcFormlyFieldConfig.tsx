@@ -18,6 +18,7 @@ export interface IRcFormlyProps<TModel = any> {
     changeFieldConfig(fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig): void;
     changeFieldConfigs(changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]): void;
     handleSubmit?(e: React.FormEvent<any>): void;
+    replaceValues: (values: any) => void;
     resetForm(): void;
     resetForm(values: TModel): void;
     resetForm(resetFormValuesFunction: (existingValues: TModel) => TModel): void;
