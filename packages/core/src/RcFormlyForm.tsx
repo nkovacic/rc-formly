@@ -64,7 +64,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         });
     }
 
-    private replaceValues(values: any) {
+    private replaceValues = (values: any) => {
         this.formikProps?.setValues(values);
     }
 
