@@ -1,7 +1,7 @@
 {
     "name": "@rc-formly/stories",
     "private": true,
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Stories for typescript monorepo",
     "license": "MIT",
     "scripts": {
@@ -12,8 +12,8 @@
         "clean": "rimraf tsconfig.tsbuildinfo lib dist"
     },
     "dependencies": {
-        "@rc-formly/bootstrap": "^0.6.0",
-        "@rc-formly/core": "^0.6.0"
+        "@rc-formly/bootstrap": "^0.7.0",
+        "@rc-formly/core": "^0.7.0"
     },
     "peerDependencies": {
         "react": "^16.8.0",

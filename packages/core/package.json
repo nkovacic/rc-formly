@@ -1,6 +1,6 @@
 {
     "name": "@rc-formly/core",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
     "repository": "https://github.com/nkovacic/rc-formly",
@@ -13,8 +13,8 @@
         "lib"
     ],
     "peerDependencies": {
-        "formik": "^1.5.7",
         "deepmerge": "^4.2.2",
+        "formik": "^1.5.7",
         "react": "^16.8.0",
         "yup": "^0.27.0"
     }

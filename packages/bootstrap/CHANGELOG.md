@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/nkovacic/rc-formly/compare/v0.6.0...v0.7.0) (2020-01-23)
+
+
+### Bug Fixes
+
+* **core:** nested validation now works. ([defb388](https://github.com/nkovacic/rc-formly/commit/defb388))
+
+
+### Features
+
+* **core:** copied getFieldError, wasFieldTouched  and wasFormSubmitted methods to RcFormlyWrapper. ([be2b2fc](https://github.com/nkovacic/rc-formly/commit/be2b2fc))
+
+
+
+
+
+
 # [0.6.0](https://github.com/nkovacic/rc-formly/compare/v0.5.2...v0.6.0) (2020-01-13)
 
 
