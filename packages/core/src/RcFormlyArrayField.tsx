@@ -76,10 +76,14 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
         return this.props.formlyArrayHelpers.unshift(value);
     }
 
-    protected renderFieldGroup() {
-        if (this.props.field.fieldArray?.fieldGroup) {
+    protected renderFieldGroup(fieldGroup?: IFormlyFieldConfig[]) {
+        if (UtilityHelper.isEmpty(fieldGroup)) {
+            fieldGroup = this.props.field.fieldArray?.fieldGroup;
+        }
+
+        if (UtilityHelper.isNotEmpty(fieldGroup)) {
             return (
-                <RcFormlyFieldRenderer fields={this.props.field.fieldArray?.fieldGroup} formlyProps={this.props.formlyProps} />
+                <RcFormlyFieldRenderer fields={fieldGroup!} formlyProps={this.props.formlyProps} />
             );
         }
 
