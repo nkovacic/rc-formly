@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FC, HTMLAttributes } from 'react';
 import { RcFormlyArrayField, IFormlyFieldConfig } from '@rc-formly/core';
 
 import { UtilityHelper } from '../UtilityHelper';
 
-const FlexDiv = styled.div({
-    display: 'flex',
-    flexDirection: 'row'
-});
+const FlexDiv: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+    <div className={props.className} style={{ display: 'flex', flexDirection: 'row'}}>
+        { props.children }
+    </div>
+);
 
 export class RepeatEditArrayType extends RcFormlyArrayField {
     addNewVlaue = () => {
