@@ -72,7 +72,9 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             const newValue = this.getFieldValue();
 
             if (UtilityHelper.notEquals(this.currentValue, newValue)) {
-                this.to.onChange(newValue, this.currentValue, this.props.formlyProps, this.changeAdditionalData);
+                this.changeAdditionalData = this.changeAdditionalData || [];
+
+                this.to.onChange(newValue, this.currentValue, this.props.formlyProps, ...this.changeAdditionalData);
 
                 delete this.changeAdditionalData;
             }
