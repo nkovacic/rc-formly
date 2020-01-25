@@ -15,6 +15,7 @@ export interface RcFormlyFieldProps<TFormlyTemplateOptions = IFormlyTemplateOpti
 
 class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyFieldProps<TFormlyTemplateOptions>> {
     private currentValue: any;
+    private changeAdditionalData: any[] | undefined;
 
     public get to() {
         return this.props.field.templateOptions;
@@ -67,6 +68,16 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
     }
 
     componentDidUpdate() {
+        if (this.to?.onChange) {
+            const newValue = this.getFieldValue();
+
+            if (UtilityHelper.notEquals(this.currentValue, newValue)) {
+                this.to.onChange(newValue, this.currentValue, this.props.formlyProps, this.changeAdditionalData);
+
+                delete this.changeAdditionalData;
+            }
+        }
+
         this.saveCurrentValue();
     }
 
@@ -79,7 +90,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             return UtilityHelper.notEquals(this.currentValue, this.getFieldValue(nextProps))
                 || UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey)
                 || UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey)
-                || UtilityHelper.equals(this.props.field, nextProps.field);
+                || UtilityHelper.notEquals(this.props.field, nextProps.field);
         }
 
         return false;
@@ -93,13 +104,11 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
 
     handleChange = (newValue: any, ...additionalData: any[]) => {
         if (this.hasFormProps()) {
-            const oldValue = this.getFieldValue();
+            if (this.props.field.templateOptions?.onChange) {
+                this.changeAdditionalData = additionalData;
+            }
 
             this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
-
-            if (this.props.field.templateOptions?.onChange) {
-                this.props.field.templateOptions.onChange(newValue, oldValue, this.props.formlyProps, ...additionalData);
-            }
         }
     }
 

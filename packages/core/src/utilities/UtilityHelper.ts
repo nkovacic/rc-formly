@@ -9,42 +9,39 @@ export class UtilityHelper {
     }
 
     static createGuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-            const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = (Math.random() * 16) | 0,
+                v = c == 'x' ? r : (r & 0x3) | 0x8;
 
             return v.toString(16);
         });
     }
 
-    static equals(...objects: any[]) {
-        if (!objects || objects.length < 1) {
-            return false;
-        }
+    static equals(x: any, y: any) {
+        if (x === y) {
+            return true;
+        } else if (typeof x == 'object' && x != null && typeof y == 'object' && y != null) {
+            if (Object.keys(x).length != Object.keys(y).length) return false;
 
-        let leftChain: any[];
-        let rightChain: any[];
-
-        for (let i = 1, l = objects.length; i < l; i += 1) {
-            leftChain = [];
-            rightChain = [];
-
-            if (!this.deepEquals(arguments[0], arguments[i], leftChain, rightChain)) {
-                return false;
+            for (var prop in x) {
+                if (y.hasOwnProperty(prop)) {
+                    if (UtilityHelper.notEquals(x[prop], y[prop])) return false;
+                } else return false;
             }
-        }
 
-        return true;
+            return true;
+        } else return false;
     }
 
-    static notEquals(...objects: any[]) {
-        return !UtilityHelper.equals(objects);
+    static notEquals(x: any, y: any) {
+        return !UtilityHelper.equals(x, y);
     }
 
     static flatten(arr: any[]) {
         if (this.isArray(arr)) {
             let index: number;
 
-            while ((index = arr.findIndex(el => Array.isArray(el))) > -1) {
+            while ((index = arr.findIndex(el => Array.isArray(el))) > -1) {
                 arr.splice(index, 1, ...arr[index]);
             }
         }
@@ -79,7 +76,7 @@ export class UtilityHelper {
     }
 
     static isBoolean(value: any) {
-        return typeof(value) === typeof(true);
+        return typeof value === typeof true;
     }
 
     static isClass<T>(value: any, constructor: IConstructor<T>) {
@@ -122,21 +119,21 @@ export class UtilityHelper {
 
         // Errors...
         if (val instanceof Error) {
-            return val.message === "";
+            return val.message === '';
         }
 
         // Objects...
         if (val.toString == toString) {
             switch (val.toString()) {
                 // Maps, Sets, Files and Errors...
-                case "[object File]":
-                case "[object Map]":
-                case "[object Set]": {
+                case '[object File]':
+                case '[object Map]':
+                case '[object Set]': {
                     return val.size === 0;
                 }
 
                 // Plain objects...
-                case "[object Object]": {
+                case '[object Object]': {
                     for (var key in val) {
                         if (Object.prototype.hasOwnProperty.call(val, key)) {
                             return false;
@@ -173,7 +170,7 @@ export class UtilityHelper {
     }
 
     static isFunction(value: any) {
-        return typeof(value) === 'function';
+        return typeof value === 'function';
     }
 
     static isObject(value: any) {
@@ -198,89 +195,5 @@ export class UtilityHelper {
         }
 
         return false;
-    }
-
-    private static deepEquals(x: any, y: any, leftChain: any[], rightChain: any[]) {
-        let p;
-
-        if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
-            return true;
-        }
-
-        if (x === y) {
-            return true;
-        }
-
-        if ((typeof x === 'function' && typeof y === 'function') ||
-            (x instanceof Date && y instanceof Date) ||
-            (x instanceof RegExp && y instanceof RegExp) ||
-            (x instanceof String && y instanceof String) ||
-            (x instanceof Number && y instanceof Number)) {
-            return x.toString() === y.toString();
-        }
-
-        if (!(x instanceof Object && y instanceof Object)) {
-            return false;
-        }
-
-        if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
-            return false;
-        }
-
-        if (x.constructor !== y.constructor) {
-            return false;
-        }
-
-        if (x.prototype !== y.prototype) {
-            return false;
-        }
-
-        if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
-            return false;
-        }
-
-        for (p in y) {
-            if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-                return false;
-            }
-
-            if (typeof y[p] !== typeof x[p]) {
-                return false;
-            }
-        }
-
-        for (p in x) {
-            if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-                return false;
-            }
-
-            if (typeof y[p] !== typeof x[p]) {
-                return false;
-            }
-
-            switch (typeof (x[p])) {
-                case 'object':
-                case 'function':
-
-                    leftChain.push(x);
-                    rightChain.push(y);
-
-                    if (!this.deepEquals(x[p], y[p], leftChain, rightChain)) {
-                        return false;
-                    }
-
-                    leftChain.pop();
-                    rightChain.pop();
-                    break;
-
-                default:
-                    if (x[p] !== y[p]) {
-                        return false;
-                    }
-                    break;
-            }
-        }
-
-        return true;
     }
 }
