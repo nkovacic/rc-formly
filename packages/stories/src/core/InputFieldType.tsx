@@ -22,7 +22,7 @@ export class InputFieldType extends RcFormlyField {
     }
 
     onTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        this.handleChange(evt.target.value);
+        this.handleChange(evt.target.value, evt.target.name);
     }
 
     render() {
@@ -35,7 +35,7 @@ export class InputFieldType extends RcFormlyField {
                 <label>
                     { label }
                 </label>
-                <input
+                <input name={this.getFieldKey()}
                     type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange}
                     placeholder={placeholder} disabled={disabled} value={value} />
             </div>

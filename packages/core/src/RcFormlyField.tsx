@@ -91,14 +91,14 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
         }
     }
 
-    handleChange = (newValue: any) => {
+    handleChange = (newValue: any, ...additionalData: any[]) => {
         if (this.hasFormProps()) {
             const oldValue = this.getFieldValue();
 
             this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
 
             if (this.props.field.templateOptions?.onChange) {
-                this.props.field.templateOptions.onChange(newValue, oldValue, this.props.formlyProps);
+                this.props.field.templateOptions.onChange(newValue, oldValue, this.props.formlyProps, ...additionalData);
             }
         }
     }
