@@ -32,7 +32,7 @@ export interface IRcFormlyProps<TModel = any> {
 
 
 export type IFormlyTemplateOptions<T extends {} = {}> = T & {
-    onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps): void;
+    onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps, ...additionalData: any[]): void;
     onPress?(): void;
     type?: string;
     label?: string;
