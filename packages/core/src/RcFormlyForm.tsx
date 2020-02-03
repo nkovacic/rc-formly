@@ -54,6 +54,8 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         this.setState({
             fields: FormFieldHelper.replaceField(fieldKey, this.state.fields, changeFieldConfigFunction)
         });
+
+        this.validationSchema = null;
     }
 
     private changeFieldConfigs = (changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]) => {
@@ -62,6 +64,8 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
         this.setState({
             fields: newFields
         });
+
+        this.validationSchema = null;
     }
 
     private replaceValues = (values: any) => {
