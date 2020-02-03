@@ -53,9 +53,9 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     private changeFieldConfig = (fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) => {
         this.setState({
             fields: FormFieldHelper.replaceField(fieldKey, this.state.fields, changeFieldConfigFunction)
+        }, () => {
+            this.validationSchema = null;
         });
-
-        this.validationSchema = null;
     }
 
     private changeFieldConfigs = (changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]) => {
@@ -63,9 +63,9 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
 
         this.setState({
             fields: newFields
+        }, () => {
+            this.validationSchema = null;
         });
-
-        this.validationSchema = null;
     }
 
     private replaceValues = (values: any) => {
@@ -126,7 +126,7 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     onFormikValidate = (model: any) => {
         return new Promise((resolve, reject) => {
             if (UtilityHelper.isEmpty(this.validationSchema)) {
-                this.validationSchema = makeValidationForFields(this.props.fields);
+                this.validationSchema = makeValidationForFields(this.state.fields);
             }
 
             this.validationSchema!
