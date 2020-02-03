@@ -11,12 +11,14 @@ const UpdateFieldStory: SFC = () => {
         {
             key: 'firstName',
             type: 'basicInput',
+            wrappers: [ 'formElementWrapper' ],
             templateOptions: {
                 label: 'Firstname',
                 required: true,
                 onChange: (newValue: string, oldValue: string, formlyProps) => {
                     formlyProps.changeFieldConfig('lastName', q => {
                         q.templateOptions.disabled = !newValue;
+                        q.templateOptions.required = false;
 
                         return q;
                     });
@@ -26,6 +28,7 @@ const UpdateFieldStory: SFC = () => {
         {
             key: 'lastName',
             type: 'basicInput',
+            wrappers: [ 'formElementWrapper' ],
             templateOptions: {
                 label: 'Lastname',
                 required: true,
