@@ -71,6 +71,35 @@ export class UtilityHelper {
         return '';
     }
 
+    static setDotNotationPropertyValue(value: any, dotNotationProperty: string, changeValueFunc: (existingValue: any) => any) {
+        if (value && dotNotationProperty) {
+            let copiedValue = value;
+            let originvalValue = copiedValue;
+            const splittedDotNotationProperty = dotNotationProperty.split('.');
+
+            do {
+                const currentProperty = splittedDotNotationProperty.shift()!;
+
+                if (splittedDotNotationProperty.length) {
+                    if (copiedValue[currentProperty]) {
+                        copiedValue = copiedValue[currentProperty];
+                    }
+                    else {
+                        copiedValue = copiedValue[currentProperty] = {};
+                    }
+                }
+                else {
+                    copiedValue[currentProperty] = changeValueFunc(copiedValue[currentProperty]);
+                }
+            }
+            while (splittedDotNotationProperty.length && value)
+
+            return originvalValue;
+        }
+
+        return value;
+    }
+
     static isArray(array: any) {
         return Array.isArray(array) || array instanceof Array;
     }
