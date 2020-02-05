@@ -71,7 +71,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
         if (this.to?.onChange) {
             const newValue = this.getFieldValue();
 
-            if (UtilityHelper.notEquals(this.currentValue, newValue)) {
+            if (this.currentValue !== newValue) {
                 this.changeAdditionalData = this.changeAdditionalData || [];
 
                 this.to.onChange(newValue, this.currentValue, this.props.formlyProps, ...this.changeAdditionalData);
@@ -89,7 +89,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             const { errors, touched } = this.props.formlyProps.formProps;
             const { errors: nextErrors, touched: nextTouched } = nextProps.formlyProps.formProps;
 
-            return UtilityHelper.notEquals(this.currentValue, this.getFieldValue(nextProps))
+            return this.currentValue !== this.getFieldValue(nextProps)
                 || UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey)
                 || UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey)
                 || UtilityHelper.notEquals(this.props.field, nextProps.field);
