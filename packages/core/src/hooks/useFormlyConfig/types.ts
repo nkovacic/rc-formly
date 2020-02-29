@@ -1,4 +1,4 @@
-import { IFormlyTypeDefinition, IValidatorOption, IWrapperOption, IValidatorMessageOption } from "src/types";
+import { IFormlyTypeDefinition, IValidatorOption, IWrapperOption, IValidatorMessageOption } from "../../types";
 
 export interface useFormlyConfigInterface {
     (): {

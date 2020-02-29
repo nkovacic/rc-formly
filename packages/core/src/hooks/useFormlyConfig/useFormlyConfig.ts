@@ -1,25 +1,43 @@
 import { useContext } from "react";
 
 import { useFormlyConfigInterface } from "./types";
-import { RcFormlyContext } from "src/RcFormlyProvider";
+
+import { RcFormlyContext } from "../../RcFormlyProvider";
+import { RcFormlyConfig } from "../../RcFormlyConfig";
 
 export const useFormlyConfig: useFormlyConfigInterface = () => {
     const { types, wrappers, validators, validatorMessages } = useContext(RcFormlyContext);
 
     const getType = (name: string) => {
-        return types.find(q => q.name === name);
+        if (types.length) {
+            return types.find(q => q.name === name);
+        }
+        
+        return RcFormlyConfig.getType(name);
     };
 
     const getWrapper = (name: string) => {
-        return wrappers.find(q => q.name === name);
+        if (wrappers.length) {
+            return wrappers.find(q => q.name === name);
+        }
+        
+        return RcFormlyConfig.getWrapper(name);
     };
 
     const getValidator = (name: string) => {
-        return validators.find(q => q.name === name);
+        if (validators.length) {
+            return validators.find(q => q.name === name);
+        }
+        
+        return RcFormlyConfig.getValidator(name);
     };
 
     const getValidatorMessage = (name: string) => {
-        return validatorMessages.find(q => q.name === name);
+        if (validatorMessages.length) {
+            return validatorMessages.find(q => q.name === name);
+        }
+        
+        return RcFormlyConfig.getValidatorMessage(name);
     };
 
     return {
