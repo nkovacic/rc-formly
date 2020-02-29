@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig, IRcFormlyProps } from './RcFormlyFieldConfig';
+import { IFormlyFieldConfig, IRcFormlyProps } from './types';
 
 import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 

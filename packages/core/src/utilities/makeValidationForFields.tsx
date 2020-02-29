@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig } from '../RcFormlyFieldConfig';
+import { IFormlyFieldConfig } from '../types';
 import { RcFormlyConfig } from '../RcFormlyConfig';
 import { KeyValueObject } from '../types';
 

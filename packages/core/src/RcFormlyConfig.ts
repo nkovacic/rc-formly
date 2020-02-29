@@ -1,42 +1,12 @@
-import { ComponentType } from 'react';
-import { FormikProps } from 'formik';
-import { Schema } from 'yup';
-
-import { RcFormlyFieldProps } from './RcFormlyField';
-import { IFormlyFieldConfig } from './RcFormlyFieldConfig';
-
 import { UtilityHelper } from './utilities';
 import { KeyAlreadyExistsError } from './utilities/errors';
-
-export interface IFormlyTypeDefinition<T extends RcFormlyFieldProps = any> {
-    name: string;
-    component: ComponentType<T>;
-    validators?: Schema<any>[];
-    wrappers?: string[];
-    defaultOptions?: IFormlyFieldConfig;
-}
-
-interface IWrapperOption {
-    name: string;
-    component: any;
-    types?: string[];
-}
+import { IFormlyTypeDefinition, IValidatorOption, IValidatorMessageOption, IWrapperOption } from './types';
 
 interface IConfigOption {
     types?: IFormlyTypeDefinition[];
     validators?: IValidatorOption[];
     validatorMessages?: IValidatorMessageOption[];
     wrappers?: IWrapperOption[];
-}
-
-export interface IValidatorOption {
-    name: string;
-    validator: (value: any, field: IFormlyFieldConfig) => Promise<boolean> | boolean;
-}
-
-export interface IValidatorMessageOption {
-    name: string;
-    message: (value: any, field: IFormlyFieldConfig, formikProps: FormikProps<any>) => string;
 }
 
 export class RcFormlyConfig {
