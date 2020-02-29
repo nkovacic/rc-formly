@@ -1,5 +1,5 @@
-import { UtilityHelper } from 'app/utilities';
-import { Environment } from 'app/environment';
+import { UtilityHelper } from '../utilities';
+import { Environment } from '../environment';
 
 enum LogLevel {
     debug = 'debug',
