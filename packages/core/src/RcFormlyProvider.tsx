@@ -17,11 +17,11 @@ export const RcFormlyContext = createContext<RcFormlyContextState>({
     addWrapper: () => {}
 });
 
-interface RcFormlyProviderProps extends RcFormlyContextState {
-    types: IFormlyTypeDefinition[];
-    validators: IValidatorOption[];
-    validatorMessages: IValidatorMessageOption[];
-    wrappers: IWrapperOption[];
+interface RcFormlyProviderProps {
+    types?: IFormlyTypeDefinition[];
+    validators?: IValidatorOption[];
+    validatorMessages?: IValidatorMessageOption[];
+    wrappers?: IWrapperOption[];
 }
 
 export const RcFormlyProvider: FC<RcFormlyProviderProps> = props => {
@@ -112,10 +112,21 @@ export const RcFormlyProvider: FC<RcFormlyProviderProps> = props => {
     };
 
     useEffect(() => {
-        addTypes(otherProps.types);
-        addWrappers(otherProps.wrappers);
-        addValidators(otherProps.validators);
-        addValidatorMessages(otherProps.validatorMessages);
+        if (otherProps.types) {
+            addTypes(otherProps.types);
+        }
+        
+        if (otherProps.wrappers) {
+            addWrappers(otherProps.wrappers);
+        }
+        
+        if (otherProps.validators) {
+            addValidators(otherProps.validators);
+        }
+        
+        if (otherProps.validatorMessages) {
+            addValidatorMessages(otherProps.validatorMessages);
+        }        
     }, []);
 
     const contextValue: RcFormlyContextState = {

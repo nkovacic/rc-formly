@@ -1,9 +1,16 @@
 import { storiesOf } from '@storybook/react';
 import React, { useState, SFC } from 'react';
-import { RcFormlyConfig, RcFormlyForm, IFormlyFieldConfig } from '@rc-formly/core';
+import { RcFormlyConfig, RcFormlyForm,  IFormlyFieldConfig, RcFormlyProvider } from '@rc-formly/core';
 
 import { InputFieldType } from '../InputFieldType';
 import { FormElementWrapper } from '../FormElementWrapper';
+
+const types: any[] = [
+    {
+        name: 'basicInput',
+        component: InputFieldType
+    }
+];
 
 RcFormlyConfig.addConfig({
     types: [
@@ -81,6 +88,9 @@ const BasicStory: SFC = function () {
 
 storiesOf('@rc-formly/core/1. Basic', module).add('Basic input', () => {
     return (
-        <BasicStory />
+        <RcFormlyProvider types={types} >
+            <BasicStory />
+        </RcFormlyProvider>
+       
     );
 });
