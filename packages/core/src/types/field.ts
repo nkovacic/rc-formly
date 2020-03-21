@@ -1,4 +1,5 @@
-import { KeyValueObject } from "./types";
+import { KeyValueObject } from "./utilities";
+
 
 export declare type FormErrors<Values> = {
     [K in keyof Values]?: Values[K] extends object ? FormErrors<Values[K]> : string;
@@ -29,7 +30,6 @@ export interface IRcFormlyProps<TModel = any> {
     submit(): void;
     formProps: IRcFormlyFormProps<TModel>;
 }
-
 
 export type IFormlyTemplateOptions<T extends {} = {}> = T & {
     onChange?(newValue: any, oldValue: any, formlyProps: IRcFormlyProps, ...additionalData: any[]): void;

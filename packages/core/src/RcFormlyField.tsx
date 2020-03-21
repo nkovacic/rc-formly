@@ -1,17 +1,8 @@
 import { Component } from 'react';
 
-import { IFormlyTemplateOptions, IRcFormlyProps, IFormlyFieldConfig } from './RcFormlyFieldConfig';
-import { IFormlyTypeDefinition } from './RcFormlyConfig';
+import { RcFormlyFieldProps } from './types';
 
 import { UtilityHelper } from './utilities';
-import { KeyValueObject } from './types';
-
-export interface RcFormlyFieldProps<TFormlyTemplateOptions = IFormlyTemplateOptions> {
-    field: IFormlyFieldConfig<TFormlyTemplateOptions>;
-    fieldType: IFormlyTypeDefinition;
-    formlyProps: IRcFormlyProps;
-    model: KeyValueObject;
-}
 
 class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyFieldProps<TFormlyTemplateOptions>> {
     private currentValue: any;

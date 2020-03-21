@@ -4,9 +4,6 @@
     "compilerOptions": {
         "outDir": "lib",
         "rootDir": "src",
-        "baseUrl": "./",
-        "paths": {
-            "app/*": ["src/*"]
-        }
+        "baseUrl": "./"
     }
 }

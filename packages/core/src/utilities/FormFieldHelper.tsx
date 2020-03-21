@@ -1,4 +1,4 @@
-import { IFormlyFieldConfig } from '../RcFormlyFieldConfig';
+import { IFormlyFieldConfig } from '../types';
 import { UtilityHelper } from './UtilityHelper';
 
 export class FormFieldHelper {

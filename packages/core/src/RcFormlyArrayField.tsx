@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { IRcFormlyProps, IFormlyFieldConfig } from './RcFormlyFieldConfig';
-import { IFormlyTypeDefinition } from './RcFormlyConfig';
+import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig } from './types';
 
 import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
