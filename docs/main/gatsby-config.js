@@ -6,7 +6,7 @@ module.exports = {
       resolve: 'gatsby-theme-oss-docs',
       options: {
         root: __dirname,
-        subtitle: 'npm install rc-formly-core rc-formly-bootstrap',
+        subtitle: 'npm install @rc-formly/core',
         description: 'How to use the rc-formly npm module',
         githubRepo: 'nkovacic/rc-formly',
         spectrumPath: 'rc-formly',
