@@ -16,6 +16,12 @@ module.exports = {
           ],
           Docs: [
             'api'
+          ],
+          Api: [
+            'api/rc-formly-provider',
+            'api/rc-formly-form',
+            'api/rc-formly-field',
+            'api/rc-formly-wrapper'
           ]
         }
       }
