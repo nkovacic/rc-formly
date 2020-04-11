@@ -71,7 +71,7 @@ export default function SidebarContent(props) {
           paddingLeft: '25px',
           marginLeft: '-25px'
         }}>
-          npm install analytics
+          npm install @rc-formly/core
         </pre>
         {/*
         <HeaderInner>

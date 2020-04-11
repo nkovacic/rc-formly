@@ -1,9 +1,9 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "homepage": "https://getanalytics.io",
+  "homepage": "https://rc-formly.netlify.com",
   "main": "index.js",
-  "author": "David Wells <hello@davidwells.io> (@davidwells)",
+  "author": "Niko Kovačič <niko.kovacic2@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "rm -rf .cache && gatsby develop",

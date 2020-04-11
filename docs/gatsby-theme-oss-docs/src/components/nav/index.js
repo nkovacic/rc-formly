@@ -18,14 +18,11 @@ const navConfig = {
   '/api': {
     text: 'Docs',
   },
-  '/plugins': {
-    text: 'Plugins',
-  },
   // '/docs/tutorial/introduction': {
   //   text: 'Tutorial',
   //   matchRegex: /^\/docs\/tutorial/
   // },
-  'https://analytics-demo.netlify.com': {
+  'https://rc-formly.netlify.com': {
     text: 'Demo'
   },
   /* '/docs/react': {
@@ -52,17 +49,13 @@ const navConfig = {
   //     'https://graphql.com': 'Explore GraphQL'
   //   }
   // },
-  'https://github.com/davidwells/analytics': {
-    text: 'Github',
-    subpages: {
-      'https://github.com/davidwells/analytics/issues': 'Open Issues',
-      'https://github.com/DavidWells/analytics/tree/master/packages': 'All Packages',
-    }
+  'https://github.com/nkovacic/rc-formly': {
+    text: 'Github'
   },
 }
 
 function formatValue(value) {
-  return value.startsWith('/') ? `https://getanalytics.io${value}` : value
+  return value;//value.startsWith('/') ? `https://getanalytics.io${value}` : value
 }
 
 function generateSubpage([value, text]) {

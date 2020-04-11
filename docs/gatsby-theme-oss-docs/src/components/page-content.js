@@ -17,14 +17,12 @@ import {withPrefix} from 'gatsby'
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'flex-start',
-  maxWidth: 1200
+  alignItems: 'flex-start'
 })
 
 const MainContent = styled.main({
   flexGrow: 1,
-  width: 0,
-  maxWidth: '100ch'
+  width: 0
 })
 
 const tableBorder = `1px solid ${colors.divider}`

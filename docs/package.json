@@ -9,8 +9,7 @@
     "startwin": "yarn workspace main startwin",
     "build": "yarn workspace main build",
     "serve": "yarn workspace main serve",
-    "deploy": "yarn workspace main deploy",
-    "sync": "node sync.js"
+    "deploy": "yarn workspace main deploy"
   },
   "workspaces": [
     "gatsby-theme-base",

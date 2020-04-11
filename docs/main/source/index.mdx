@@ -1,103 +1,105 @@
 ---
-title: Powerful JSON forms for React.js using formik
+title: rc-formly Powerful JSON forms for React.js
 description: rc-formly is a React.js libary which has components to help to help customize and render JavaScript/JSON configured forms.
-pageTitle: Formik Formly Documentation
+pageTitle: Rc Formly Documentation
 subTitle: An open source JSON forms library for browsers using React.js and Formik library
 ---
 
 rc-formly is a React.js libary which has components to help to help customize and render JavaScript/JSON configured forms.
 
-##  About the library
+##  Installation
 
-Companies frequently change analytics requirements based on evolving business needs.
-
-This results in a lot of complexity, maintenance, and extra code when adding/removing analytic services to a site or application.
-
-This library aims to solves that with a simple pluggable abstraction layer.
-
-### Driving philosophy
-
-- You should never be locked into a analytics tool
-- DX is paramount. Adding & removing analytic tools from your application should be easy
-- Respecting visitor privacy settings & allowing for opt out mechanisms is crucial
-- A pluggable API makes adding new business requests easy
-
-To add or remove an analytics provider adjust the `plugins` you load into `analytics`.
-
-## Features
-
-- [x] Extendable - Bring your own third party tool & plugins
-- [x] Test & debug analytics integrations with time travel & offline mode
-- [x] Add functionality/modify tracking calls with baked in lifecycle hooks
-- [x] Isomorphic. Works in browser & on server
-- [x] Queues events to send when analytic libraries are loaded
-- [x] Works offline
-- [x] Typescript support
-- [See the api docs](https://getanalytics.io/api/)
-
-
-## How to Install
-
-Install the `analytics` package from [npm](https://npmjs.com/package/analytics)
+Installing rc-formly only takes a single command and you're ready to roll.
 
 ```bash
-npm install analytics --save
+npm install @rc-formly/core
 ```
 
-Or from a CDN as a script tag:
+## Example
 
-```html
-<script src="https://unpkg.com/analytics/dist/analytics.min.js"></script>
-```
+The following code demonstrates a basic usage example:
 
-## Using in your app
+```typescript
+import React, { useState, FC } from 'react';
+import { 
+    IFormlyTypeDefinition, IWrapperOption, 
+    RcFormlyForm,  RcFormlyProvider, IValidatorMessageOption 
+} from '@rc-formly/core';
 
-Initialize analytics, include your analytic tools, & start tracking events.
+const BasicStory: FC = () => {
+const types: IFormlyTypeDefinition[] = [
+        {
+            name: 'basicInput',
+            component: InputFieldType
+        }
+    ];
 
-See the [getting started section](https://getanalytics.io/tutorial/getting-started/) for more details.
+    const wrappers: IWrapperOption[] = [
+        {
+            name: 'formElementWrapper',
+            component: FormElementWrapper
+        }
+    ];
 
-```js
-import Analytics from 'analytics'
-import googleAnalyticsPlugin from '@analytics/google-analytics'
-import customerIOPlugin from '@analytics/customerio'
+    const validatorMessages: IValidatorMessageOption[] = [
+        {
+            name: 'required',
+            message: (value, field) => {
+                return `Field '${field.templateOptions.label}' is required!`;
+            }
+        },
+        {
+            name: 'minLength',
+            message: (value, field) => {
+                return `Field '${field.templateOptions.label}' needs to have atleast ${field.templateOptions.minLength} characters!`;
+            }
+        }
+    ];
 
-/* Initialize analytics */
-const analytics = Analytics({
-  app: 'my-app-name',
-  version: 100,
-  plugins: [
-    googleAnalyticsPlugin({
-      trackingId: 'UA-121991291',
-    }),
-    customerIOPlugin({
-      siteId: '123-xyz'
-    })
-  ]
-})
+    const initialValues = {
+        firstName: ''
+    };
+    const [submittedModel, setSubmittedModel] = useState(null);
 
-/* Track a page view */
-analytics.page()
+    const fields: IFormlyFieldConfig[] = [
+        {
+            key: 'firstName',
+            type: 'basicInput',
+            templateOptions: {
+                label: 'First name',
+                minLength: 5,
+                required: true
+            }
+        }
+    ];
 
-/* Track a custom event */
-analytics.track('userPurchase', {
-  price: 20
-  item: 'pink socks'
-})
+    const onSubmit = (model: any) => {
+        console.log(`Submitted ${JSON.stringify(model)}`);
 
-/* Identify a visitor */
-analytics.identify('user-id-xyz', {
-  firstName: 'bill',
-  lastName: 'murray',
-  email: 'da-coolest@aol.com'
-})
+        setSubmittedModel(model);
+    };
+
+    return (
+        <RcFormlyProvider 
+            types={types} 
+            wrappers={wrappers} 
+            validatorMessages={validatorMessages}>
+            <RcFormlyForm model={initialValues} fields={fields} onSubmit={onSubmit} render={(formikProps, renderFields) => (
+                <form onSubmit={formikProps.handleSubmit}>
+                    { renderFields() }
+                    <button type="submit" style={ { marginTop: '10px' }}>
+                        Submit
+                    </button>
+                </form>
+            )} />
+            <div>
+                Submitted value: { JSON.stringify(submittedModel)}
+            </div>
+        </RcFormlyProvider>
+    );
+}
 ```
 
 ## API reference
 
-- [View the full api docs](https://getanalytics.io/api/)
-
-## Using Plugins
-
-- [Using plugins](https://getanalytics.io/plugins/)
-- [Writing plugins](https://getanalytics.io/plugins/writing-plugins/)
-- [Learn about the plugin lifecycle](https://getanalytics.io/lifecycle/)
+- [View the full api docs](api/)

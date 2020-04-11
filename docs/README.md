@@ -1,4 +1,4 @@
-# Analytics docs site
+# rc-formly docs site
 
 ## Install
 
@@ -9,7 +9,7 @@ yarn
 ## Dev
 
 ```
-npm start
+yarn start
 ```
 
 ## Resources
