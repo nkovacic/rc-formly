@@ -1,5 +1,5 @@
 ---
-title: Powerful JSON forms for React.js using formik
+title: rc-formly Powerful JSON forms for React.js
 description: rc-formly is a React.js libary which has components to help to help customize and render JavaScript/JSON configured forms.
 pageTitle: Rc Formly Documentation
 subTitle: An open source JSON forms library for browsers using React.js and Formik library
@@ -19,12 +19,14 @@ npm install @rc-formly/core
 
 The following code demonstrates a basic usage example:
 
-```ts
+```typescript
+import React, { useState, FC } from 'react';
 import { 
     IFormlyTypeDefinition, IWrapperOption, 
     RcFormlyForm,  RcFormlyProvider, IValidatorMessageOption 
 } from '@rc-formly/core';
 
+const BasicStory: FC = () => {
 const types: IFormlyTypeDefinition[] = [
         {
             name: 'basicInput',
@@ -95,6 +97,7 @@ const types: IFormlyTypeDefinition[] = [
             </div>
         </RcFormlyProvider>
     );
+}
 ```
 
 ## API reference

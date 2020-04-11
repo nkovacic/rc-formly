@@ -39,7 +39,7 @@ module.exports = ({
       }
     ],
     siteMetadata: {
-      title: 'Analytics',
+      title: 'rc-formly',
       subtitle,
       description
     },

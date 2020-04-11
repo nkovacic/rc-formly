@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/react';
-import React, { useState, SFC } from 'react';
+import React, { useState, FC } from 'react';
 import {
     IFormlyFieldConfig, IFormlyTypeDefinition, IWrapperOption,
     RcFormlyForm,  RcFormlyProvider, IValidatorMessageOption
@@ -9,7 +9,7 @@ import { InputFieldType } from '../InputFieldType';
 import { FormElementWrapper } from '../FormElementWrapper';
 
 // tslint:disable-next-line:variable-name
-const BasicStory: SFC = function () {
+const BasicStory: FC = () => {
     const initialValues = {
         firstName: ''
     };
