@@ -83,7 +83,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             return this.currentValue !== this.getFieldValue(nextProps)
                 || UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey)
                 || UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey)
-                || UtilityHelper.notEquals(this.props.field, nextProps.field);
+                || this.props.field !== nextProps.field;
         }
 
         return false;
