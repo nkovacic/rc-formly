@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig } from './types';
+import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig, KeyValueObject } from './types';
 
 import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
-import { KeyValueObject } from './types';
 import { UtilityHelper } from './utilities';
 
 export interface RcFromlyArrayHelpers<T = any> {
     insert: (index: number, value: any) => void;
     move: (from: number, to: number) => void;
-    pop(): T | undefined
+    pop(): T | undefined;
     push: (obj: any) => void;
     remove(index: number): T | undefined;
     replace: (index: number, value: any) => void;
@@ -75,21 +74,19 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
         return this.props.formlyArrayHelpers.unshift(value);
     }
 
+    protected submitForm() {
+        this.props.formlyProps?.submit();
+    }
+
     protected renderFieldGroup(fieldGroup?: IFormlyFieldConfig[]) {
         if (UtilityHelper.isEmpty(fieldGroup)) {
             fieldGroup = this.props.field.fieldArray?.fieldGroup;
         }
 
         if (UtilityHelper.isNotEmpty(fieldGroup)) {
-            return (
-                <RcFormlyFieldRenderer fields={fieldGroup!} formlyProps={this.props.formlyProps} />
-            );
+            return <RcFormlyFieldRenderer fields={fieldGroup!} formlyProps={this.props.formlyProps} />;
         }
 
         return null;
-    }
-
-    protected submitForm() {
-        this.props.formlyProps?.submit();
     }
 }
