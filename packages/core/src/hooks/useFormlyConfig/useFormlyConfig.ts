@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { useFormlyConfigInterface } from "./types";
+import { useFormlyConfigInterface } from './types';
 
-import { RcFormlyContext } from "../../RcFormlyProvider";
-import { RcFormlyConfig } from "../../RcFormlyConfig";
+import { RcFormlyContext } from '../../RcFormlyProvider';
+import { RcFormlyConfig } from '../../RcFormlyConfig';
 
 export const useFormlyConfig: useFormlyConfigInterface = () => {
     const { types, wrappers, validators, validatorMessages } = useContext(RcFormlyContext);
@@ -12,7 +12,7 @@ export const useFormlyConfig: useFormlyConfigInterface = () => {
         if (types.length) {
             return types.find(q => q.name === name);
         }
-        
+
         return RcFormlyConfig.getType(name);
     };
 
@@ -20,7 +20,7 @@ export const useFormlyConfig: useFormlyConfigInterface = () => {
         if (wrappers.length) {
             return wrappers.find(q => q.name === name);
         }
-        
+
         return RcFormlyConfig.getWrapper(name);
     };
 
@@ -28,7 +28,7 @@ export const useFormlyConfig: useFormlyConfigInterface = () => {
         if (validators.length) {
             return validators.find(q => q.name === name);
         }
-        
+
         return RcFormlyConfig.getValidator(name);
     };
 
@@ -36,7 +36,7 @@ export const useFormlyConfig: useFormlyConfigInterface = () => {
         if (validatorMessages.length) {
             return validatorMessages.find(q => q.name === name);
         }
-        
+
         return RcFormlyConfig.getValidatorMessage(name);
     };
 
@@ -46,4 +46,4 @@ export const useFormlyConfig: useFormlyConfigInterface = () => {
         getValidatorMessage,
         getWrapper
     };
-}
+};
