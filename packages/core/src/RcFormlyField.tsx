@@ -80,10 +80,12 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             const { errors, touched } = this.props.formlyProps.formProps;
             const { errors: nextErrors, touched: nextTouched } = nextProps.formlyProps.formProps;
 
-            return this.currentValue !== this.getFieldValue(nextProps)
-                || UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey)
-                || UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey)
-                || UtilityHelper.notEquals(this.props.field, nextProps.field);
+            return (
+                this.currentValue !== this.getFieldValue(nextProps) ||
+                UtilityHelper.getDotNotationPropertyValue(errors, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextErrors, fieldKey) ||
+                UtilityHelper.getDotNotationPropertyValue(touched, fieldKey) !== UtilityHelper.getDotNotationPropertyValue(nextTouched, fieldKey) ||
+                this.props.field !== nextProps.field
+            );
         }
 
         return false;
@@ -93,7 +95,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
         if (this.hasFormProps()) {
             this.props.formlyProps.setFieldTouched(this.getFieldKey(), true);
         }
-    }
+    };
 
     handleChange = (newValue: any, ...additionalData: any[]) => {
         if (this.hasFormProps()) {
@@ -103,7 +105,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
 
             this.props.formlyProps.setFieldValue(this.getFieldKey(), newValue);
         }
-    }
+    };
 
     getFieldValue(): any;
     getFieldValue(otherProps: RcFormlyFieldProps): any;

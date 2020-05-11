@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig } from './types';
+import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig, KeyValueObject, IFormlyTemplateOptions } from './types';
 
-import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
+import { RcFormlyFieldRenderer } from './RcFormlyFieldRenderer';
 
-import { KeyValueObject } from './types';
 import { UtilityHelper } from './utilities';
 
 export interface RcFromlyArrayHelpers<T = any> {
     insert: (index: number, value: any) => void;
     move: (from: number, to: number) => void;
-    pop(): T | undefined
+    pop(): T | undefined;
     push: (obj: any) => void;
     remove(index: number): T | undefined;
     replace: (index: number, value: any) => void;
@@ -18,15 +17,15 @@ export interface RcFromlyArrayHelpers<T = any> {
     unshift: (value: any) => number;
 }
 
-export interface RcFormlyArrayFieldProps {
-    field: IFormlyFieldConfig;
+export interface RcFormlyArrayFieldProps<TFormlyTemplateOptions = IFormlyTemplateOptions> {
+    field: IFormlyFieldConfig<TFormlyTemplateOptions>;
     fieldType: IFormlyTypeDefinition;
     formlyArrayHelpers: RcFromlyArrayHelpers;
     formlyProps: IRcFormlyProps;
     model: KeyValueObject;
 }
 
-export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
+export class RcFormlyArrayField<TFormlyTemplateOptions = {}> extends Component<RcFormlyArrayFieldProps<TFormlyTemplateOptions>> {
     public get to() {
         return this.props.field.templateOptions;
     }
@@ -75,21 +74,19 @@ export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
         return this.props.formlyArrayHelpers.unshift(value);
     }
 
+    protected submitForm() {
+        this.props.formlyProps?.submit();
+    }
+
     protected renderFieldGroup(fieldGroup?: IFormlyFieldConfig[]) {
         if (UtilityHelper.isEmpty(fieldGroup)) {
             fieldGroup = this.props.field.fieldArray?.fieldGroup;
         }
 
         if (UtilityHelper.isNotEmpty(fieldGroup)) {
-            return (
-                <RcFormlyFieldRenderer fields={fieldGroup!} formlyProps={this.props.formlyProps} />
-            );
+            return <RcFormlyFieldRenderer fields={fieldGroup!} formlyProps={this.props.formlyProps} />;
         }
 
         return null;
-    }
-
-    protected submitForm() {
-        this.props.formlyProps?.submit();
     }
 }

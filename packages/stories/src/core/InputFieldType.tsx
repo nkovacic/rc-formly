@@ -22,22 +22,32 @@ export class InputFieldType extends RcFormlyField {
     }
 
     onTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        this.handleChange(evt.target.value, evt.target.name);
-    }
+        if (this.getInputType() === 'number') {
+            this.handleChange(parseFloat(evt.target.value));
+
+            return;
+        }
+
+        this.handleChange(evt.target.value);
+    };
 
     render() {
-        const { disabled, label, placeholder } = this.props.field.templateOptions || { };
+        const { disabled, label, placeholder } = this.props.field.templateOptions || {};
         const value = this.getFieldValue() || '';
         const inputType = this.getInputType();
 
         return (
             <div>
-                <label>
-                    { label }
-                </label>
-                <input name={this.getFieldKey()}
-                    type={inputType} onBlur={this.handleBlur} onChange={this.onTextChange}
-                    placeholder={placeholder} disabled={disabled} value={value} />
+                <label htmlFor={this.getFieldKey()}>{label}</label>
+                <input
+                    name={this.getFieldKey()}
+                    type={inputType}
+                    onBlur={this.handleBlur}
+                    onChange={this.onTextChange}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    value={`${value}`}
+                />
             </div>
         );
     }

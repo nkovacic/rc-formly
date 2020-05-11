@@ -12,12 +12,12 @@ interface RcFormlyFieldRendererProps {
     formlyProps: IRcFormlyProps;
 }
 
-export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = (props) => {
+export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = props => {
     const { fields, formlyProps } = props;
 
     const { getType, getWrapper } = useFormlyConfig();
 
-    const renderFields = (fields: IFormlyFieldConfig[]): any =>  {
+    const renderFields = (fields: IFormlyFieldConfig[]): any => {
         return fields.map((field, index) => {
             if (UtilityHelper.isNotEmpty(field.wrappers)) {
                 return renderWrappers(field, [...field.wrappers!], formlyProps, index);
@@ -29,7 +29,7 @@ export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = (props) => 
 
             return renderType(field);
         });
-    }
+    };
 
     const renderType = (field: IFormlyFieldConfig) => {
         const fieldType = getType(field.type!);
@@ -44,28 +44,30 @@ export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = (props) => 
                         key={field.id}
                         name={field.key!}
                         render={({ form, name, ...otherProps }) => (
-                            <FieldComponent field={field} fieldType={fieldType}
+                            <FieldComponent
+                                field={field}
+                                fieldType={fieldType}
                                 formlyArrayHelpers={otherProps}
-                                formlyProps={formlyProps} styles={field.style}
+                                formlyProps={formlyProps}
+                                styles={field.style}
                             />
                         )}
                     />
-                )
+                );
             }
 
-            return (
-                <FieldComponent key={field.id} field={field} fieldType={fieldType}
-                    formlyProps={formlyProps} styles={field.style}
-                />
-            );
+            return <FieldComponent key={field.id} field={field} fieldType={fieldType} formlyProps={formlyProps} styles={field.style} />;
         }
 
         return null;
-    }
+    };
 
     const renderWrappers = (
-        field: IFormlyFieldConfig, wrappers: string[],
-        formlyProps: IRcFormlyProps, fieldIndex?: number): JSX.Element[] | JSX.Element | null => {
+        field: IFormlyFieldConfig,
+        wrappers: string[],
+        formlyProps: IRcFormlyProps,
+        fieldIndex?: number
+    ): JSX.Element[] | JSX.Element | null => {
         if (UtilityHelper.isEmpty(wrappers)) {
             if (field.type) {
                 return renderType(field);
@@ -86,16 +88,16 @@ export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = (props) => 
             const WrapperComponent = fieldWrapper.component;
 
             return (
-                <WrapperComponent key={fieldIndex} parentField={field} formlyProps={formlyProps} >
+                <WrapperComponent key={fieldIndex} parentField={field} formlyProps={formlyProps}>
                     {renderWrappers(field, wrappers, formlyProps, fieldIndex)}
                 </WrapperComponent>
             );
         }
 
         return renderWrappers(field, wrappers, formlyProps);
-    }
+    };
 
-    return renderFields(fields)
-}
+    return renderFields(fields);
+};
 
 export default RcFormlyFieldRenderer;

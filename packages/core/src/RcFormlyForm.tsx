@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { Formik, FormikProps, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
-import { IFormlyFieldConfig, IRcFormlyProps } from './types';
+import { IFormlyFieldConfig, IRcFormlyProps, KeyValueObject } from './types';
 
 import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
 
 import { makeValidationForFields, FormFieldHelper, UtilityHelper } from './utilities';
 
-
-export interface IRcFormlyFormRef {
-    resetForm(resetFormValuesFunction: (existingValues: any) => any): void;
-    resetForm(values: any): void;
+export interface IRcFormlyFormRef<TModel = KeyValueObject> {
+    resetForm(resetFormValuesFunction: (existingValues: TModel) => TModel): void;
+    resetForm(values: TModel): void;
     submit(): void;
 }
 
-interface Props<TModel = any> {
+interface Props<TModel = KeyValueObject> {
     render?(props: IRcFormlyProps<TModel>, renderFields: () => React.ReactNode): React.ReactNode;
-    onSubmit?(model: TModel, formlyProps: IRcFormlyProps<any>): void;
+    onSubmit?(model: TModel, formlyProps: IRcFormlyProps<TModel>): void;
     onValidate?(model: TModel, isValid: boolean): void;
     fields: IFormlyFieldConfig[];
     model?: TModel;
@@ -29,20 +28,17 @@ interface State {
 }
 
 class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
-    private isFormSubmitting: boolean = false;
+    private isFormSubmitting = false;
+
     private validationSchema: Yup.ObjectSchema<any> | null = null;
 
     public formikProps: FormikProps<any> | null = null;
-
-    static defaultProps: Partial<Props> = {
-        enableFieldConfigsReinitialize: true
-    };
 
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            fields: FormFieldHelper.proccessFields(this.props.fields, (field) => {
+            fields: FormFieldHelper.proccessFields(this.props.fields, field => {
                 field.id = UtilityHelper.createGuid();
 
                 return field;
@@ -51,32 +47,38 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
     }
 
     private changeFieldConfig = (fieldKey: string, changeFieldConfigFunction: (existingFieldConfig: IFormlyFieldConfig) => IFormlyFieldConfig) => {
-        this.setState({
-            fields: FormFieldHelper.replaceField(fieldKey, this.state.fields, changeFieldConfigFunction)
-        }, () => {
-            this.validationSchema = null;
-        });
-    }
+        this.setState(
+            {
+                fields: FormFieldHelper.replaceField(fieldKey, this.state.fields, changeFieldConfigFunction)
+            },
+            () => {
+                this.validationSchema = null;
+            }
+        );
+    };
 
     private changeFieldConfigs = (changeFieldConfigsFunction: (existingFieldConfigs: IFormlyFieldConfig[]) => IFormlyFieldConfig[]) => {
         const newFields = changeFieldConfigsFunction(this.state.fields);
 
-        this.setState({
-            fields: newFields
-        }, () => {
-            this.validationSchema = null;
-        });
-    }
+        this.setState(
+            {
+                fields: newFields
+            },
+            () => {
+                this.validationSchema = null;
+            }
+        );
+    };
 
     private replaceValues = (values: any) => {
         this.formikProps?.setValues(values);
-    }
+    };
 
     private setValues = (changeValuesFunc: (values: any) => any) => {
         const newValues = changeValuesFunc(this.formikProps?.values);
 
         this.formikProps?.setValues(newValues);
-    }
+    };
 
     getFormlyProps() {
         return {
@@ -106,22 +108,20 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
                     const newValues = valuesOrResetFunction(this.formikProps.values) || {};
 
                     this.formikProps.resetForm(newValues);
-                }
-                else {
+                } else {
                     this.formikProps.resetForm(valuesOrResetFunction);
                 }
-            }
-            else {
+            } else {
                 this.formikProps.resetForm(this.formikProps.initialValues);
             }
         }
-    }
+    };
 
     onFormikSubmit = (model: any) => {
         if (this.props.onSubmit) {
             this.props.onSubmit(model, this.getFormlyProps());
         }
-    }
+    };
 
     onFormikValidate = (model: any) => {
         return new Promise((resolve, reject) => {
@@ -129,48 +129,46 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
                 this.validationSchema = makeValidationForFields(this.state.fields);
             }
 
-            this.validationSchema!
-                .validate(model, { abortEarly: false, context: { formikProps: this.formikProps } })
-                .then(
-                    () => {
-                        if (this.props.onValidate) {
-                            this.props.onValidate(model, true);
-                        }
-
-                        resolve({});
-                    },
-                    (err: any) => {
-                        if (this.props.onValidate) {
-                            this.props.onValidate(model, false);
-                        }
-
-                        reject(yupToFormErrors(err));
+            this.validationSchema!.validate(model, { abortEarly: false, context: { formikProps: this.formikProps } }).then(
+                () => {
+                    if (this.props.onValidate) {
+                        this.props.onValidate(model, true);
                     }
-                );
+
+                    resolve({});
+                },
+                (err: any) => {
+                    if (this.props.onValidate) {
+                        this.props.onValidate(model, false);
+                    }
+
+                    reject(yupToFormErrors(err));
+                }
+            );
         });
-    }
+    };
 
     submit = () => {
         if (!this.isFormSubmitting) {
-            this.formikProps?.submitForm()
+            this.formikProps?.submitForm();
         }
-    }
+    };
 
     renderFields = () => {
         const formlyProps = this.getFormlyProps();
 
-        return (
-            <RcFormlyFieldRenderer fields={this.state.fields} formlyProps={formlyProps} />
-        );
-    }
+        return <RcFormlyFieldRenderer fields={this.state.fields} formlyProps={formlyProps} />;
+    };
 
     render() {
-        const formInitialValues = this.props.model || {};
+        const { model, render } = this.props;
+        const { fields } = this.state;
+        const formInitialValues = model || {};
 
-        if (!UtilityHelper.isEmpty(this.state.fields)) {
+        if (!UtilityHelper.isEmpty(fields)) {
             return (
                 <Formik
-                    //enableReinitialize={true}
+                    // enableReinitialize={true}
                     initialValues={formInitialValues}
                     onSubmit={this.onFormikSubmit}
                     validate={this.onFormikValidate}
@@ -178,8 +176,8 @@ class RcFormlyForm extends Component<Props, State> implements IRcFormlyFormRef {
                         this.formikProps = props;
                         this.isFormSubmitting = props.isSubmitting;
 
-                        if (this.props.render) {
-                            return this.props.render(this.getFormlyProps(), this.renderFields);
+                        if (render) {
+                            return render(this.getFormlyProps(), this.renderFields);
                         }
 
                         return this.renderFields();

@@ -50,7 +50,7 @@ export class UtilityHelper {
     }
 
     static getDotNotationPropertyValue<T = any>(value: any, dotNotationProperty: string) {
-        if (value) {
+        if (UtilityHelper.isObject(value)) {
             const splittedDotNotationProperty = dotNotationProperty.split('.');
 
             while (splittedDotNotationProperty.length && value) {
