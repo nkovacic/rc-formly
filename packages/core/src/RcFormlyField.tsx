@@ -111,7 +111,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
         const sourceProps = otherProps ?? this.props;
 
         if (sourceProps.formlyProps.formProps.values && sourceProps.field.key) {
-            return UtilityHelper.getDotNotationPropertyValue(sourceProps.formlyProps.formProps.values, sourceProps.field.key) as TValue;
+            return UtilityHelper.getDotNotationPropertyValue<TValue>(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
         }
 
         return null as TValue | null;

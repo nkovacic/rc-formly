@@ -26,7 +26,7 @@ export class InputType extends RcFormlyField {
                 onBlur={this.handleBlur}
                 onChange={this.onChange}
                 placeholder={placholder}
-                value={this.getFieldValue() || ''}
+                value={this.getFieldValue<string>() || ''}
             />
         );
     }
