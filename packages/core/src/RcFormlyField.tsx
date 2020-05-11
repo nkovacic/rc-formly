@@ -114,7 +114,7 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
             return UtilityHelper.getDotNotationPropertyValue<TValue>(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
         }
 
-        return null as TValue | null;
+        return undefined;
     }
 
     submitForm() {
