@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig, KeyValueObject } from './types';
+import { IRcFormlyProps, IFormlyTypeDefinition, IFormlyFieldConfig, KeyValueObject, IFormlyTemplateOptions } from './types';
 
-import RcFormlyFieldRenderer from './RcFormlyFieldRenderer';
+import { RcFormlyFieldRenderer } from './RcFormlyFieldRenderer';
 
 import { UtilityHelper } from './utilities';
 
@@ -17,15 +17,15 @@ export interface RcFromlyArrayHelpers<T = any> {
     unshift: (value: any) => number;
 }
 
-export interface RcFormlyArrayFieldProps {
-    field: IFormlyFieldConfig;
+export interface RcFormlyArrayFieldProps<TFormlyTemplateOptions = IFormlyTemplateOptions> {
+    field: IFormlyFieldConfig<TFormlyTemplateOptions>;
     fieldType: IFormlyTypeDefinition;
     formlyArrayHelpers: RcFromlyArrayHelpers;
     formlyProps: IRcFormlyProps;
     model: KeyValueObject;
 }
 
-export class RcFormlyArrayField extends Component<RcFormlyArrayFieldProps> {
+export class RcFormlyArrayField<TFormlyTemplateOptions = {}> extends Component<RcFormlyArrayFieldProps<TFormlyTemplateOptions>> {
     public get to() {
         return this.props.field.templateOptions;
     }
