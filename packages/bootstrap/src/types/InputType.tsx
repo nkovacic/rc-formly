@@ -1,5 +1,5 @@
 import React from 'react';
-import { RcFormlyField } from "@rc-formly/core";
+import { RcFormlyField } from '@rc-formly/core';
 
 export class InputType extends RcFormlyField {
     get type() {
@@ -12,10 +12,10 @@ export class InputType extends RcFormlyField {
 
     onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.handleChange(event.target.value);
-    }
+    };
 
     render() {
-        const inputClassNames = `form-control ${this.hasErrors() && this.wasFieldTouched() ? 'has-error' : '' }`;
+        const inputClassNames = `form-control ${this.hasErrors() && this.wasFieldTouched() ? 'has-error' : ''}`;
         const placholder = this.to && this.to.placeholder ? this.to.placeholder : '';
 
         return (
@@ -26,7 +26,8 @@ export class InputType extends RcFormlyField {
                 onBlur={this.handleBlur}
                 onChange={this.onChange}
                 placeholder={placholder}
-                defaultValue={this.getFieldValue()} />
-        )
+                value={this.getFieldValue() || ''}
+            />
+        );
     }
 }
