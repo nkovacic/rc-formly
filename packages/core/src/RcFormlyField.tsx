@@ -107,16 +107,14 @@ class RcFormlyField<TFormlyTemplateOptions = {}> extends Component<RcFormlyField
         }
     };
 
-    getFieldValue(): any;
-    getFieldValue(otherProps: RcFormlyFieldProps): any;
-    getFieldValue(otherProps?: RcFormlyFieldProps) {
-        const sourceProps = otherProps ? otherProps : this.props;
+    getFieldValue<TValue = any>(otherProps?: RcFormlyFieldProps) {
+        const sourceProps = otherProps ?? this.props;
 
         if (sourceProps.formlyProps.formProps.values && sourceProps.field.key) {
-            return UtilityHelper.getDotNotationPropertyValue(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
+            return UtilityHelper.getDotNotationPropertyValue<TValue>(sourceProps.formlyProps.formProps.values, sourceProps.field.key);
         }
 
-        return null;
+        return null as TValue | null;
     }
 
     submitForm() {
