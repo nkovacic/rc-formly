@@ -34,12 +34,12 @@ export class RcFormlyArrayField<TFormlyTemplateOptions = {}> extends Component<R
         return this.props.field.key!;
     }
 
-    protected getFieldValue(fieldName = this.getFieldKey()) {
+    protected getFieldValue<TValue = any>(fieldName = this.getFieldKey()) {
         if (fieldName.includes('.')) {
-            return UtilityHelper.getDotNotationPropertyValue(this.props.formlyProps?.formProps?.values, fieldName);
+            return UtilityHelper.getDotNotationPropertyValue(this.props.formlyProps?.formProps?.values, fieldName) as TValue;
         }
 
-        return this.props.formlyProps?.formProps?.values[fieldName];
+        return this.props.formlyProps?.formProps?.values[fieldName] as TValue;
     }
 
     protected insertValue(index: number, value: any) {
