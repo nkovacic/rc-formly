@@ -19,6 +19,10 @@ export const RcFormlyFieldRenderer: FC<RcFormlyFieldRendererProps> = props => {
 
     const renderFields = (fields: IFormlyFieldConfig[]): any => {
         return fields.map((field, index) => {
+            if (field.hide) {
+                return null;
+            }
+
             if (UtilityHelper.isNotEmpty(field.wrappers)) {
                 return renderWrappers(field, [...field.wrappers!], formlyProps, index);
             }
