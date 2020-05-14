@@ -1,5 +1,4 @@
-import { KeyValueObject } from "./utilities";
-
+import { KeyValueObject } from './utilities';
 
 export declare type FormErrors<Values> = {
     [K in keyof Values]?: Values[K] extends object ? FormErrors<Values[K]> : string;
@@ -52,9 +51,9 @@ export type IFormlyTemplateOptions<T extends {} = {}> = T & {
         [key: string]: string | number;
     };
     [additionalProperties: string]: any;
-}
+};
 
-export interface IFormlyFieldConfig<TTemplateOptions = {}>{
+export interface IFormlyFieldConfig<TTemplateOptions = {}> {
     /**
      * The model that stores all the data, where the model[key] is the value of the field
      */
@@ -85,6 +84,15 @@ export interface IFormlyFieldConfig<TTemplateOptions = {}>{
      * Whether to hide the field. Defaults to false. If you wish this to be conditional use `hideExpression`
      */
     hide?: boolean;
+    /**
+     * Conditionally hiding Field based on values from other Fields
+     */
+    hideExpression?: boolean | string | ((model: any, formProps: IRcFormlyFormProps, field?: IFormlyFieldConfig) => boolean);
+
+    /**
+     * An object where the key is a property to be set on the main field config and the value is an expression used to assign that property.
+     */
+    expressionProperties?: { [property: string]: string | ((model: any, formProps: IRcFormlyFormProps, field?: IFormlyFieldConfig) => any) };
     /**
      * A field group is a way to group fields together, making advanced layout very simple.
      * It can also be used to group fields that are associated with the same model.

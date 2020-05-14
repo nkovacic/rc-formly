@@ -1,7 +1,13 @@
 export { RcFormlyConfig } from './RcFormlyConfig';
-export { 
-    IFormlyFieldConfig, IRcFormlyFormProps, IRcFormlyProps, 
-    IFormlyTemplateOptions, IFormlyTypeDefinition, IWrapperOption, IValidatorMessageOption, IValidatorOption 
+export {
+    IFormlyFieldConfig,
+    IRcFormlyFormProps,
+    IRcFormlyProps,
+    IFormlyTemplateOptions,
+    IFormlyTypeDefinition,
+    IWrapperOption,
+    IValidatorMessageOption,
+    IValidatorOption
 } from './types';
 export { RcFormlyArrayField } from './RcFormlyArrayField';
 export { default as RcFormlyField } from './RcFormlyField';
