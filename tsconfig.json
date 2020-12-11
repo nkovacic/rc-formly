@@ -3,7 +3,7 @@
     "files": [],
     "compilerOptions": {
         "skipLibCheck": false,
-        "target": "es2015",
+        "target": "es5",
         "module": "esnext",
         "lib": ["dom", "esnext"],
         "jsx": "react",
