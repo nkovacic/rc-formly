@@ -1,5 +1,4 @@
 import { UtilityHelper } from './utilities';
-import { KeyAlreadyExistsError } from './utilities/errors';
 import { IFormlyTypeDefinition, IValidatorOption, IValidatorMessageOption, IWrapperOption } from './types';
 
 interface IConfigOption {
@@ -25,9 +24,6 @@ export class RcFormlyConfig {
                 if (!this.hasType(fieldType.name)) {
                     this.types.push(fieldType);
                 }
-                else {
-                    throw new KeyAlreadyExistsError(fieldType.name, 'FormikFormlyConfig types');
-                }
             }
         }
 
@@ -35,9 +31,6 @@ export class RcFormlyConfig {
             for (const fieldWrapper of config.wrappers!) {
                 if (!this.hasWrapper(fieldWrapper.name)) {
                     this.wrappers.push(fieldWrapper);
-                }
-                else {
-                    throw new KeyAlreadyExistsError(fieldWrapper.name, 'FormikFormlyConfig wrappers');
                 }
             }
         }
@@ -63,9 +56,6 @@ export class RcFormlyConfig {
         if (!this.hasValidator(validatorOption.name)) {
             this.validators.push(validatorOption);
         }
-        else {
-            throw new KeyAlreadyExistsError(validatorOption.name, 'FormikFormlyConfig validators');
-        }
     }
 
     public static addValidatorMessage(validatorMessagesOption: IValidatorMessageOption) {
@@ -75,9 +65,6 @@ export class RcFormlyConfig {
 
         if (!this.hasValidatorMessage(validatorMessagesOption.name)) {
             this.validatorMessages.push(validatorMessagesOption);
-        }
-        else {
-            throw new KeyAlreadyExistsError(validatorMessagesOption.name, 'FormikFormlyConfig validator message');
         }
     }
 
